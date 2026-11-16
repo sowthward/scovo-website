@@ -40,7 +40,7 @@ const mobileCss = list
               <th scope="col" data-col={p.key} class="sticky top-16 z-10 w-[42%] border-b-2 border-blue bg-white px-3 py-4 align-top font-normal lg:w-auto">
                 <span class="block text-[1.1875rem] font-bold text-blue">{p.name}</span>
                 <span class="mt-1 block min-h-12"><PlanPrice plan={p} plans={plans} size="sm" /></span>
-                <span class="mt-2 hidden lg:block"><PlanButton plan={p} class="!min-h-11 w-full !px-3 !text-base" /></span>
+                <span class="mt-2 hidden lg:block"><PlanButton plan={p} class="!min-h-11 w-full !px-2" /></span>
               </th>
             ))}
           </tr>
@@ -65,7 +65,7 @@ const mobileCss = list
         <tfoot>
           <tr>
             <td></td>
-            {list.map((p) => <td data-col={p.key} class="px-3 py-6 align-top"><PlanButton plan={p} class="!min-h-11 w-full !px-3 !text-base" /></td>)}
+            {list.map((p) => <td data-col={p.key} class="px-3 py-6 align-top"><PlanButton plan={p} class="!min-h-11 w-full !px-2" /></td>)}
           </tr>
         </tfoot>
       </table>

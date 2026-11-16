@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects for moved pages. One per line: /old-address /new-address 301
+#
+# www to apex (www.loscovo.it -> loscovo.it, www.scovo.io -> scovo.io) cannot be done in this file,
+# because _redirects matches paths, not hostnames. It is set up once in the Cloudflare dashboard.
+# See DEPLOY.md, "www redirect".
