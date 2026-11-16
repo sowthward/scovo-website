@@ -1,0 +1,12 @@
+---
+// A plan's button. While the label is TBC it shows the grey chip, not a button.
+import Button from './Button.astro';
+import Val from './Val.astro';
+import { isTbc } from '../lib/tbc';
+import type { Plan } from '../content/types';
+interface Props { plan: Plan; class?: string }
+const { plan, class: cls = '' } = Astro.props;
+---
+{isTbc(plan.button)
+  ? <p class:list={['flex min-h-12 items-center', cls]}><Val v={plan.button} /></p>
+  : <Button href="#prova" variant={plan.trial ? 'primary' : 'secondary'} class={cls}>{plan.button}<span class="sr-only">: {plan.name}</span></Button>}

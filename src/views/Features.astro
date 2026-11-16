@@ -1,0 +1,76 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Val from '../components/Val.astro';
+import PlanPrice from '../components/PlanPrice.astro';
+import PlanButton from '../components/PlanButton.astro';
+import type { PlansContent } from '../content/types';
+
+const { page } = Astro.props;
+const plans: PlansContent = page.plans;
+const list = [...plans.plans].sort((a, b) => Number(!!b.trial) - Number(!!a.trial));
+// On phones one plan is shown at a time. Pure CSS: the checked radio decides which column is visible.
+const mobileCss = list
+  .map((p) => `[data-features]:has(#plan-${p.key}:checked) [data-col]:not([data-col="${p.key}"]){display:none}`)
+  .join('');
+---
+<Layout page={page}>
+  <PageHero title={page.h1} lead={page.lead} crumb={page.navLabel} />
+
+  <section class="bg-white py-10 lg:py-16" data-features>
+    <div class="container-x">
+      <fieldset class="mb-6 lg:hidden">
+        <legend class="mb-2 font-bold">{page.choosePlan}</legend>
+        <div class="flex flex-wrap gap-2">
+          {list.map((p, i) => (
+            <label class="flex min-h-11 cursor-pointer items-center rounded-full border border-charcoal/60 px-4 font-bold has-checked:border-blue has-checked:bg-blue has-checked:text-white has-focus-visible:outline-3">
+              <input type="radio" name="plan" id={`plan-${p.key}`} value={p.key} checked={i === 0} class="sr-only" />{p.name}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <table class="w-full table-auto border-separate lg:table-fixed border-spacing-0 text-left text-base">
+        <caption class="sr-only">{page.tableCaption}</caption>
+        {/* Plan header row: stays in view while scrolling. */}
+        <thead>
+          <tr>
+            <td class="sticky top-16 z-10 border-b-2 border-blue bg-white lg:w-[28%]"></td>
+            {list.map((p) => (
+              <th scope="col" data-col={p.key} class="sticky top-16 z-10 w-[42%] border-b-2 border-blue bg-white px-3 py-4 align-top font-normal lg:w-auto">
+                <span class="block text-[1.1875rem] font-bold text-blue">{p.name}</span>
+                <span class="mt-1 block min-h-12"><PlanPrice plan={p} plans={plans} size="sm" /></span>
+                <span class="mt-2 hidden lg:block"><PlanButton plan={p} class="!min-h-11 w-full !px-3 !text-base" /></span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        {plans.featureGroups.map((group) => (
+          <tbody>
+            <tr>
+              <th scope="colgroup" colspan={list.length + 1} class="bg-sand px-4 py-4 text-left">
+                <span class="h3 block text-blue">{group.title}</span>
+                <span class="block font-normal">{group.description}</span>
+              </th>
+            </tr>
+            {group.rows.map((row) => (
+              <tr>
+                <th scope="row" class="border-b border-grey/40 py-3.5 pr-3 pl-4 font-normal">{row.label}</th>
+                {list.map((p) => <td data-col={p.key} class="border-b border-grey/40 px-3 py-3.5 align-middle"><Val v={row.cells[p.key]} /></td>)}
+              </tr>
+            ))}
+          </tbody>
+        ))}
+        {/* Buttons repeated at the foot of the table. */}
+        <tfoot>
+          <tr>
+            <td></td>
+            {list.map((p) => <td data-col={p.key} class="px-3 py-6 align-top"><PlanButton plan={p} class="!min-h-11 w-full !px-3 !text-base" /></td>)}
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+</Layout>
+
+<style set:html={`@media (max-width:63.99rem){${mobileCss}}`}></style>

@@ -156,3 +156,48 @@ export interface SampleContent {
     notMeasured: string;
   };
 }
+
+/** A table cell: true = tick, false = dash (not included), a short value, or 'TBC'. */
+export type Cell = boolean | string | number;
+
+export interface Plan {
+  /** Stable key, used for the cells in the tables below. */
+  key: string;
+  name: string;
+  /** The trial card: shown first, on Scientific Blue. */
+  trial?: boolean;
+  /** Shown as written, for plans without a monthly price (the trial). */
+  priceText?: string;
+  /** Monthly price, a number without currency. 'TBC' until confirmed. */
+  price?: Tbc<number>;
+  /** Annual price per month. Leave out if there is no annual billing. The billing switch appears only if at least one plan has it. */
+  priceAnnual?: Tbc<number>;
+  forWhom: string;
+  /** Button label. */
+  button: string;
+  /** Shows the small "most chosen" label. Off by default. */
+  popular?: boolean;
+  /** Short list on the plan card. */
+  includes: string[];
+}
+
+export interface PlanRow {
+  label: string;
+  /** One cell per plan key. A missing cell is treated as 'TBC'. */
+  cells: Record<string, Cell>;
+}
+
+export interface PlansContent {
+  currency: string;
+  perMonth: string;
+  vat: string;
+  popularLabel: string;
+  billing: { label: string; monthly: string; annual: string };
+  planLabel: string;
+  featureLabel: string;
+  plans: Plan[];
+  /** "Cosa include ogni piano", under the cards on the pricing page. */
+  includesTable: { title: string; lead: string; rows: PlanRow[] };
+  /** The full comparison on the features page. */
+  featureGroups: { title: string; description: string; rows: PlanRow[] }[];
+}
