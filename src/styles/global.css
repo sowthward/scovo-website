@@ -53,6 +53,7 @@
   h1, h2, h3, h4 { font-weight: 700; text-wrap: balance; }
   :focus-visible { outline: 3px solid var(--color-charcoal); outline-offset: 3px; border-radius: 2px; }
   .on-blue :focus-visible { outline-color: var(--color-white); }
+  .on-blue .card :focus-visible { outline-color: var(--color-charcoal); }
   summary { cursor: pointer; list-style: none; }
   summary::-webkit-details-marker { display: none; }
 }
@@ -82,6 +83,7 @@
   .link { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
   .link:hover { text-decoration-thickness: 2px; }
   .on-blue .link { color: var(--color-white); }
+  .on-blue .card .link { color: var(--color-blue); }
 
   .card { background: var(--color-white); border: 1px solid color-mix(in srgb, var(--color-grey) 60%, white); border-radius: 0.75rem; padding: 1.5rem; }
   @media (min-width: 64rem) { .card { padding: 2rem; } }
