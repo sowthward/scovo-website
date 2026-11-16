@@ -1,0 +1,27 @@
+---
+// Built but switched off. While site.testimonials.items is empty, one line is shown. Never render sample quotes.
+import Section from './Section.astro';
+import Card from './Card.astro';
+import { site } from '../lib/pages';
+interface Props { bg?: 'white' | 'sand' }
+const { bg = 'white' } = Astro.props;
+const t = site.testimonials;
+---
+{t.items.length > 0 ? (
+  <Section bg={bg} title={t.title} center>
+    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {t.items.map((q) => (
+        <Card as="li">
+          <figure>
+            <blockquote><p>{q.quote}</p></blockquote>
+            <figcaption class="mt-4 text-base"><strong>{q.name}</strong><br />{q.role}, {q.company}</figcaption>
+          </figure>
+        </Card>
+      ))}
+    </ul>
+  </Section>
+) : (
+  <section class:list={[bg === 'sand' ? 'bg-sand' : 'bg-white', 'py-12 lg:py-16']}>
+    <div class="container-x"><p class="lead text-center font-bold text-blue">{t.emptyLine}</p></div>
+  </section>
+)}

@@ -1,0 +1,6 @@
+---
+// The logo is the word SCOVO in Inter ExtraBold, one colour. Never boxed, outlined or given a second colour.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<span class:list={['wordmark', cls]}>SCOVO</span>

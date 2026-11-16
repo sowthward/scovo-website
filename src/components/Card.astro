@@ -1,0 +1,6 @@
+---
+// White card, light grey border, rounded corners.
+interface Props { class?: string; as?: string; [k: string]: unknown }
+const { class: cls = '', as: Tag = 'div', ...rest } = Astro.props;
+---
+<Tag class:list={['card', cls]} {...rest}><slot /></Tag>

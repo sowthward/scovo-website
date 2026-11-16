@@ -1,0 +1,17 @@
+---
+// One route for every page. Pages come from src/content/<locale>/pages/*.ts,
+// each naming a view in src/views. Hidden pages are built too (with noindex).
+import { pages } from '../lib/pages';
+import type { PageBase } from '../content/types';
+
+export function getStaticPaths() {
+  return pages.map((page) => ({ params: { slug: page.slug || undefined }, props: { page } }));
+}
+interface Props { page: PageBase }
+const { page } = Astro.props;
+const views = import.meta.glob<{ default: any }>('../views/*.astro', { eager: true });
+const view = views[`../views/${page.view}.astro`];
+if (!view) throw new Error(`Page "${page.key}" asks for view "${page.view}", which does not exist in src/views.`);
+const View = view.default;
+---
+<View page={page} />

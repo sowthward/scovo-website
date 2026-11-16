@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import TrialForm from './TrialForm.astro';
+import { site, locale, absolute, otherLocaleUrl, getPage } from '../lib/pages';
+import type { PageBase } from '../content/types';
+
+interface Props { page: Pick<PageBase, 'key' | 'slug' | 'published' | 'meta' | 'navLabel'>; form?: boolean; jsonLd?: object[]; parent?: string }
+const { page, form = true, jsonLd = [], parent } = Astro.props;
+const path = `/${page.slug}`;
+const canonical = absolute(path);
+const other = otherLocaleUrl(page.key);
+const ctaHref = form ? '#prova' : '/#prova';
+const isHome = page.key === 'home';
+const parentPage = parent ? getPage(parent) : undefined;
+
+const org = {
+  '@type': 'Organization',
+  '@id': `${site.domain}/#org`,
+  name: 'SCOVO',
+  url: `${site.domain}/`,
+  email: site.email,
+  sameAs: [site.linkedin],
+  parentOrganization: { '@type': 'Organization', name: 'ctrlpost', url: 'https://ctrlpost.io' },
+};
+const graph: object[] = [
+  org,
+  { '@type': 'WebSite', '@id': `${site.domain}/#site`, name: 'SCOVO', url: `${site.domain}/`, inLanguage: locale, publisher: { '@id': org['@id'] } },
+  // Offer data is added to SoftwareApplication only when the pricing page is published and every price is confirmed.
+  { '@type': 'SoftwareApplication', name: 'SCOVO', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', description: site.description, url: `${site.domain}/`, publisher: { '@id': org['@id'] } },
+  ...(!isHome && page.key !== '404'
+    ? [{
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: site.labels.home, item: `${site.domain}/` },
+          { '@type': 'ListItem', position: 2, name: page.navLabel, item: canonical },
+        ],
+      }]
+    : []),
+  ...jsonLd,
+];
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{page.meta.title}</title>
+    <meta name="description" content={page.meta.description} />
+    <link rel="canonical" href={canonical} />
+    {!page.published && <meta name="robots" content="noindex, nofollow" />}
+    {page.published && other.exact && (
+      <Fragment>
+        <link rel="alternate" hreflang={locale} href={canonical} />
+        <link rel="alternate" hreflang={site.otherLocale} href={other.url} />
+        <link rel="alternate" hreflang="x-default" href={locale === 'en' ? canonical : other.url} />
+      </Fragment>
+    )}
+    <link rel="preload" as="font" type="font/woff2" href={interUrl} crossorigin />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0276B6" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SCOVO" />
+    <meta property="og:locale" content={locale === 'it' ? 'it_IT' : 'en_GB'} />
+    <meta property="og:title" content={page.meta.title} />
+    <meta property="og:description" content={page.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={absolute('/og.png')} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.parentLine} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
+  </head>
+  <body>
+    <a href="#contenuto" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-3">{site.labels.skip}</a>
+    <Header pageKey={page.key} ctaHref={ctaHref} path={path} />
+    {!page.published && page.key !== '404' && (
+      <p class="bg-sand py-2 text-center text-sm" data-hidden-notice>{site.labels.hiddenNotice}</p>
+    )}
+    <main id="contenuto">
+      <slot />
+      {form && <TrialForm />}
+    </main>
+    <Footer ctaHref={ctaHref} />
+  </body>
+</html>

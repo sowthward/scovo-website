@@ -1,0 +1,79 @@
+---
+import Layout from '../components/Layout.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Val from '../components/Val.astro';
+import Wordmark from '../components/Wordmark.astro';
+import Testimonials from '../components/Testimonials.astro';
+const { page } = Astro.props;
+const colours = [
+  ['Scientific Blue', '#0276B6', 'bg-blue'], ['Claude Orange', '#D97757', 'bg-orange'], ['Charcoal', '#3A3A3A', 'bg-charcoal'],
+  ['White', '#FFFFFF', 'bg-white'], ['Sand', '#F4F3EE', 'bg-sand'], ['Grey', '#B1ADA1', 'bg-grey'],
+];
+const charts = [['bg-blue', 'bg-blue-tint'], ['bg-purple', 'bg-purple-tint'], ['bg-green', 'bg-green-tint'], ['bg-teal', 'bg-teal-tint'], ['bg-pink', 'bg-pink-tint']];
+const icons = ['engines', 'question', 'tag', 'steps', 'people', 'link', 'post', 'bot', 'mail', 'file', 'dashboard', 'compare', 'hash', 'user', 'code', 'spark', 'factory', 'car', 'box', 'check', 'cross', 'dash', 'arrow', 'menu', 'chevron'];
+---
+<Layout page={page}>
+  <Section bg="blue" title="Styleguide" as="h1" lead="Design tokens and shared components. This page is always hidden.">
+    <div class="flex flex-wrap gap-4">
+      <Button href="#prova">Primary action</Button>
+      <Button href="#prova" variant="secondary" onBlue>Secondary on blue</Button>
+    </div>
+  </Section>
+
+  <Section title="Logo and colour" lead="The word SCOVO in Inter ExtraBold, one colour.">
+    <div class="flex flex-wrap items-center gap-8">
+      <Wordmark class="text-5xl text-blue" />
+      <Wordmark class="text-5xl text-charcoal" />
+      <span class="rounded-lg bg-blue px-6 py-4"><Wordmark class="text-5xl text-white" /></span>
+    </div>
+    <ul class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-6">
+      {colours.map(([name, hex, cls]) => (
+        <li><div class:list={[cls, 'h-20 rounded-lg border border-grey/60']}></div><p class="small mt-2"><strong>{name}</strong><br />{hex}</p></li>
+      ))}
+    </ul>
+    <p class="mt-8 font-bold">Chart accents with their 50% tints (charts only)</p>
+    <ul class="mt-3 flex flex-wrap gap-3">
+      {charts.map(([solid, tint]) => <li class="flex overflow-hidden rounded-lg"><span class:list={[solid, 'block h-10 w-12']}></span><span class:list={[tint, 'block h-10 w-12']}></span></li>)}
+    </ul>
+  </Section>
+
+  <Section bg="sand" title="Type" lead="Inter throughout. Bold headings, regular body, left-aligned.">
+    <p class="h1 font-bold text-blue">Heading 1</p>
+    <p class="h2 mt-4 font-bold text-blue">Heading 2</p>
+    <p class="h3 mt-4 font-bold">Heading 3</p>
+    <p class="lead mt-4">Lead paragraph. Short sentences. Plain words.</p>
+    <p class="mt-4 max-w-2xl">Body text in Charcoal on a light ground.</p>
+    <p class="small mt-4">Small text for captions and notes.</p>
+  </Section>
+
+  <Section title="Cards, buttons and values">
+    <div class="grid gap-6 md:grid-cols-3">
+      <Card><span class="circle">1</span><h3 class="h3 mt-4">Card with number</h3><p class="mt-2">White card, light grey border, rounded corners.</p></Card>
+      <Card><span class="circle !bg-orange"><Icon name="spark" /></span><h3 class="h3 mt-4">Card with icon</h3><p class="mt-2"><a class="link" href="#prova">A text link</a></p></Card>
+      <Card>
+        <h3 class="h3">Values</h3>
+        <ul class="mt-3 space-y-2">
+          <li class="flex items-center gap-3"><Val v={true} /> included</li>
+          <li class="flex items-center gap-3"><Val v={false} /> not included</li>
+          <li class="flex items-center gap-3"><Val v="TBC" /> an unconfirmed value</li>
+          <li class="flex items-center gap-3"><Val v="12" /> a short value</li>
+        </ul>
+      </Card>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <Button href="#prova">Primary</Button>
+      <Button href="#prova" variant="secondary">Secondary</Button>
+    </div>
+  </Section>
+
+  <Section bg="sand" title="Icons" lead="Line icons, one weight, drawn for this site.">
+    <ul class="grid grid-cols-4 gap-4 md:grid-cols-8">
+      {icons.map((n) => <li class="card flex flex-col items-center gap-2 !p-4 text-blue"><Icon name={n} size={32} /><span class="small text-charcoal">{n}</span></li>)}
+    </ul>
+  </Section>
+
+  <Testimonials />
+</Layout>

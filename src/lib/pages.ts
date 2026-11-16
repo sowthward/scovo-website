@@ -1,0 +1,73 @@
+import type { Locale, PageBase, SiteContent, NavItem } from '../content/types';
+import { assertNoTbc } from './tbc';
+
+export const locale: Locale = __LOCALE__;
+
+const pageModules = import.meta.glob<{ default: PageBase }>('../content/*/pages/*.ts', { eager: true });
+const siteModules = import.meta.glob<{ default: SiteContent }>('../content/*/site.ts', { eager: true });
+
+const forced = __FORCE_PUBLISH__.split(',').map((s) => s.trim()).filter(Boolean);
+
+function load(loc: Locale): PageBase[] {
+  return Object.entries(pageModules)
+    .filter(([path]) => path.includes(`/content/${loc}/pages/`))
+    .map(([, mod]) => (forced.includes(mod.default.key) ? { ...mod.default, published: true } : mod.default));
+}
+
+const siteModule = siteModules[`../content/${locale}/site.ts`];
+if (!siteModule) throw new Error(`No content found for locale "${locale}" (src/content/${locale}/site.ts).`);
+
+export const site: SiteContent = siteModule.default;
+export const pages: PageBase[] = load(locale);
+const otherPages: PageBase[] = load(site.otherLocale);
+
+// The TBC guard runs for every build, on every page.
+pages.forEach(assertNoTbc);
+
+export const getPage = <T extends PageBase = PageBase>(key: string): T | undefined =>
+  pages.find((p) => p.key === key) as T | undefined;
+
+export const isPublished = (key: string): boolean => getPage(key)?.published === true;
+
+export const href = (key: string): string => {
+  const p = getPage(key);
+  return p ? `/${p.slug}` : '/';
+};
+
+export const publishedPages = (): PageBase[] => pages.filter((p) => p.published);
+
+export const groupPages = (group: string): PageBase[] => pages.filter((p) => p.group === group && p.published);
+
+export const absolute = (path: string): string => site.domain + (path === '/' ? '/' : path);
+
+/** Address of the same page on the other domain. Falls back to that domain's homepage. */
+export function otherLocaleUrl(key?: string): { url: string; exact: boolean } {
+  const match = key ? otherPages.find((p) => p.key === key && p.published) : undefined;
+  if (match) return { url: `${site.otherDomain}/${match.slug}`, exact: true };
+  return { url: `${site.otherDomain}/`, exact: key === 'home' && otherPages.some((p) => p.key === 'home') };
+}
+
+export interface ResolvedNav {
+  label: string;
+  href?: string;
+  external?: boolean;
+  children?: { label: string; href: string }[];
+}
+
+/** Turns content nav items into links. Items whose page is hidden are dropped. */
+export function resolveNav(items: NavItem[]): ResolvedNav[] {
+  const out: ResolvedNav[] = [];
+  for (const item of items) {
+    if (item.group) {
+      const children = groupPages(item.group).map((p) => ({ label: p.navLabel, href: `/${p.slug}` }));
+      if (children.length) out.push({ label: item.label, children });
+    } else if (item.page) {
+      if (isPublished(item.page)) out.push({ label: item.label, href: href(item.page) + (item.anchor ?? '') });
+    } else if (item.anchor) {
+      out.push({ label: item.label, href: `/${item.anchor}` });
+    } else if (item.href) {
+      out.push({ label: item.label, href: item.href, external: /^https?:/.test(item.href) });
+    }
+  }
+  return out;
+}

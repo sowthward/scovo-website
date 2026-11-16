@@ -1,0 +1,15 @@
+---
+import { site } from '../lib/pages';
+interface Props { items: { label: string; href?: string }[]; onBlue?: boolean }
+const { items, onBlue = false } = Astro.props;
+---
+<nav aria-label={site.labels.breadcrumb} class="small mb-6">
+  <ol class="flex flex-wrap gap-x-2">
+    {items.map((item, i) => (
+      <li class="flex gap-x-2">
+        {i > 0 && <span aria-hidden="true">/</span>}
+        {item.href ? <a href={item.href} class:list={['inline-block underline', onBlue ? 'text-white' : '']}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>

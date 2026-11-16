@@ -1,0 +1,13 @@
+---
+// Renders a content value. The literal 'TBC' becomes a grey chip.
+// true = tick, false = dash, both with a text alternative; colour is never the only signal.
+import Icon from './Icon.astro';
+import { isTbc } from '../lib/tbc';
+import { site } from '../lib/pages';
+interface Props { v: unknown }
+const { v } = Astro.props;
+---
+{isTbc(v) ? <span class="chip-tbc">{site.labels.tbc}</span>
+  : v === true ? <span class="inline-flex text-blue"><Icon name="check" label={site.labels.included} /></span>
+  : v === false ? <span class="inline-flex"><Icon name="dash" label={site.labels.notIncluded} /></span>
+  : <Fragment>{v}</Fragment>}
