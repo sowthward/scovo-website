@@ -1,0 +1,119 @@
+---
+// "Richiedi la prova": blue band, form on a white card. Posts to the Pages Function at /api/prova.
+import Button from './Button.astro';
+import { site, href, isPublished, locale } from '../lib/pages';
+const f = site.form;
+const privacyHref = isPublished('privacy') ? href('privacy') : undefined;
+---
+<section id="prova" class="section-y on-blue bg-blue text-white">
+  <div class="container-x grid gap-10 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
+    <div>
+      <h2 class="h2 text-white">{f.title}</h2>
+      <p class="lead mt-4">{f.lead}</p>
+    </div>
+
+    <div class="card text-charcoal" style="--tw-outline-color: var(--color-blue)">
+      <form action="/api/prova" method="post" data-trial-form novalidate>
+        <input type="hidden" name="locale" value={locale} />
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label class="field-label" for="f-name">{f.fields.name}</label>
+            <input class="field" id="f-name" name="name" type="text" autocomplete="name" required maxlength="120" />
+          </div>
+          <div>
+            <label class="field-label" for="f-company">{f.fields.company}</label>
+            <input class="field" id="f-company" name="company" type="text" autocomplete="organization" required maxlength="160" />
+          </div>
+          <div>
+            <label class="field-label" for="f-website">{f.fields.website}</label>
+            <input class="field" id="f-website" name="website" type="text" inputmode="url" autocomplete="url" required maxlength="200" aria-describedby="f-website-hint" />
+            <p id="f-website-hint" class="small mt-1">{f.fields.websiteHint}</p>
+          </div>
+          <div>
+            <label class="field-label" for="f-email">{f.fields.email}</label>
+            <input class="field" id="f-email" name="email" type="email" autocomplete="email" required maxlength="200" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="field-label" for="f-source">{f.fields.source}</label>
+            <select class="field" id="f-source" name="source" required>
+              <option value="">{f.fields.sourcePlaceholder}</option>
+              {f.fields.sourceOptions.map((o) => <option value={o}>{o}</option>)}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="field-label" for="f-message">{f.fields.message} <span class="font-normal">({f.fields.optional})</span></label>
+            <textarea class="field" id="f-message" name="message" rows="4" maxlength="2000"></textarea>
+          </div>
+        </div>
+
+        {/* Honeypot: hidden from people, filled by bots. Not a CAPTCHA. */}
+        <div class="sr-only" aria-hidden="true">
+          <label for="f-fax">Fax</label>
+          <input id="f-fax" name="fax" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="mt-5 flex items-start gap-3">
+          <input class="mt-1 h-6 w-6 flex-none accent-blue" id="f-privacy" name="privacy" type="checkbox" value="yes" required />
+          <label for="f-privacy" class="text-base">
+            {f.privacyBefore}{privacyHref ? <a class="link" href={privacyHref}>{f.privacyLink}</a> : f.privacyLink}{f.privacyAfter}
+          </label>
+        </div>
+
+        <div class="mt-6">
+          <Button type="submit" data-submit data-label={f.submit} data-sending={f.sending}>{f.submit}</Button>
+          <p class="small mt-3">{f.reassurance}</p>
+        </div>
+
+        <p class="mt-4 hidden rounded-lg border-2 border-charcoal p-4 font-bold" role="alert" data-form-error data-msg-error={f.error} data-msg-invalid={f.invalid}></p>
+      </form>
+      <div class="hidden rounded-lg border-2 border-blue p-5" role="status" tabindex="-1" data-form-success>
+        <p class="h3 text-blue">{f.success}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Progressive enhancement. Without JavaScript the form posts normally and the function redirects back.
+  const form = document.querySelector<HTMLFormElement>('[data-trial-form]');
+  if (form) {
+    const error = form.querySelector<HTMLElement>('[data-form-error]')!;
+    const success = form.parentElement!.querySelector<HTMLElement>('[data-form-success]')!;
+    const button = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const show = (msg: string) => { error.textContent = msg; error.classList.remove('hidden'); };
+    const done = () => { form.classList.add('hidden'); success.classList.remove('hidden'); success.focus(); };
+
+    const params = new URLSearchParams(location.search);
+    if (params.get('sent') === '1') done();
+    if (params.get('sent') === '0') show(error.dataset.msgError!);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      error.classList.add('hidden');
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      if (!form.checkValidity()) {
+        const bad = [...form.querySelectorAll<HTMLInputElement>(':invalid')];
+        bad.forEach((el) => el.setAttribute('aria-invalid', 'true'));
+        show(error.dataset.msgInvalid!);
+        bad[0]?.focus();
+        return;
+      }
+      button.disabled = true;
+      button.textContent = button.dataset.sending!;
+      try {
+        const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
+        if (!res.ok) throw new Error(String(res.status));
+        done();
+      } catch {
+        show(error.dataset.msgError!);
+      } finally {
+        button.disabled = false;
+        button.textContent = button.dataset.label!;
+      }
+    });
+  }
+</script>
+
+<style>
+  [aria-invalid='true'] { border-color: var(--color-charcoal); border-width: 2px; background: var(--color-sand); }
+</style>

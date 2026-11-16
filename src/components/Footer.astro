@@ -1,0 +1,48 @@
+---
+import Wordmark from './Wordmark.astro';
+import { site, resolveNav } from '../lib/pages';
+interface Props { ctaHref: string }
+const { ctaHref } = Astro.props;
+// A column with no visible item (for example Settori while the sector pages are hidden) is left out.
+const columns = site.footer.columns
+  .map((col) => ({
+    title: col.title,
+    items: resolveNav(col.items).flatMap((i) => (i.children ? i.children.map((c) => ({ ...c, external: false })) : [{ label: i.label, href: i.href === '/#prova' ? ctaHref : i.href!, external: i.external }])),
+  }))
+  .filter((c) => c.items.length);
+const legal = resolveNav(site.footer.legal);
+const isTodo = site.footer.companyDetails.startsWith('TODO');
+---
+<footer class="border-t border-grey/60 bg-white">
+  <div class="container-x py-14 lg:py-20">
+    <div class="grid gap-10 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+      <div>
+        <Wordmark class="text-3xl text-blue" />
+        <p class="mt-3">{site.parentLine}</p>
+        <p class="mt-4"><a class="link" href={`mailto:${site.email}`}>{site.email}</a></p>
+      </div>
+      {columns.map((col) => (
+        <nav aria-label={col.title}>
+          <h2 class="text-base font-bold">{col.title}</h2>
+          <ul class="mt-3 space-y-1 text-base">
+            {col.items.map((i) => (
+              <li><a href={i.href} class="inline-block py-1 no-underline hover:text-blue hover:underline" rel={i.external ? 'noopener' : undefined}>{i.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+    <div class="mt-12 flex flex-col gap-4 border-t border-grey/60 pt-6 text-sm lg:flex-row lg:items-center lg:justify-between">
+      <p>
+        {site.footer.copyright}
+        <span aria-hidden="true"> · </span>
+        <span class:list={[isTodo && 'chip-tbc']} data-todo={isTodo ? 'company-details' : undefined}>{site.footer.companyDetails}</span>
+      </p>
+      {legal.length > 0 && (
+        <ul class="flex gap-6">
+          {legal.map((i) => <li><a href={i.href} class="inline-block py-1 no-underline hover:text-blue hover:underline">{i.label}</a></li>)}
+        </ul>
+      )}
+    </div>
+  </div>
+</footer>

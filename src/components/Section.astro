@@ -1,0 +1,17 @@
+---
+// Full-width band. Backgrounds alternate white and sand; blue for hero, numbers and the form.
+interface Props { bg?: 'white' | 'sand' | 'blue'; id?: string; title?: string; lead?: string; center?: boolean; as?: 'h1' | 'h2'; class?: string; narrow?: boolean }
+const { bg = 'white', id, title, lead, center = false, as: H = 'h2', class: cls = '', narrow = false } = Astro.props;
+const bgClass = { white: 'bg-white', sand: 'bg-sand', blue: 'bg-blue text-white on-blue' }[bg];
+---
+<section id={id} class:list={[bgClass, 'section-y', cls]}>
+  <div class:list={['container-x', narrow && 'max-w-4xl']}>
+    {title && (
+      <div class:list={['mb-10 lg:mb-14', center ? 'mx-auto max-w-3xl' : 'max-w-3xl']}>
+        <H class:list={[H === 'h1' ? 'h1' : 'h2', bg === 'blue' ? 'text-white' : 'text-blue', center && 'text-center']}>{title}</H>
+        {lead && <p class="lead mt-4">{lead}</p>}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>
