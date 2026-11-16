@@ -5,7 +5,9 @@ import Header from './Header.astro';
 import Footer from './Footer.astro';
 import TrialForm from './TrialForm.astro';
 import { site, locale, absolute, otherLocaleUrl, getPage } from '../lib/pages';
-import type { PageBase } from '../content/types';
+import type { PageBase, PlansContent } from '../content/types';
+import { offers } from '../lib/plans';
+import { isPublished, href } from '../lib/pages';
 
 interface Props { page: Pick<PageBase, 'key' | 'slug' | 'published' | 'meta' | 'navLabel'>; form?: boolean; jsonLd?: object[]; parent?: string }
 const { page, form = true, jsonLd = [], parent } = Astro.props;
@@ -15,6 +17,10 @@ const other = otherLocaleUrl(page.key);
 const ctaHref = form ? '#prova' : '/#prova';
 const isHome = page.key === 'home';
 const parentPage = parent ? getPage(parent) : undefined;
+
+// Offer data: only when the pricing page is published and every price is a confirmed number.
+const pricingPlans = (getPage('pricing') as { plans?: PlansContent } | undefined)?.plans;
+const offerList = pricingPlans && isPublished('pricing') ? offers(pricingPlans, absolute(href('pricing'))) : [];
 
 const org = {
   '@type': 'Organization',
@@ -28,8 +34,7 @@ const org = {
 const graph: object[] = [
   org,
   { '@type': 'WebSite', '@id': `${site.domain}/#site`, name: 'SCOVO', url: `${site.domain}/`, inLanguage: locale, publisher: { '@id': org['@id'] } },
-  // Offer data is added to SoftwareApplication only when the pricing page is published and every price is confirmed.
-  { '@type': 'SoftwareApplication', name: 'SCOVO', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', description: site.description, url: `${site.domain}/`, publisher: { '@id': org['@id'] } },
+  { '@type': 'SoftwareApplication', name: 'SCOVO', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', description: site.description, url: `${site.domain}/`, publisher: { '@id': org['@id'] }, ...(offerList.length ? { offers: offerList } : {}) },
   ...(!isHome && page.key !== '404'
     ? [{
         '@type': 'BreadcrumbList',
