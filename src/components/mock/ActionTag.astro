@@ -1,0 +1,9 @@
+---
+import Icon from '../Icon.astro';
+import { sample } from '../../lib/pages';
+import type { ActionTag } from '../../content/types';
+interface Props { tag: ActionTag }
+const { tag } = Astro.props;
+const icon = { diy: 'user', dev: 'code', ctrlpost: 'spark' }[tag];
+---
+<span class="inline-flex items-center gap-1.5 rounded-full border border-blue px-2.5 py-0.5 text-[0.8125rem] font-bold text-blue"><Icon name={icon} size={14} />{sample.tags[tag]}</span>

@@ -71,3 +71,8 @@ export function resolveNav(items: NavItem[]): ResolvedNav[] {
   }
   return out;
 }
+
+// Sample data for the product views (one file per locale).
+import type { SampleContent } from '../content/types';
+const sampleModules = import.meta.glob<{ default: SampleContent }>('../content/*/sample.ts', { eager: true });
+export const sample: SampleContent = sampleModules[`../content/${locale}/sample.ts`]?.default as SampleContent;

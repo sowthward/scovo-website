@@ -1,0 +1,13 @@
+---
+// One labelled bar. The value is always written as text, so colour and length are never the only signal.
+interface Props { label: string; value: number | null; max: number; suffix?: string; empty?: string }
+const { label, value, max, suffix = '', empty = '' } = Astro.props;
+const pct = value === null ? 0 : Math.round((value / max) * 100);
+---
+<div class="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-1 text-[0.9375rem]">
+  <span>{label}</span>
+  <span class="font-bold tabular-nums">{value === null ? <span class="font-normal">{empty}</span> : <Fragment>{value}{suffix}</Fragment>}</span>
+  <span class="col-span-2 block h-2 overflow-hidden rounded-full bg-grey/35" aria-hidden="true">
+    <span class="block h-full rounded-full bg-blue" style={`width:${pct}%`}></span>
+  </span>
+</div>
