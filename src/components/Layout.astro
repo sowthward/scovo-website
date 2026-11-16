@@ -9,14 +9,13 @@ import type { PageBase, PlansContent } from '../content/types';
 import { offers } from '../lib/plans';
 import { isPublished, href } from '../lib/pages';
 
-interface Props { page: Pick<PageBase, 'key' | 'slug' | 'published' | 'meta' | 'navLabel'>; form?: boolean; jsonLd?: object[]; parent?: string }
-const { page, form = true, jsonLd = [], parent } = Astro.props;
+interface Props { page: Pick<PageBase, 'key' | 'slug' | 'published' | 'meta' | 'navLabel'>; form?: boolean; jsonLd?: object[] }
+const { page, form = true, jsonLd = [] } = Astro.props;
 const path = `/${page.slug}`;
 const canonical = absolute(path);
 const other = otherLocaleUrl(page.key);
 const ctaHref = form ? '#prova' : '/#prova';
 const isHome = page.key === 'home';
-const parentPage = parent ? getPage(parent) : undefined;
 
 // Offer data: only when the pricing page is published and every price is a confirmed number.
 const pricingPlans = (getPage('pricing') as { plans?: PlansContent } | undefined)?.plans;
@@ -83,10 +82,10 @@ const graph: object[] = [
   <body>
     <a href="#contenuto" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-3">{site.labels.skip}</a>
     <Header pageKey={page.key} ctaHref={ctaHref} path={path} />
-    {!page.published && page.key !== '404' && (
-      <p class="bg-sand py-2 text-center text-sm" data-hidden-notice>{site.labels.hiddenNotice}</p>
-    )}
     <main id="contenuto">
+      {!page.published && page.key !== '404' && (
+        <p class="bg-sand py-2 text-center text-sm" data-hidden-notice>{site.labels.hiddenNotice}</p>
+      )}
       <slot />
       {form && <TrialForm />}
     </main>

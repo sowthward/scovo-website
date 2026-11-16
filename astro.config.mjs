@@ -11,6 +11,8 @@ export default defineConfig({
   build: { format: 'file' },
   vite: {
     plugins: [tailwindcss()],
+    // Never inline scripts into the HTML, so the Content-Security-Policy in public/_headers can stay strict.
+    build: { assetsInlineLimit: 0 },
     define: {
       __LOCALE__: JSON.stringify(locale),
       // Test hook only: comma-separated page keys to treat as published.
