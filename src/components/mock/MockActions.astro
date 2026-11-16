@@ -1,0 +1,19 @@
+---
+// "Cosa fare adesso": the short ranked list of actions.
+import Frame from './Frame.astro';
+import ActionTag from './ActionTag.astro';
+import { sample } from '../../lib/pages';
+---
+<Frame title={sample.labels.actions}>
+  <ol class="space-y-3">
+    {sample.actions.map((a, i) => (
+      <li class="flex gap-3 rounded-lg border border-grey/50 p-3.5">
+        <span class="circle !h-8 !w-8 text-[0.9375rem]" aria-hidden="true">{i + 1}</span>
+        <div>
+          <ActionTag tag={a.tag} />
+          <p class="mt-1.5 text-[0.9375rem] leading-snug">{a.text}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</Frame>

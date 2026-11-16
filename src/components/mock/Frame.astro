@@ -1,0 +1,16 @@
+---
+// Window frame for a product view, with the mandatory "invented example" label under it.
+import { sample } from '../../lib/pages';
+interface Props { title: string; id?: string; class?: string }
+const { title, id, class: cls = '' } = Astro.props;
+---
+<figure id={id} class:list={[cls]}>
+  <div class="overflow-hidden rounded-xl border border-grey/60 bg-white text-charcoal">
+    <div class="flex items-center justify-between gap-3 border-b border-grey/50 bg-sand px-4 py-2.5 text-[0.8125rem]">
+      <span class="font-bold">{title}</span>
+      <span class="truncate">{sample.company}, {sample.city}</span>
+    </div>
+    <div class="p-4 sm:p-5"><slot /></div>
+  </div>
+  <figcaption class="mt-2 text-[0.8125rem] leading-snug">{sample.disclaimer}</figcaption>
+</figure>

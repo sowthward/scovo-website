@@ -120,3 +120,39 @@ export interface SiteContent {
   form: FormContent;
   notFound: { title: string; text: string; back: string };
 }
+
+export type ActionTag = 'diy' | 'dev' | 'ctrlpost';
+
+/** Invented sample company used by every product view on the site. Do not change the figures. */
+export interface SampleContent {
+  disclaimer: string;
+  company: string;
+  city: string;
+  score: number;
+  max: number;
+  band: string;
+  drivers: { label: string; value: number; max: number }[];
+  engines: { label: string; value: number | null }[];
+  stages: { label: string; value: number }[];
+  numbers: { label: string; value: string }[];
+  keywords: { keyword: string; hashtag: string; score: number }[];
+  actions: { tag: ActionTag; text: string }[];
+  rivals: string[];
+  tags: Record<ActionTag, string>;
+  labels: {
+    scoreName: string;
+    outOf: string;
+    summary: string;
+    drivers: string;
+    engines: string;
+    stages: string;
+    firstAction: string;
+    actions: string;
+    keywords: string;
+    keyword: string;
+    hashtag: string;
+    score: string;
+    rivals: string;
+    notMeasured: string;
+  };
+}

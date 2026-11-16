@@ -1,0 +1,25 @@
+---
+// The keyword table: keyword, hashtag, score.
+import Frame from './Frame.astro';
+import { sample } from '../../lib/pages';
+---
+<Frame title={sample.labels.keywords}>
+  <table class="w-full text-left text-[0.9375rem]">
+    <thead>
+      <tr class="border-b border-grey/60 text-[0.8125rem]">
+        <th scope="col" class="py-2 pr-3 font-bold">{sample.labels.keyword}</th>
+        <th scope="col" class="hidden py-2 pr-3 font-bold sm:table-cell">{sample.labels.hashtag}</th>
+        <th scope="col" class="py-2 text-right font-bold">{sample.labels.score}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {sample.keywords.map((k) => (
+        <tr class="border-b border-grey/40 last:border-0">
+          <th scope="row" class="py-2 pr-3 font-normal">{k.keyword}<span class="block text-[0.8125rem] sm:hidden">{k.hashtag}</span></th>
+          <td class="hidden py-2 pr-3 sm:table-cell">{k.hashtag}</td>
+          <td class="py-2 text-right font-bold tabular-nums">{k.score}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</Frame>

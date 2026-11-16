@@ -1,0 +1,24 @@
+---
+// "Come ti vede l'AI": the score and the reasons behind it.
+import Frame from './Frame.astro';
+import ScoreRing from './ScoreRing.astro';
+import Bar from './Bar.astro';
+import { sample } from '../../lib/pages';
+---
+<Frame title={sample.labels.scoreName}>
+  <ScoreRing size={104} />
+  <div class="mt-5 grid gap-6 border-t border-grey/50 pt-4 sm:grid-cols-2">
+    <div>
+      <p class="mb-2.5 text-[0.8125rem] font-bold">{sample.labels.drivers}</p>
+      <div class="space-y-2.5">
+        {sample.drivers.map((d) => <Bar label={d.label} value={d.value} max={d.max} suffix={` ${sample.labels.outOf} ${d.max}`} />)}
+      </div>
+    </div>
+    <div>
+      <p class="mb-2.5 text-[0.8125rem] font-bold">{sample.labels.engines}</p>
+      <div class="space-y-2.5">
+        {sample.engines.map((e) => <Bar label={e.label} value={e.value} max={100} empty={sample.labels.notMeasured} />)}
+      </div>
+    </div>
+  </div>
+</Frame>

@@ -1,0 +1,24 @@
+---
+import { sample } from '../../lib/pages';
+interface Props { size?: number }
+const { size = 132 } = Astro.props;
+const r = 52, c = 2 * Math.PI * r;
+---
+<div class="flex items-center gap-5">
+  <div class="relative flex-none" style={`width:${size}px;height:${size}px`}>
+    <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden="true" class="-rotate-90">
+      <circle cx="60" cy="60" r={r} fill="none" stroke="var(--color-grey)" stroke-opacity="0.35" stroke-width="10" />
+      <circle cx="60" cy="60" r={r} fill="none" stroke="var(--color-blue)" stroke-width="10" stroke-linecap="round" stroke-dasharray={`${(sample.score / sample.max) * c} ${c}`} />
+    </svg>
+    <p class="absolute inset-0 flex flex-col items-center justify-center leading-none">
+      <span class="text-[2.5rem] font-bold text-blue tabular-nums">{sample.score}</span>
+      <span class="mt-1 text-[0.8125rem]">{sample.labels.outOf} {sample.max}</span>
+    </p>
+  </div>
+  <div>
+    <p class="text-[0.9375rem] font-bold">{sample.labels.scoreName}</p>
+    <p class="mt-1.5 inline-flex items-center gap-2 rounded-full bg-orange-tint px-3 py-0.5 text-[0.9375rem] font-bold">
+      <span class="h-2.5 w-2.5 rounded-full bg-orange" aria-hidden="true"></span>{sample.band}
+    </p>
+  </div>
+</div>
