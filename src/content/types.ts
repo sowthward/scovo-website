@@ -110,6 +110,8 @@ export interface SiteContent {
     breadcrumb: string;
     home: string;
     hiddenNotice: string;
+    /** Opening and closing quotation marks for buyer questions. */
+    quotes: [string, string];
   };
   testimonials: {
     /** Empty at launch. Add real quotes only. See README. */
