@@ -1,0 +1,75 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import MockScore from '../components/mock/MockScore.astro';
+import MockKeywords from '../components/mock/MockKeywords.astro';
+const { page } = Astro.props;
+const faq = {
+  '@type': 'FAQPage',
+  mainEntity: page.blocks.map((b: any) => ({ '@type': 'Question', name: b.q, acceptedAnswer: { '@type': 'Answer', text: b.a.join(' ') } })),
+};
+---
+<Layout page={page} jsonLd={[faq]}>
+  <PageHero title={page.h1} lead={page.lead} crumb={page.navLabel} />
+
+  {page.blocks.map((b: any, i: number) => (
+    <section id={b.id} class:list={['section-y', i % 2 ? 'bg-sand' : 'bg-white']} data-todo={b.todo ? 'wording' : undefined}>
+      <div class="container-x">
+        <div class="max-w-3xl">
+          <h2 class="h2 text-blue">{b.q}</h2>
+          {b.a.map((p: string, j: number) => <p class:list={[j === 0 ? 'lead mt-5 font-bold' : 'mt-3']}>{p}</p>)}
+        </div>
+        {b.score && (
+          <div class="mt-10 grid items-start gap-8 lg:grid-cols-[1.2fr_1fr]">
+            <div class="card !p-0 overflow-hidden">
+              <table class="w-full text-left">
+                <caption class="sr-only">{b.score.caption}</caption>
+                <thead>
+                  <tr class="border-b border-grey/60 bg-sand text-base">
+                    {b.score.cols.map((c: string, k: number) => <th scope="col" class:list={['px-4 py-3 font-bold lg:px-6', k === 2 && 'text-right']}>{c}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {b.score.rows.map((r: string[]) => (
+                    <tr class="border-b border-grey/40">
+                      <th scope="row" class="px-4 py-3 font-bold lg:px-6">{r[0]}</th>
+                      <td class="px-4 py-3 lg:px-6">{r[1]}</td>
+                      <td class="px-4 py-3 text-right font-bold tabular-nums lg:px-6">{r[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th scope="row" class="px-4 py-3 font-bold lg:px-6">{b.score.total[0]}</th>
+                    <td></td>
+                    <td class="px-4 py-3 text-right font-bold tabular-nums lg:px-6">{b.score.total[2]}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div>
+              <h3 class="h3 mb-4">{b.score.exampleTitle}</h3>
+              <MockScore />
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <Section title={page.keywordsTitle} lead={page.keywordsLead}>
+    <div class="max-w-3xl"><MockKeywords /></div>
+  </Section>
+
+  <Section bg="sand" title={page.glossary.title} lead={page.glossary.lead}>
+    <dl class="grid gap-4 md:grid-cols-2">
+      {page.glossary.items.map(([term, def]: string[]) => (
+        <div class="card !p-5">
+          <dt class="font-bold">{term}</dt>
+          <dd class="mt-1">{def}</dd>
+        </div>
+      ))}
+    </dl>
+  </Section>
+</Layout>

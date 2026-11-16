@@ -34,7 +34,8 @@ export const href = (key: string): string => {
   return p ? `/${p.slug}` : '/';
 };
 
-export const publishedPages = (): PageBase[] => pages.filter((p) => p.published);
+export const publishedPages = (): PageBase[] =>
+  pages.filter((p) => p.published).sort((a, b) => (a.key === 'home' ? -1 : b.key === 'home' ? 1 : a.slug.localeCompare(b.slug)));
 
 export const groupPages = (group: string): PageBase[] => pages.filter((p) => p.group === group && p.published);
 
@@ -76,3 +77,7 @@ export function resolveNav(items: NavItem[]): ResolvedNav[] {
 import type { SampleContent } from '../content/types';
 const sampleModules = import.meta.glob<{ default: SampleContent }>('../content/*/sample.ts', { eager: true });
 export const sample: SampleContent = sampleModules[`../content/${locale}/sample.ts`]?.default as SampleContent;
+
+// The Italian contact card (shared by both locales, with a locale-specific role).
+const peopleModules = import.meta.glob<{ default: { name: string; initials: string; role: string; email: string; photo: string } }>('../content/*/people.ts', { eager: true });
+export const person = peopleModules[`../content/${locale}/people.ts`]?.default;

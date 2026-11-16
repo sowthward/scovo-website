@@ -129,6 +129,16 @@ const page = {
     },
   },
 
+  // Key facts for /llms.txt, in plain sentences.
+  llms: [
+    'SCOVO misura quattro motori AI: ChatGPT, Gemini, Perplexity e Claude. Microsoft Copilot non è ancora misurato.',
+    'Ogni misurazione fa 12 domande, ognuna ripetuta tre volte su ogni motore: 144 risposte lette.',
+    'Il Punteggio SCOVO va da 0 a 100: Presenza 45, Posizione 20, Tono 15, Fonti 20.',
+    'Ogni azione consigliata ha una etichetta: Fallo tu, Passa al tuo web developer, Può farlo ctrlpost.',
+    'La prova dura 14 giorni, comprende 2 misurazioni ed è gratuita. Non serve la carta di credito.',
+    'SCOVO è pensato per le piccole e medie imprese che vendono ad altre aziende.',
+  ],
+
   // Facts about the method, not about customers.
   numbers: {
     title: 'Il metodo in quattro numeri',

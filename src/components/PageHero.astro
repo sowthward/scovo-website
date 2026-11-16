@@ -1,0 +1,15 @@
+---
+// Blue band at the top of an inner page: breadcrumb, H1 and one or two lines.
+import Breadcrumb from './Breadcrumb.astro';
+import { site } from '../lib/pages';
+interface Props { title: string; lead?: string; crumb: string }
+const { title, lead, crumb } = Astro.props;
+---
+<section class="on-blue bg-blue text-white">
+  <div class="container-x py-12 lg:py-20">
+    <Breadcrumb onBlue items={[{ label: site.labels.home, href: '/' }, { label: crumb }]} />
+    <h1 class="h1 max-w-4xl">{title}</h1>
+    {lead && <p class="lead mt-5 max-w-3xl">{lead}</p>}
+    <slot />
+  </div>
+</section>

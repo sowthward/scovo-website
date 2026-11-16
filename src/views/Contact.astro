@@ -1,0 +1,33 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import Icon from '../components/Icon.astro';
+import ContactCard from '../components/ContactCard.astro';
+import { site } from '../lib/pages';
+const { page } = Astro.props;
+---
+<Layout page={page}>
+  <PageHero title={page.h1} lead={page.lead} crumb={page.navLabel}>
+    <p class="mt-6"><a class="link inline-flex min-h-12 items-center gap-2 font-bold" href="#prova">{page.formLink}<Icon name="arrow" size={20} class="rotate-90" /></a></p>
+  </PageHero>
+  <Section>
+    <div class="grid gap-6 lg:grid-cols-3">
+      <Card>
+        <span class="circle"><Icon name="mail" /></span>
+        <h2 class="h3 mt-4">{page.emailTitle}</h2>
+        <p class="mt-2"><a class="link inline-block py-1" href={`mailto:${site.email}`}>{site.email}</a></p>
+      </Card>
+      <div>
+        <h2 class="sr-only">{page.personTitle}</h2>
+        <ContactCard />
+      </div>
+      <Card>
+        <span class="circle"><Icon name="post" /></span>
+        <h2 class="h3 mt-4">{page.linkedinTitle}</h2>
+        <p class="mt-2"><a class="link inline-block py-1" href={site.linkedin} rel="noopener">{page.linkedinLabel}</a></p>
+      </Card>
+    </div>
+  </Section>
+</Layout>
