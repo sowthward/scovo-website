@@ -19,7 +19,7 @@ const { page } = Astro.props;
   <Section title={page.questions.title} lead={page.questions.lead}>
     <ul class="grid gap-6 lg:grid-cols-2">
       {page.questions.items.map((q: string) => (
-        <Card as="li" class="flex items-start gap-4"><span class="circle"><Icon name="question" /></span><p class="lead pt-2">«{q}»</p></Card>
+        <Card as="li" class="flex items-start gap-4"><span class="circle"><Icon name="question" /></span><p class="lead pt-2">{site.labels.quotes[0]}{q}{site.labels.quotes[1]}</p></Card>
       ))}
     </ul>
   </Section>

@@ -9,7 +9,7 @@ import MockSummary from '../components/mock/MockSummary.astro';
 import MockScore from '../components/mock/MockScore.astro';
 import MockActions from '../components/mock/MockActions.astro';
 import ActionTag from '../components/mock/ActionTag.astro';
-import { href, isPublished, sample } from '../lib/pages';
+import { href, isPublished, sample, site } from '../lib/pages';
 
 const { page } = Astro.props;
 const { hero, intro, product, actions, features, sectors, compare, numbers } = page;
@@ -113,7 +113,7 @@ const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.t
           <h3 class="h3 mt-4">{c.title}</h3>
           <div class="mt-4 rounded-lg bg-sand p-4">
             <p class="text-[0.8125rem] font-bold">{sectors.questionLabel}</p>
-            <p class="mt-1 leading-snug">«{c.question}»</p>
+            <p class="mt-1 leading-snug">{site.labels.quotes[0]}{c.question}{site.labels.quotes[1]}</p>
           </div>
           {isPublished(c.page) && <p class="mt-auto pt-5"><a class="link inline-flex items-center gap-1.5 py-1 font-bold" href={href(c.page)}>{sectors.link}<span class="sr-only">: {c.title}</span><Icon name="arrow" size={18} /></a></p>}
         </Card>

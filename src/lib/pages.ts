@@ -43,8 +43,9 @@ export const absolute = (path: string): string => site.domain + (path === '/' ? 
 
 /** Address of the same page on the other domain. Falls back to that domain's homepage. */
 export function otherLocaleUrl(key?: string): { url: string; exact: boolean } {
-  const match = key ? otherPages.find((p) => p.key === key && p.published) : undefined;
-  if (match) return { url: `${site.otherDomain}/${match.slug}`, exact: true };
+  // `exact` (used for hreflang and the sitemap) is true only when the other page is published too.
+  const match = key ? otherPages.find((p) => p.key === key) : undefined;
+  if (match) return { url: `${site.otherDomain}/${match.slug}`, exact: match.published };
   return { url: `${site.otherDomain}/`, exact: key === 'home' && otherPages.some((p) => p.key === 'home') };
 }
 

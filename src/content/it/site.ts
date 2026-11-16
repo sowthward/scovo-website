@@ -79,6 +79,7 @@ const site: SiteContent = {
     breadcrumb: 'Percorso',
     home: 'Home',
     hiddenNotice: 'Pagina non pubblicata. Visibile solo a chi ha il link.',
+    quotes: ['«', '»'],
   },
 
   testimonials: {
