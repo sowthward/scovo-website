@@ -104,7 +104,7 @@ const site: SiteContent = {
       message: 'Messaggio',
       optional: 'facoltativo',
     },
-    privacyBefore: 'Ho letto la ',
+    privacyBefore: "Ho letto l'",
     privacyLink: 'informativa sulla privacy',
     privacyAfter: ' e accetto di essere contattato per la prova.',
     submit: 'Richiedi la prova',
