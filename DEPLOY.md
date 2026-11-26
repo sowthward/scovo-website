@@ -9,6 +9,16 @@ How to put the two SCOVO sites on Cloudflare Pages. One repository, two Pages pr
 
 Dashboard labels change from time to time. If a name below does not match what you see, look for the nearest equivalent.
 
+## 0. Before the stage pull requests are merged
+
+`main` holds only the first commit (`STRUCTURE.md`, a README and `.gitignore`). The site itself is on the stage branches, stacked one on another, and `stage-6-form-deploy` contains all of it. Until the pull requests are merged:
+
+- **The production build on `main` fails**, because `main` has no `package.json`. That is expected and harmless: nothing is published to the custom domain.
+- **Review on the preview of `stage-6-form-deploy`.** Cloudflare builds a preview for every push to a non-production branch and gives it its own address. In the Pages project, open **Deployments** and pick the latest deployment of that branch. The branch address has the form `https://stage-6-form-deploy.<project>.pages.dev`.
+- **The preview uses the Preview variables.** If `SITE_LOCALE` is not set for Preview, the build is Italian.
+- **The form does not send on a preview** until `FORM_DESTINATION`, `FORM_FROM` and `RESEND_API_KEY` are set for Preview. It shows the error message instead.
+- **Preview addresses carry `noindex`** (see `public/_headers`), so search engines leave them alone.
+
 ## 1. Create the two Pages projects
 
 Do this twice, once per row of the table above.
