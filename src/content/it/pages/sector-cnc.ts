@@ -37,7 +37,7 @@ const page = {
       { gap: 'Le certificazioni sono solo in un PDF.', action: 'Una pagina del sito con ogni certificazione scritta per esteso.', tag: 'dev' },
       { gap: 'Il parco macchine non è descritto.', action: 'Una pagina con macchine, assi, dimensioni massime e materiali lavorati.', tag: 'dev' },
       { gap: "Non compari negli elenchi che l'AI cita.", action: 'Chiedi di essere inserito negli elenchi di fornitori citati nelle risposte.', tag: 'diy' },
-      { gap: 'Nessuno risponde alle domande dei buyer su LinkedIn.', action: 'Un post che risponde a una domanda reale, per esempio come scegliere un terzista.', tag: 'ctrlpost' },
+      { gap: 'Nessuno risponde alle domande dei buyer su LinkedIn.', action: 'Un post che risponde a una domanda reale, per esempio come scegliere un terzista.', tag: 'us' },
     ],
   },
 } satisfies PageBase;

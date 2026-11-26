@@ -14,8 +14,7 @@ const page = {
   lead: 'Write to us, or request the trial with the form below.',
   emailTitle: 'Email',
   personTitle: 'Italian account lead',
-  linkedinTitle: 'LinkedIn',
-  linkedinLabel: 'SCOVO on LinkedIn',
+  followTitle: 'Follow us',
   formLink: 'Go to the trial form',
 } satisfies PageBase;
 

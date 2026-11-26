@@ -92,7 +92,7 @@ const plans: PlansContent = {
       rows: [
         { label: 'Fallo tu', cells: { prova: true } },
         { label: 'Passa al tuo web developer', cells: { prova: true } },
-        { label: 'Può farlo ctrlpost', cells: { prova: T } },
+        { label: 'Possiamo farlo noi', cells: { prova: T } },
       ],
     },
     {

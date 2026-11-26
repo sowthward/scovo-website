@@ -48,15 +48,15 @@ const page = {
 
   actions: {
     title: 'How it works: who does what?',
-    lead: 'Every action carries a label. It tells you whether you can do it yourself, whether it needs your web developer, or whether ctrlpost can take it on.',
+    lead: 'Every action carries a label. It tells you whether you can do it yourself, whether it needs your web developer, or whether we can take it on for you.',
     exampleLabel: 'Example',
     cards: [
       { tag: 'diy', title: 'Do it yourself', text: 'Actions that need no technical skill. A phone call, an email or a post is enough.' },
       { tag: 'dev', title: 'Pass to your web developer', text: 'Changes to your website, written so that whoever runs it knows what to do.' },
       {
-        tag: 'ctrlpost',
-        title: 'ctrlpost can do it',
-        text: 'Actions that ctrlpost will be able to carry out for you.',
+        tag: 'us',
+        title: 'We can do it for you',
+        text: 'Actions we will be able to carry out for you.',
         note: 'This service comes later. It is not on sale yet.',
       },
     ],
@@ -93,17 +93,45 @@ const page = {
     ],
   },
 
-  sectors: {
-    title: 'Which companies is SCOVO for?',
-    lead: 'Small and medium-sized companies that sell to other companies. We start with three sectors.',
+  // "Who it's for": replaces the earlier sector section. The anchor is used by the menu and the footer.
+  whoFor: {
+    id: 'who-its-for',
+    title: 'Who is SCOVO for?',
+    intro: 'For people who run a small or medium-sized company that sells to other companies, and want to know whether AI recommends them to buyers.',
+    fitTitle: "It's for you if",
+    fit: [
+      { icon: 'compare', text: 'You sell to other companies.' },
+      { icon: 'pin', text: 'Your customers choose suppliers on capability, certifications and location.' },
+      { icon: 'people', text: 'You have no marketing team, or a small one.' },
+      { icon: 'steps', text: 'You want to know what to do, not just get a number.' },
+    ],
+    sectorsTitle: 'Sectors',
     questionLabel: 'A buyer asks:',
     link: 'Go to the sector',
+    // A card links to its sector page only when that page is published.
     // TODO: English example questions were written for this site. Check with test customers.
     cards: [
-      { page: 'sector-cnc', icon: 'factory', title: 'Precision engineering and subcontract machining', question: 'CNC subcontract machining supplier for small batches' },
-      { page: 'sector-automotive', icon: 'car', title: 'Automotive supply', question: 'automotive components supplier with IATF 16949' },
-      { page: 'sector-b2b', icon: 'box', title: 'B2B distribution and services', question: 'electrical wholesaler for installers near me' },
+      {
+        page: 'sector-cnc', icon: 'factory', title: 'Precision engineering and subcontract machining',
+        question: 'CNC subcontract machining supplier for small batches',
+        angle: 'Buyers draw up their subcontractor shortlist by asking an AI.',
+      },
+      {
+        page: 'sector-automotive', icon: 'car', title: 'Automotive supply',
+        question: 'automotive components supplier with IATF 16949',
+        angle: 'Purchasing teams search by capability and certification.',
+      },
+      {
+        page: 'sector-b2b', icon: 'box', title: 'B2B distribution and services',
+        question: 'electrical wholesaler for installers near me',
+        angle: 'Here, word of mouth is the business. SCOVO tells you whether AI repeats it.',
+      },
     ],
+    other: {
+      title: "Your sector isn't here?",
+      text: 'The trial questions are created from your own website. We start with these three sectors so the examples can be more precise.',
+      link: 'Request the trial',
+    },
   },
 
   compare: {
@@ -136,7 +164,7 @@ const page = {
     'SCOVO measures four AI engines: ChatGPT, Gemini, Perplexity and Claude. Microsoft Copilot is not measured yet.',
     'Each measurement asks 12 questions, each repeated three times on every engine: 144 answers read.',
     'The SCOVO score runs from 0 to 100: Presence 45, Position 20, Tone 15, Sources 20.',
-    'Every recommended action carries a label: Do it yourself, Pass to your web developer, ctrlpost can do it.',
+    'Every recommended action carries a label: Do it yourself, Pass to your web developer, We can do it for you. The last service comes later and is not on sale yet.',
     'The trial lasts 14 days, includes 2 measurements and is free. No credit card is needed.',
     'SCOVO is built for small and medium-sized companies that sell to other companies.',
   ],

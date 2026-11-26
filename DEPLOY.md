@@ -18,6 +18,7 @@ Dashboard labels change from time to time. If a name below does not match what y
 - **The preview uses the Preview variables.** If `SITE_LOCALE` is not set for Preview, the build is Italian.
 - **The form does not send on a preview** until `FORM_DESTINATION`, `FORM_FROM` and `RESEND_API_KEY` are set for Preview. It shows the error message instead.
 - **Preview addresses carry `noindex`** (see `public/_headers`), so search engines leave them alone.
+- **Production builds are stricter than previews.** On `main` the build fails if a published page shows "TODO" or "TBC". Today that means the Privacy and Cookie pages need their legal text before the first production deploy. Try it locally with `SCOVO_PRODUCTION=1 npm run build`.
 
 ## 1. Create the two Pages projects
 
@@ -119,7 +120,7 @@ Do not add any other third-party script. If a script that sets cookies is ever a
 
 ## 7. Before the first production deploy
 
-- [ ] Privacy and Cookie pages have their legal text (they show placeholders now).
+- [ ] Privacy and Cookie pages have their legal text. The production build fails until they do.
 - [ ] The company details line in the footer is filled in.
 - [ ] The email service is confirmed and its secret is set in both projects. Send a test request from each site.
 - [ ] The AI crawler check in section 4 passes on both domains.

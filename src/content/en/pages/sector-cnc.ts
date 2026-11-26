@@ -37,7 +37,7 @@ const page = {
       { gap: 'Certifications exist only as a PDF.', action: 'A website page with each certification written out in full.', tag: 'dev' },
       { gap: 'The machine list is not described.', action: 'A page with machines, axes, maximum sizes and materials.', tag: 'dev' },
       { gap: 'You are missing from the directories the AI cites.', action: 'Ask to be added to the supplier directories cited in the answers.', tag: 'diy' },
-      { gap: "Nobody answers buyers' questions on LinkedIn.", action: 'A post that answers a real question, for example how to choose a subcontractor.', tag: 'ctrlpost' },
+      { gap: "Nobody answers buyers' questions on LinkedIn.", action: 'A post that answers a real question, for example how to choose a subcontractor.', tag: 'us' },
     ],
   },
 } satisfies PageBase;

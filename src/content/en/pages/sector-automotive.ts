@@ -37,7 +37,7 @@ const page = {
       { gap: 'The certification is mentioned only in the footer.', action: 'A page dedicated to the certification, with its scope and date.', tag: 'dev' },
       { gap: 'Production processes have no page of their own.', action: 'One page per process, with the answer at the top.', tag: 'dev' },
       { gap: "The owner's LinkedIn profile is empty.", action: 'Complete the profile with role, company and sector.', tag: 'diy' },
-      { gap: 'The company LinkedIn page does not post.', action: 'A post that answers a typical question from a purchasing team.', tag: 'ctrlpost' },
+      { gap: 'The company LinkedIn page does not post.', action: 'A post that answers a typical question from a purchasing team.', tag: 'us' },
     ],
   },
 } satisfies PageBase;

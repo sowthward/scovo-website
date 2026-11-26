@@ -93,7 +93,7 @@ const plans: PlansContent = {
       rows: [
         { label: 'Do it yourself', cells: { prova: true } },
         { label: 'Pass to your web developer', cells: { prova: true } },
-        { label: 'ctrlpost can do it', cells: { prova: T } },
+        { label: 'We can do it for you', cells: { prova: T } },
       ],
     },
     {

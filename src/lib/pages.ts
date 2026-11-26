@@ -65,6 +65,7 @@ export function resolveNav(items: NavItem[]): ResolvedNav[] {
       if (children.length) out.push({ label: item.label, children });
     } else if (item.page) {
       if (isPublished(item.page)) out.push({ label: item.label, href: href(item.page) + (item.anchor ?? '') });
+      else if (item.fallback) out.push({ label: item.label, href: `/${item.fallback}` });
     } else if (item.anchor) {
       out.push({ label: item.label, href: `/${item.anchor}` });
     } else if (item.href) {
@@ -82,3 +83,8 @@ export const sample: SampleContent = sampleModules[`../content/${locale}/sample.
 // The Italian contact card (shared by both locales, with a locale-specific role).
 const peopleModules = import.meta.glob<{ default: { name: string; initials: string; role: string; email: string; photo: string } }>('../content/*/people.ts', { eager: true });
 export const person = peopleModules[`../content/${locale}/people.ts`]?.default;
+
+// Social channels: one file for both sites (src/data/social.json). Add a channel there, not in components.
+import socialData from '../data/social.json';
+export interface Social { id: string; name: string; icon: string; url: string; label: string }
+export const socials: Social[] = socialData.map((s) => ({ ...s, label: s.label[locale] }));

@@ -45,11 +45,11 @@ const sample: SampleContent = {
   ],
   actions: [
     { tag: 'diy', text: "Chiedi di essere inserito nell'elenco fornitori di settore citato in 14 risposte su 36 nella fase Considerazione." },
-    { tag: 'ctrlpost', text: 'Pubblica su LinkedIn una risposta alla domanda "Come scegliere un\'officina per prototipi meccanici?".' },
+    { tag: 'us', text: 'Pubblica su LinkedIn una risposta alla domanda "Come scegliere un\'officina per prototipi meccanici?".' },
     { tag: 'dev', text: 'La parola chiave "lavorazione acciaio inox" non compare sul tuo sito: una pagina dedicata, con la risposta in alto.' },
   ],
   rivals: ['Concorrente A', 'Concorrente B', 'Concorrente C'],
-  tags: { diy: 'Fallo tu', dev: 'Passa al tuo web developer', ctrlpost: 'Può farlo ctrlpost' },
+  tags: { diy: 'Fallo tu', dev: 'Passa al tuo web developer', us: 'Possiamo farlo noi' },
   labels: {
     scoreName: 'Punteggio SCOVO',
     outOf: 'su',

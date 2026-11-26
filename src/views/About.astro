@@ -4,28 +4,44 @@ import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
 import Icon from '../components/Icon.astro';
-import Todo from '../components/Todo.astro';
 import ContactCard from '../components/ContactCard.astro';
-import { href, isPublished } from '../lib/pages';
+import SocialLinks from '../components/SocialLinks.astro';
+import { href, isPublished, site } from '../lib/pages';
 const { page } = Astro.props;
+const founder = page.team.founder;
 ---
 <Layout page={page}>
   <PageHero title={page.h1} lead={page.lead} crumb={page.navLabel} />
 
-  <Section>
-    <div class="grid gap-12 lg:grid-cols-2">
-      {page.blocks.map((b: any) => (
-        <div>
-          <h2 class="h2 text-blue">{b.title}</h2>
-          {b.text.map((p: string, i: number) => <p class:list={[i === 0 ? 'lead mt-5' : 'mt-3']}>{p}</p>)}
-          {b.todo && <div class="mt-4"><Todo text={b.todo} /></div>}
-          {b.link && <p class="mt-4"><a class="link inline-flex items-center gap-1.5 py-1 font-bold" href={b.link.href} rel="noopener">{b.link.label}<Icon name="arrow" size={18} /></a></p>}
-        </div>
-      ))}
+  <Section title={page.team.title} lead={page.team.lead}>
+    <div class="grid max-w-4xl gap-6 md:grid-cols-2">
+      {/* The founder card appears only once a name is supplied in the content file. */}
+      {founder.name && (
+        <Card class="flex items-start gap-5">
+          {founder.photo
+            ? <img src={founder.photo} alt="" width="80" height="80" class="h-20 w-20 flex-none rounded-full object-cover" />
+            : <span class="circle !h-20 !w-20 text-3xl" aria-hidden="true">{founder.name.charAt(0)}</span>}
+          <p>
+            <strong class="h3 block">{founder.name}</strong>
+            {founder.role && <span class="block">{founder.role}</span>}
+            {founder.text && <span class="mt-2 block">{founder.text}</span>}
+          </p>
+        </Card>
+      )}
+      <div>
+        <ContactCard />
+        <SocialLinks class="mt-4" label={site.footer.socialLabel} />
+      </div>
     </div>
   </Section>
 
-  <Section bg="sand" title={page.principles.title} lead={page.principles.lead}>
+  <Section bg="sand" title={page.why.title}>
+    <div class="max-w-3xl">
+      {page.why.text.map((p: string, i: number) => <p class:list={[i === 0 ? 'lead' : 'mt-3']}>{p}</p>)}
+    </div>
+  </Section>
+
+  <Section title={page.principles.title} lead={page.principles.lead}>
     <ul class="grid gap-6 lg:grid-cols-3">
       {page.principles.items.map((p: any) => (
         <Card as="li">
@@ -35,10 +51,6 @@ const { page } = Astro.props;
         </Card>
       ))}
     </ul>
-    {isPublished('measure') && <p class="mt-8"><a class="inline-flex items-center gap-1.5 py-1 text-[1.1875rem] font-bold text-blue underline" href={href('measure')}>{page.principles.link}<Icon name="arrow" size={18} /></a></p>}
-  </Section>
-
-  <Section title={page.contact.title} lead={page.contact.lead}>
-    <div class="max-w-xl"><ContactCard /></div>
+    {isPublished('measure') && <p class="mt-8"><a class="link inline-flex items-center gap-1.5 py-1 text-[1.1875rem] font-bold" href={href('measure')}>{page.principles.link}<Icon name="arrow" size={18} /></a></p>}
   </Section>
 </Layout>

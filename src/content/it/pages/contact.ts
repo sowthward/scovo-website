@@ -14,8 +14,7 @@ const page = {
   lead: 'Scrivici o richiedi la prova con il modulo qui sotto.',
   emailTitle: 'Email',
   personTitle: "Referente per l'Italia",
-  linkedinTitle: 'LinkedIn',
-  linkedinLabel: 'SCOVO su LinkedIn',
+  followTitle: 'Seguici',
   formLink: 'Vai al modulo per la prova',
 } satisfies PageBase;
 

@@ -47,15 +47,15 @@ const page = {
 
   actions: {
     title: 'Come funziona: chi fa che cosa?',
-    lead: "Ogni azione ha un'etichetta. Ti dice se puoi farla tu, se serve il tuo web developer o se può occuparsene ctrlpost.",
+    lead: "Ogni azione ha un'etichetta. Ti dice se puoi farla tu, se serve il tuo web developer o se possiamo occuparcene noi.",
     exampleLabel: 'Esempio',
     cards: [
       { tag: 'diy', title: 'Fallo tu', text: 'Azioni che non richiedono competenze tecniche. Bastano una telefonata, una email o un post.' },
       { tag: 'dev', title: 'Passa al tuo web developer', text: 'Modifiche al sito, scritte in modo che chi lo gestisce sappia cosa fare.' },
       {
-        tag: 'ctrlpost',
-        title: 'Può farlo ctrlpost',
-        text: 'Azioni che ctrlpost potrà fare al posto tuo.',
+        tag: 'us',
+        title: 'Possiamo farlo noi',
+        text: 'Azioni che potremo fare noi al posto tuo.',
         note: 'Questo servizio arriverà più avanti. Oggi non è in vendita.',
       },
     ],
@@ -92,16 +92,44 @@ const page = {
     ],
   },
 
-  sectors: {
-    title: 'Per quali aziende è pensato SCOVO?',
-    lead: 'Per le piccole e medie imprese che vendono ad altre aziende. Partiamo da tre settori.',
+  // "Per chi è": replaces the earlier sector section. The anchor is used by the menu and the footer.
+  whoFor: {
+    id: 'per-chi-e',
+    title: 'Per chi è SCOVO?',
+    intro: "Per chi guida una piccola o media impresa che vende ad altre aziende e vuole sapere se l'AI la consiglia ai clienti.",
+    fitTitle: 'È per te se',
+    fit: [
+      { icon: 'compare', text: 'Vendi ad altre aziende.' },
+      { icon: 'pin', text: 'I tuoi clienti scelgono i fornitori per capacità, certificazioni e zona.' },
+      { icon: 'people', text: 'Non hai un reparto marketing, o è piccolo.' },
+      { icon: 'steps', text: 'Vuoi sapere cosa fare, non solo un numero.' },
+    ],
+    sectorsTitle: 'Settori',
     questionLabel: 'Un cliente chiede:',
     link: 'Vai al settore',
+    // A card links to its sector page only when that page is published.
     cards: [
-      { page: 'sector-cnc', icon: 'factory', title: 'Meccanica di precisione e conto terzi', question: 'fornitore lavorazioni CNC conto terzi Brescia' },
-      { page: 'sector-automotive', icon: 'car', title: 'Fornitura automotive', question: 'fornitore componenti automotive Torino IATF 16949' },
-      { page: 'sector-b2b', icon: 'box', title: 'Distribuzione e servizi B2B', question: 'distributore materiale elettrico Verona per installatori' },
+      {
+        page: 'sector-cnc', icon: 'factory', title: 'Meccanica di precisione e conto terzi',
+        question: 'fornitore lavorazioni CNC conto terzi Brescia',
+        angle: "Chi compra prepara la lista dei terzisti chiedendo a un'AI.",
+      },
+      {
+        page: 'sector-automotive', icon: 'car', title: 'Fornitura automotive',
+        question: 'fornitore componenti automotive Torino IATF 16949',
+        angle: 'Gli acquisti cercano per capacità e certificazione.',
+      },
+      {
+        page: 'sector-b2b', icon: 'box', title: 'Distribuzione e servizi B2B',
+        question: 'distributore materiale elettrico Verona per installatori',
+        angle: "Qui conta il passaparola. SCOVO ti dice se l'AI lo ripete.",
+      },
     ],
+    other: {
+      title: "Il tuo settore non c'è?",
+      text: 'Le domande della prova vengono create a partire dal tuo sito. Partiamo da questi tre settori per avere esempi più precisi.',
+      link: 'Richiedi la prova',
+    },
   },
 
   compare: {
@@ -134,7 +162,7 @@ const page = {
     'SCOVO misura quattro motori AI: ChatGPT, Gemini, Perplexity e Claude. Microsoft Copilot non è ancora misurato.',
     'Ogni misurazione fa 12 domande, ognuna ripetuta tre volte su ogni motore: 144 risposte lette.',
     'Il Punteggio SCOVO va da 0 a 100: Presenza 45, Posizione 20, Tono 15, Fonti 20.',
-    'Ogni azione consigliata ha una etichetta: Fallo tu, Passa al tuo web developer, Può farlo ctrlpost.',
+    "Ogni azione consigliata ha un'etichetta: Fallo tu, Passa al tuo web developer, Possiamo farlo noi. L'ultimo servizio arriverà più avanti e oggi non è in vendita.",
     'La prova dura 14 giorni, comprende 2 misurazioni ed è gratuita. Non serve la carta di credito.',
     'SCOVO è pensato per le piccole e medie imprese che vendono ad altre aziende.',
   ],

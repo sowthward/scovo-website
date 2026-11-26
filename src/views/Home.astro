@@ -12,7 +12,7 @@ import ActionTag from '../components/mock/ActionTag.astro';
 import { href, isPublished, sample, site } from '../lib/pages';
 
 const { page } = Astro.props;
-const { hero, intro, product, actions, features, sectors, compare, numbers } = page;
+const { hero, intro, product, actions, features, whoFor, compare, numbers } = page;
 const linkTo = (to: { page?: string; anchor?: string }) => (to.page ? (isPublished(to.page) ? href(to.page) : undefined) : to.anchor);
 const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.text;
 ---
@@ -104,20 +104,38 @@ const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.t
     {isPublished('features') && <p class="mt-8"><a class="link-strong inline-flex items-center gap-1.5 py-1 text-[1.1875rem] font-bold text-blue underline" href={href('features')}>{features.featuresLink}<Icon name="arrow" size={18} /></a></p>}
   </Section>
 
-  {/* 7. Sector cards. A card links to its sector page only when that page is published. */}
-  <Section title={sectors.title} lead={sectors.lead}>
-    <ul class="grid gap-6 lg:grid-cols-3">
-      {sectors.cards.map((c: any) => (
+  {/* 7. Per chi è: who SCOVO is for, then the sector cards. A card links to its sector page only when that page is published. */}
+  <Section id={whoFor.id} title={whoFor.title} lead={whoFor.intro}>
+    <h3 class="h3">{whoFor.fitTitle}</h3>
+    <ul class="mt-5 grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+      {whoFor.fit.map((p: any) => (
+        <li class="flex items-start gap-3">
+          <span class="circle !h-11 !w-11"><Icon name={p.icon} size={22} /></span>
+          <span class="pt-2 font-bold leading-snug">{p.text}</span>
+        </li>
+      ))}
+    </ul>
+
+    <h3 class="sr-only">{whoFor.sectorsTitle}</h3>
+    <ul class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      {whoFor.cards.map((c: any) => (
         <Card as="li" class="flex flex-col">
           <span class="circle"><Icon name={c.icon} /></span>
-          <h3 class="h3 mt-4">{c.title}</h3>
+          <h4 class="h3 mt-4">{c.title}</h4>
           <div class="mt-4 rounded-lg bg-sand p-4">
-            <p class="text-[0.8125rem] font-bold">{sectors.questionLabel}</p>
+            <p class="text-[0.8125rem] font-bold">{whoFor.questionLabel}</p>
             <p class="mt-1 leading-snug">{site.labels.quotes[0]}{c.question}{site.labels.quotes[1]}</p>
           </div>
-          {isPublished(c.page) && <p class="mt-auto pt-5"><a class="link inline-flex items-center gap-1.5 py-1 font-bold" href={href(c.page)}>{sectors.link}<span class="sr-only">: {c.title}</span><Icon name="arrow" size={18} /></a></p>}
+          <p class="mt-4 text-base leading-snug">{c.angle}</p>
+          {isPublished(c.page) && <p class="mt-auto pt-5"><a class="link inline-flex items-center gap-1.5 py-1 font-bold" href={href(c.page)}>{whoFor.link}<span class="sr-only">: {c.title}</span><Icon name="arrow" size={18} /></a></p>}
         </Card>
       ))}
+      <Card as="li" class="flex flex-col !border-dashed !border-charcoal/50 !bg-sand">
+        <span class="circle !bg-white !text-blue ring-1 ring-blue"><Icon name="question" /></span>
+        <h4 class="h3 mt-4">{whoFor.other.title}</h4>
+        <p class="mt-2 text-base leading-snug">{whoFor.other.text}</p>
+        <p class="mt-auto pt-5"><a class="inline-flex items-center gap-1.5 py-1 font-bold text-blue underline underline-offset-[0.2em]" href="#prova">{whoFor.other.link}<Icon name="arrow" size={18} class="rotate-90" /></a></p>
+      </Card>
     </ul>
   </Section>
 

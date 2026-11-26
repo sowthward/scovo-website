@@ -4,7 +4,7 @@ import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.w
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import TrialForm from './TrialForm.astro';
-import { site, locale, absolute, otherLocaleUrl, getPage } from '../lib/pages';
+import { site, locale, absolute, otherLocaleUrl, getPage, socials } from '../lib/pages';
 import type { PageBase, PlansContent } from '../content/types';
 import { offers } from '../lib/plans';
 import { isPublished, href } from '../lib/pages';
@@ -27,8 +27,7 @@ const org = {
   name: 'SCOVO',
   url: `${site.domain}/`,
   email: site.email,
-  sameAs: [site.linkedin],
-  parentOrganization: { '@type': 'Organization', name: 'ctrlpost', url: 'https://ctrlpost.io' },
+  sameAs: socials.map((s) => s.url),
 };
 const graph: object[] = [
   org,
@@ -75,14 +74,14 @@ const graph: object[] = [
     <meta property="og:image" content={absolute('/og.png')} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={site.parentLine} />
+    <meta property="og:image:alt" content={site.name} />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
   </head>
   <body>
     <a href="#contenuto" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-3">{site.labels.skip}</a>
     <Header pageKey={page.key} ctaHref={ctaHref} path={path} />
-    <main id="contenuto">
+    <main id="contenuto" class="site-main">
       {!page.published && page.key !== '404' && (
         <p class="bg-sand py-2 text-center text-sm" data-hidden-notice>{site.labels.hiddenNotice}</p>
       )}

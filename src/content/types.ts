@@ -39,6 +39,8 @@ export interface NavItem {
   anchor?: string;
   /** Dropdown listing every published page of this group. */
   group?: 'sectors';
+  /** Anchor on the homepage used while `page` is hidden, e.g. '#per-chi-e'. */
+  fallback?: string;
   /** External or mailto link. */
   href?: string;
 }
@@ -80,25 +82,28 @@ export interface SiteContent {
   otherDomain: string;
   otherLocale: Locale;
   name: string;
-  /** "SCOVO, un prodotto ctrlpost" */
-  parentLine: string;
-  /** "un prodotto ctrlpost" (shown under the wordmark) */
-  parentTag: string;
   description: string;
   email: string;
-  linkedin: string;
   cta: string;
   nav: NavItem[];
   footer: {
     columns: FooterColumn[];
+    /** Title of the last column, which holds the trial button and the email. */
+    startTitle: string;
     legal: NavItem[];
-    contactLabel: string;
-    /** TODO until the registered name, address and P.IVA are supplied. */
-    companyDetails: string;
+    /** The details line is shown only when all three are filled in. */
+    company: { name: string; address: string; vat: string };
+    vatLabel: string;
     copyright: string;
+    /** Accessible name of the list of social links. */
+    socialLabel: string;
   };
   labels: {
     skip: string;
+    /** Accessible name of the wordmark link in the header. */
+    homeLink: string;
+    /** Heading of the social channels list in llms.txt. */
+    channels: string;
     menu: string;
     close: string;
     language: string;
@@ -117,13 +122,16 @@ export interface SiteContent {
     /** Empty at launch. Add real quotes only. See README. */
     items: { quote: string; name: string; role: string; company: string }[];
     title: string;
-    emptyLine: string;
+    /** Shown on the homepage while there are no quotes. */
+    emptyLineHome: string;
+    /** Shown on sector pages while there are no quotes. */
+    emptyLineSector: string;
   };
   form: FormContent;
   notFound: { title: string; text: string; back: string };
 }
 
-export type ActionTag = 'diy' | 'dev' | 'ctrlpost';
+export type ActionTag = 'diy' | 'dev' | 'us';
 
 /** Invented sample company used by every product view on the site. Do not change the figures. */
 export interface SampleContent {

@@ -6,18 +6,16 @@ const site: SiteContent = {
   otherDomain: 'https://scovo.io',
   otherLocale: 'en',
   name: 'SCOVO',
-  parentLine: 'SCOVO, un prodotto ctrlpost',
-  parentTag: 'un prodotto ctrlpost',
   description:
     'SCOVO misura come la tua azienda compare nelle risposte di ChatGPT, Gemini, Perplexity e Claude, e ti dice cosa fare.',
   email: 'info@loscovo.it',
-  linkedin: 'https://www.linkedin.com/company/loscovo',
   cta: 'Richiedi la prova',
 
   // A menu item whose page is hidden is not shown.
   nav: [
     { label: 'Cosa fa', anchor: '#cosa-fa' },
     { label: 'Come funziona', anchor: '#come-funziona' },
+    { label: 'Per chi è', anchor: '#per-chi-e' },
     { label: 'Funzionalità', page: 'features' },
     { label: 'Prezzi', page: 'pricing' },
     { label: 'Settori', group: 'sectors' },
@@ -27,47 +25,51 @@ const site: SiteContent = {
   ],
 
   footer: {
+    // Funzionalità and Prezzi appear in Prodotto only once their pages are published.
     columns: [
       {
         title: 'Prodotto',
         items: [
           { label: 'Cosa fa', anchor: '#cosa-fa' },
           { label: 'Come funziona', anchor: '#come-funziona' },
+          { label: 'Come misuriamo', page: 'measure' },
           { label: 'Funzionalità', page: 'features' },
           { label: 'Prezzi', page: 'pricing' },
-          { label: 'Come misuriamo', page: 'measure' },
         ],
       },
-      { title: 'Settori', items: [{ label: 'Settori', group: 'sectors' }] },
+      {
+        // Each sector links to the homepage section until its page is published.
+        title: 'Per chi è',
+        items: [
+          { label: 'Meccanica di precisione e conto terzi', page: 'sector-cnc', fallback: '#per-chi-e' },
+          { label: 'Fornitura automotive', page: 'sector-automotive', fallback: '#per-chi-e' },
+          { label: 'Distribuzione e servizi B2B', page: 'sector-b2b', fallback: '#per-chi-e' },
+        ],
+      },
       {
         title: 'Informazioni',
         items: [
           { label: 'Chi siamo', page: 'about' },
           { label: 'Contatti', page: 'contact' },
-          { label: 'ctrlpost.io', href: 'https://ctrlpost.io' },
-          { label: 'LinkedIn', href: 'https://www.linkedin.com/company/loscovo' },
-        ],
-      },
-      {
-        title: 'Inizia',
-        items: [
-          { label: 'Richiedi la prova', anchor: '#prova' },
-          { label: 'info@loscovo.it', href: 'mailto:info@loscovo.it' },
         ],
       },
     ],
+    startTitle: 'Inizia',
     legal: [
       { label: 'Privacy', page: 'privacy' },
       { label: 'Cookie', page: 'cookie' },
     ],
-    contactLabel: 'Scrivici',
-    // TODO: registered name, address and P.IVA (open item 7).
-    companyDetails: 'TODO: ragione sociale, sede legale e P.IVA',
-    copyright: '© 2026 ctrlpost.io',
+    // TODO (open item 7): fill in all three. The line stays hidden until then.
+    company: { name: '', address: '', vat: '' },
+    vatLabel: 'P.IVA',
+    copyright: '© 2026 SCOVO',
+    socialLabel: 'Seguici',
   },
 
   labels: {
     skip: 'Vai al contenuto',
+    homeLink: 'SCOVO, home',
+    channels: 'Canali',
     menu: 'Menu',
     close: 'Chiudi',
     language: 'Lingua',
@@ -86,7 +88,8 @@ const site: SiteContent = {
     // Leave empty until there are real quotes. See README, "Switch on the testimonial block".
     items: [],
     title: 'Cosa dicono i clienti',
-    emptyLine: 'Primi clienti in questo settore: partecipa al pilota.',
+    emptyLineHome: 'Primi clienti: partecipa al pilota.',
+    emptyLineSector: 'Primi clienti in questo settore: partecipa al pilota.',
   },
 
   form: {

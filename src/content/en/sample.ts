@@ -46,11 +46,11 @@ const sample: SampleContent = {
   ],
   actions: [
     { tag: 'diy', text: 'Ask to be added to the sector supplier directory cited in 14 of 36 answers at the Consideration stage.' },
-    { tag: 'ctrlpost', text: 'Publish a LinkedIn post that answers the question "How do you choose a machine shop for mechanical prototypes?".' },
+    { tag: 'us', text: 'Publish a LinkedIn post that answers the question "How do you choose a machine shop for mechanical prototypes?".' },
     { tag: 'dev', text: 'The keyword "stainless steel machining" does not appear on your website: add a dedicated page, with the answer at the top.' },
   ],
   rivals: ['Competitor A', 'Competitor B', 'Competitor C'],
-  tags: { diy: 'Do it yourself', dev: 'Pass to your web developer', ctrlpost: 'ctrlpost can do it' },
+  tags: { diy: 'Do it yourself', dev: 'Pass to your web developer', us: 'We can do it for you' },
   labels: {
     scoreName: 'SCOVO score',
     outOf: 'out of',

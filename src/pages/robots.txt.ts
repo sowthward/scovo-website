@@ -12,7 +12,7 @@ const aiCrawlers = [
 
 export const GET: APIRoute = () => {
   const body = [
-    '# SCOVO, a ctrlpost product. This file is served from the repository.',
+    '# SCOVO. This file is served from the repository.',
     'User-agent: *',
     'Allow: /',
     '',

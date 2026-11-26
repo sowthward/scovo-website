@@ -31,7 +31,6 @@ How to use this list: read each string in context on the preview link, tick it o
 ## `src/content/it/site.ts`
 
 - [ ] SCOVO misura come la tua azienda compare nelle risposte di ChatGPT, Gemini, Perplexity e Claude, e ti dice cosa fare.
-- [ ] Scrivici
 - [ ] Vai al contenuto
 - [ ] Chiudi
 - [ ] Da completare
@@ -59,11 +58,10 @@ How to use this list: read each string in context on the preview link, tick it o
 
 ## `src/content/it/pages/about.ts`
 
-- [ ] Chi siamo: SCOVO, un prodotto ctrlpost
-- [ ] Chi c'è dietro SCOVO, il legame con ctrlpost e la referente per l'Italia.
-- [ ] SCOVO è un prodotto ctrlpost. Aiuta chi guida una piccola o media impresa a capire come la sua azienda compare nelle risposte delle AI.
+- [ ] Chi siamo | SCOVO
+- [ ] Chi c'è dietro SCOVO, perché esiste e chi è la referente per l'Italia.
+- [ ] SCOVO aiuta chi guida una piccola o media impresa a capire come la sua azienda compare nelle risposte delle AI.
 - [ ] Chi c'è dietro SCOVO?
-- [ ] SCOVO è sviluppato da ctrlpost.
 - [ ] Perché esiste SCOVO?
 - [ ] Chi cerca un fornitore oggi lo chiede a un'AI, come una volta lo chiedeva a un collega. È il Passaparola Digitale.
 - [ ] Chi guida un'azienda di solito non sa cosa risponde l'AI quando un cliente fa quella domanda. SCOVO lo misura e lo spiega in parole semplici.
@@ -76,7 +74,6 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] Nessuna promessa di risultato
 - [ ] Misuriamo, ti diciamo cosa fare e ti mostriamo il prima e il dopo.
 - [ ] Leggi come misuriamo
-- [ ] Con chi parli?
 - [ ] In Italia il tuo riferimento è Nicoletta.
 
 ## `src/content/it/pages/contact.ts`
@@ -84,7 +81,6 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] Contatti | SCOVO
 - [ ] Scrivi a info@loscovo.it, parla con la referente per l'Italia o richiedi la prova di 14 giorni.
 - [ ] Scrivici o richiedi la prova con il modulo qui sotto.
-- [ ] SCOVO su LinkedIn
 - [ ] Vai al modulo per la prova
 
 ## `src/content/it/pages/cookie.ts`
@@ -116,11 +112,11 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] Una lista corta di azioni, dalla più importante. Ogni azione dice chi può occuparsene.
 - [ ] Vedi i tre tipi di azione
 - [ ] Come funziona: chi fa che cosa?
-- [ ] Ogni azione ha un'etichetta. Ti dice se puoi farla tu, se serve il tuo web developer o se può occuparsene ctrlpost.
+- [ ] Ogni azione ha un'etichetta. Ti dice se puoi farla tu, se serve il tuo web developer o se possiamo occuparcene noi.
 - [ ] Esempio
 - [ ] Azioni che non richiedono competenze tecniche. Bastano una telefonata, una email o un post.
 - [ ] Modifiche al sito, scritte in modo che chi lo gestisce sappia cosa fare.
-- [ ] Azioni che ctrlpost potrà fare al posto tuo.
+- [ ] Azioni che potremo fare noi al posto tuo.
 - [ ] Questo servizio arriverà più avanti. Oggi non è in vendita.
 - [ ] Cosa misura SCOVO e cosa ricevi?
 - [ ] Ogni misurazione legge le risposte di quattro motori AI alle domande dei tuoi clienti. Tu ricevi il risultato e le prove.
@@ -137,8 +133,6 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] Dietro ogni numero trovi le risposte lette.
 - [ ] Vedi cosa è cambiato tra le due misurazioni.
 - [ ] Un hashtag per ogni parola chiave, da usare nei tuoi post.
-- [ ] Per quali aziende è pensato SCOVO?
-- [ ] Per le piccole e medie imprese che vendono ad altre aziende. Partiamo da tre settori.
 - [ ] Un cliente chiede:
 - [ ] Vai al settore
 - [ ] Cosa cambia con SCOVO?
@@ -156,7 +150,7 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] SCOVO misura quattro motori AI: ChatGPT, Gemini, Perplexity e Claude. Microsoft Copilot non è ancora misurato.
 - [ ] Ogni misurazione fa 12 domande, ognuna ripetuta tre volte su ogni motore: 144 risposte lette.
 - [ ] Il Punteggio SCOVO va da 0 a 100: Presenza 45, Posizione 20, Tono 15, Fonti 20.
-- [ ] Ogni azione consigliata ha una etichetta: Fallo tu, Passa al tuo web developer, Può farlo ctrlpost.
+- [ ] Ogni azione consigliata ha un'etichetta: Fallo tu, Passa al tuo web developer, Possiamo farlo noi. L'ultimo servizio arriverà più avanti e oggi non è in vendita.
 - [ ] La prova dura 14 giorni, comprende 2 misurazioni ed è gratuita. Non serve la carta di credito.
 - [ ] SCOVO è pensato per le piccole e medie imprese che vendono ad altre aziende.
 - [ ] Il metodo in quattro numeri
@@ -329,3 +323,32 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] "motori AI" is used for ChatGPT, Gemini, Perplexity and Claude.
 - [ ] "web developer" is kept in English, as in the supplied label "Passa al tuo web developer".
 - [ ] Buyer questions are shown between «caporali».
+
+## Added 26 Nov 2026 (change prompt v1.1)
+
+Strings supplied in the change prompt are not listed: "Per chi è", "Per chi è SCOVO?", its intro, the four "È per te se" points, the sector angles, the fourth card, "Possiamo farlo noi", "Primi clienti: partecipa al pilota.", "Seguici", "SCOVO su LinkedIn", "SCOVO su YouTube", "© 2026 SCOVO".
+
+### `src/content/it/site.ts`
+
+- [ ] Inizia (title of the footer column with the trial button)
+- [ ] SCOVO, home (accessible name of the wordmark link, read by screen readers)
+- [ ] Canali (heading in llms.txt)
+- [ ] P.IVA (label in the footer company line, shown once the details are filled in)
+
+### `src/content/it/pages/home.ts`
+
+- [ ] È per te se (heading; supplied as a label, check it reads well as a heading followed by a list)
+- [ ] Settori (hidden heading over the sector cards, read by screen readers)
+- [ ] Un cliente chiede:
+- [ ] Vai al settore
+- [ ] Richiedi la prova (link text in the "Il tuo settore non c'è?" card)
+
+### `src/content/it/pages/about.ts`
+
+- [ ] Chi c'è dietro SCOVO, perché esiste e chi è la referente per l'Italia. (meta description)
+- [ ] SCOVO aiuta chi guida una piccola o media impresa a capire come la sua azienda compare nelle risposte delle AI.
+- [ ] In Italia il tuo riferimento è Nicoletta. (now the lead of "Chi c'è dietro SCOVO?")
+
+### Wording to confirm
+
+- [ ] "Possiamo farlo noi": the change prompt removes ctrlpost, so "noi" is SCOVO. Check that "Azioni che potremo fare noi al posto tuo." and "se possiamo occuparcene noi" read naturally next to it.

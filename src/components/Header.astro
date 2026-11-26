@@ -11,9 +11,8 @@ const isCurrent = (h?: string) => h === path;
 ---
 <header class="sticky top-0 z-40 border-b border-grey/50 bg-white" data-header>
   <div class="container-x flex h-16 items-center gap-4 xl:gap-6">
-    <a href="/" class="flex flex-col gap-1 text-blue no-underline">
-      <Wordmark class="text-[1.625rem]" />
-      <span class="text-[0.6875rem] leading-none whitespace-nowrap text-charcoal"><span class="sr-only">, </span>{site.parentTag}</span>
+    <a href="/" aria-label={site.labels.homeLink} class="inline-flex min-h-11 items-center text-blue no-underline">
+      <Wordmark class="text-[1.75rem]" />
     </a>
 
     <nav class="ml-4 hidden flex-1 xl:block" aria-label={site.labels.menu}>
