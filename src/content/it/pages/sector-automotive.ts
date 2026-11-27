@@ -36,7 +36,7 @@ const page = {
       { gap: 'La certificazione è citata solo nel piè di pagina.', action: 'Una pagina dedicata alla certificazione, con ambito e data.', tag: 'dev' },
       { gap: 'I processi produttivi non hanno una pagina propria.', action: 'Una pagina per ogni processo, con la risposta in alto.', tag: 'dev' },
       { gap: "Il profilo LinkedIn del titolare è vuoto.", action: 'Completa il profilo con ruolo, azienda e settore.', tag: 'diy' },
-      { gap: "La pagina LinkedIn dell'azienda non pubblica.", action: 'Un post che risponde a una domanda tipica di un ufficio acquisti.', tag: 'ctrlpost' },
+      { gap: "La pagina LinkedIn dell'azienda non pubblica.", action: 'Un post che risponde a una domanda tipica di un ufficio acquisti.', tag: 'us' },
     ],
   },
 } satisfies PageBase;

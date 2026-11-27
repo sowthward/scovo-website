@@ -10,7 +10,7 @@ import { findTbc, assertNoTbc } from '../src/lib/tbc.ts';
 const build = (env) => {
   const out = mkdtempSync(join(tmpdir(), 'scovo-build-'));
   const res = spawnSync('npx', ['astro', 'build', '--outDir', out], {
-    env: { ...process.env, SITE_LOCALE: 'it', ASTRO_TELEMETRY_DISABLED: '1', ...env },
+    env: { ...process.env, SITE_LOCALE: 'it', ASTRO_TELEMETRY_DISABLED: '1', CF_PAGES_BRANCH: '', SCOVO_PRODUCTION: '', ...env },
     encoding: 'utf8',
   });
   const built = existsSync(join(out, 'index.html'));

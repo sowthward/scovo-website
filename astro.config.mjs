@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import distChecks from './integrations/dist-checks.mjs';
 
 // One locale per build. SITE_LOCALE is set per Cloudflare Pages project.
 const locale = process.env.SITE_LOCALE === 'en' ? 'en' : 'it';
@@ -8,6 +9,7 @@ const domains = { it: 'https://loscovo.it', en: 'https://scovo.io' };
 export default defineConfig({
   site: domains[locale],
   trailingSlash: 'never',
+  integrations: [distChecks()],
   build: { format: 'file' },
   vite: {
     plugins: [tailwindcss()],

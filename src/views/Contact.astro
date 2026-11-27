@@ -5,12 +5,13 @@ import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
 import Icon from '../components/Icon.astro';
 import ContactCard from '../components/ContactCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { site } from '../lib/pages';
 const { page } = Astro.props;
 ---
 <Layout page={page}>
   <PageHero title={page.h1} lead={page.lead} crumb={page.navLabel}>
-    <p class="mt-6"><a class="link inline-flex min-h-12 items-center gap-2 font-bold" href="#prova">{page.formLink}<Icon name="arrow" size={20} class="rotate-90" /></a></p>
+    <p class="mt-6"><a class="link inline-flex min-h-12 items-center gap-2 font-bold" href="#demo">{page.formLink}<Icon name="arrow" size={20} class="rotate-90" /></a></p>
   </PageHero>
   <Section>
     <div class="grid gap-6 lg:grid-cols-3">
@@ -24,9 +25,9 @@ const { page } = Astro.props;
         <ContactCard />
       </div>
       <Card>
-        <span class="circle"><Icon name="post" /></span>
-        <h2 class="h3 mt-4">{page.linkedinTitle}</h2>
-        <p class="mt-2"><a class="link inline-block py-1" href={site.linkedin} rel="noopener">{page.linkedinLabel}</a></p>
+        <span class="circle"><Icon name="people" /></span>
+        <h2 class="h3 mt-4">{page.followTitle}</h2>
+        <SocialLinks class="mt-2" />
       </Card>
     </div>
   </Section>

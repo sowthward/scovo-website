@@ -6,18 +6,23 @@ const site: SiteContent = {
   otherDomain: 'https://loscovo.it',
   otherLocale: 'it',
   name: 'SCOVO',
-  parentLine: 'SCOVO, a ctrlpost product',
-  parentTag: 'a ctrlpost product',
+  descriptor: 'AI Visibility for B2B SME Leaders',
   description:
     'SCOVO measures how your company appears in answers from ChatGPT, Gemini, Perplexity and Claude, and tells you what to do about it.',
   email: 'info@scovo.io',
-  linkedin: 'https://www.linkedin.com/company/loscovo',
-  cta: 'Request the trial',
+  ctaLabel: 'Book a demo',
+  seo: {
+    keywords: 'AI visibility, GEO, Generative Engine Optimization, AI search, ChatGPT, B2B SME',
+    audienceType: 'B2B SME leaders',
+    // The build prompt adds "A ctrlpost product." here. Left out: ctrlpost was removed from the site on 26 Nov 2026.
+    llmsIntro: 'SCOVO: AI visibility for B2B SME leaders. Monitoring of visibility in AI answers (GEO).',
+  },
 
   // A menu item whose page is hidden is not shown.
   nav: [
     { label: 'What it does', anchor: '#cosa-fa' },
     { label: 'How it works', anchor: '#come-funziona' },
+    { label: "Who it's for", anchor: '#who-its-for' },
     { label: 'Features', page: 'features' },
     { label: 'Pricing', page: 'pricing' },
     { label: 'Sectors', group: 'sectors' },
@@ -27,47 +32,51 @@ const site: SiteContent = {
   ],
 
   footer: {
+    // Features and Pricing appear in Product only once their pages are published.
     columns: [
       {
         title: 'Product',
         items: [
           { label: 'What it does', anchor: '#cosa-fa' },
           { label: 'How it works', anchor: '#come-funziona' },
+          { label: 'How we measure', page: 'measure' },
           { label: 'Features', page: 'features' },
           { label: 'Pricing', page: 'pricing' },
-          { label: 'How we measure', page: 'measure' },
         ],
       },
-      { title: 'Sectors', items: [{ label: 'Sectors', group: 'sectors' }] },
+      {
+        // Each sector links to the homepage section until its page is published.
+        title: "Who it's for",
+        items: [
+          { label: 'Precision engineering and subcontract machining', page: 'sector-cnc', fallback: '#who-its-for' },
+          { label: 'Automotive supply', page: 'sector-automotive', fallback: '#who-its-for' },
+          { label: 'B2B distribution and services', page: 'sector-b2b', fallback: '#who-its-for' },
+        ],
+      },
       {
         title: 'Information',
         items: [
           { label: 'About', page: 'about' },
           { label: 'Contact', page: 'contact' },
-          { label: 'ctrlpost.io', href: 'https://ctrlpost.io' },
-          { label: 'LinkedIn', href: 'https://www.linkedin.com/company/loscovo' },
-        ],
-      },
-      {
-        title: 'Get started',
-        items: [
-          { label: 'Request the trial', anchor: '#prova' },
-          { label: 'info@scovo.io', href: 'mailto:info@scovo.io' },
         ],
       },
     ],
+    startTitle: 'Get started',
     legal: [
       { label: 'Privacy', page: 'privacy' },
       { label: 'Cookies', page: 'cookie' },
     ],
-    contactLabel: 'Write to us',
-    // TODO: registered name, address and VAT number (open item 7).
-    companyDetails: 'TODO: registered name, address and VAT number',
-    copyright: '© 2026 ctrlpost.io',
+    // TODO (open item 7): fill in all three. The line stays hidden until then.
+    company: { name: '', address: '', vat: '' },
+    vatLabel: 'VAT no.',
+    copyright: '© 2026 SCOVO',
+    socialLabel: 'Follow us',
   },
 
   labels: {
     skip: 'Skip to content',
+    homeLink: 'SCOVO, home',
+    channels: 'Channels',
     menu: 'Menu',
     close: 'Close',
     language: 'Language',
@@ -86,12 +95,12 @@ const site: SiteContent = {
     // Leave empty until there are real quotes. See README, "Switch on the testimonial block".
     items: [],
     title: 'What customers say',
-    emptyLine: 'First customers in this sector: join the pilot.',
+    emptyLineHome: 'First customers: join the pilot.',
+    emptyLineSector: 'First customers in this sector: join the pilot.',
   },
 
   form: {
-    title: 'Request the trial',
-    lead: 'The trial is free. Paid plans will open later.',
+    intro: "We'll show you how SCOVO works and how AI talks about companies like yours.",
     fields: {
       name: 'Name',
       company: 'Company',
@@ -106,10 +115,9 @@ const site: SiteContent = {
     },
     privacyBefore: 'I have read the ',
     privacyLink: 'privacy notice',
-    privacyAfter: ' and agree to be contacted about the trial.',
-    submit: 'Request the trial',
+    privacyAfter: ' and agree to be contacted about my request.',
     sending: 'Sending',
-    reassurance: '14 days, 2 measurements, no credit card.',
+    note: 'No commitment.',
     success: 'Request received. We will write to the address you gave.',
     error: 'We could not send your request. Please try again, or write to info@scovo.io.',
     invalid: 'Please check the highlighted fields.',

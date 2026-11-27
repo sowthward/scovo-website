@@ -4,10 +4,12 @@ interface Props { label: string; value: number | null; max: number; suffix?: str
 const { label, value, max, suffix = '', empty = '' } = Astro.props;
 const pct = value === null ? 0 : Math.round((value / max) * 100);
 ---
-<div class="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 gap-y-1 text-[0.9375rem]">
-  <span>{label}</span>
-  <span class="font-bold tabular-nums">{value === null ? <span class="font-normal">{empty}</span> : <Fragment>{value}{suffix}</Fragment>}</span>
-  <span class="col-span-2 block h-2 overflow-hidden rounded-full bg-grey/35" aria-hidden="true">
+<div class="text-[0.9375rem]">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+    <span class="min-w-0">{label}</span>
+    <span class="ml-auto text-right font-bold tabular-nums">{value === null ? <span class="font-normal">{empty}</span> : <Fragment>{value}{suffix}</Fragment>}</span>
+  </div>
+  <span class="mt-1 block h-2 overflow-hidden rounded-full bg-grey/35" aria-hidden="true">
     <span class="block h-full rounded-full bg-blue" style={`width:${pct}%`}></span>
   </span>
 </div>

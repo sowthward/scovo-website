@@ -39,6 +39,8 @@ export interface NavItem {
   anchor?: string;
   /** Dropdown listing every published page of this group. */
   group?: 'sectors';
+  /** Anchor on the homepage used while `page` is hidden, e.g. '#per-chi-e'. */
+  fallback?: string;
   /** External or mailto link. */
   href?: string;
 }
@@ -49,8 +51,8 @@ export interface FooterColumn {
 }
 
 export interface FormContent {
-  title: string;
-  lead: string;
+  /** One line next to the form heading. The heading and the button use `ctaLabel`. */
+  intro: string;
   fields: {
     name: string;
     company: string;
@@ -66,9 +68,9 @@ export interface FormContent {
   privacyBefore: string;
   privacyLink: string;
   privacyAfter: string;
-  submit: string;
   sending: string;
-  reassurance: string;
+  /** Short line under the button. */
+  note: string;
   success: string;
   error: string;
   invalid: string;
@@ -80,25 +82,39 @@ export interface SiteContent {
   otherDomain: string;
   otherLocale: Locale;
   name: string;
-  /** "SCOVO, un prodotto ctrlpost" */
-  parentLine: string;
-  /** "un prodotto ctrlpost" (shown under the wordmark) */
-  parentTag: string;
+  /** What SCOVO is, in one line. Used in the hero label, the footer, the homepage title, JSON-LD and llms.txt. */
+  descriptor: string;
   description: string;
   email: string;
-  linkedin: string;
-  cta: string;
+  /** Label of every call to action (header, hero, footer, form). Change it here only. */
+  ctaLabel: string;
+  /** Data for search engines and AI readers. */
+  seo: {
+    /** Comma-separated keywords for the SoftwareApplication JSON-LD. "GEO" appears only here and in the glossary. */
+    keywords: string;
+    audienceType: string;
+    /** First line of llms.txt after the title. */
+    llmsIntro: string;
+  };
   nav: NavItem[];
   footer: {
     columns: FooterColumn[];
+    /** Title of the last column, which holds the trial button and the email. */
+    startTitle: string;
     legal: NavItem[];
-    contactLabel: string;
-    /** TODO until the registered name, address and P.IVA are supplied. */
-    companyDetails: string;
+    /** The details line is shown only when all three are filled in. */
+    company: { name: string; address: string; vat: string };
+    vatLabel: string;
     copyright: string;
+    /** Accessible name of the list of social links. */
+    socialLabel: string;
   };
   labels: {
     skip: string;
+    /** Accessible name of the wordmark link in the header. */
+    homeLink: string;
+    /** Heading of the social channels list in llms.txt. */
+    channels: string;
     menu: string;
     close: string;
     language: string;
@@ -117,13 +133,16 @@ export interface SiteContent {
     /** Empty at launch. Add real quotes only. See README. */
     items: { quote: string; name: string; role: string; company: string }[];
     title: string;
-    emptyLine: string;
+    /** Shown on the homepage while there are no quotes. */
+    emptyLineHome: string;
+    /** Shown on sector pages while there are no quotes. */
+    emptyLineSector: string;
   };
   form: FormContent;
   notFound: { title: string; text: string; back: string };
 }
 
-export type ActionTag = 'diy' | 'dev' | 'ctrlpost';
+export type ActionTag = 'diy' | 'dev' | 'us';
 
 /** Invented sample company used by every product view on the site. Do not change the figures. */
 export interface SampleContent {
@@ -198,6 +217,19 @@ export interface PlansContent {
   planLabel: string;
   featureLabel: string;
   plans: Plan[];
+  /**
+   * The 14-day trial: an entry offer, not a plan. Shown as one block under the plan cards on the pricing page only.
+   * General pages do not mention it (tests/no-trial.test.mjs).
+   */
+  trialOffer: {
+    /** Anchor of the block, linked from the features page. */
+    id: string;
+    title: string;
+    items: string[];
+    planLabel: string;
+    /** Which plan the trial activates. 'TBC' until decided. */
+    plan: Tbc<string>;
+  };
   /** "Cosa include ogni piano", under the cards on the pricing page. */
   includesTable: { title: string; lead: string; rows: PlanRow[] };
   /** The full comparison on the features page. */

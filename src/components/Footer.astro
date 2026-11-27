@@ -1,48 +1,69 @@
 ---
+// Dark footer. On wide, tall-enough windows it stays pinned at the bottom and <main> slides up to uncover it
+// (CSS only, see .site-footer in global.css). Background colour: --footer-bg.
 import Wordmark from './Wordmark.astro';
+import Button from './Button.astro';
+import SocialLinks from './SocialLinks.astro';
 import { site, resolveNav } from '../lib/pages';
 interface Props { ctaHref: string }
 const { ctaHref } = Astro.props;
-// A column with no visible item (for example Settori while the sector pages are hidden) is left out.
-const columns = site.footer.columns
+const f = site.footer;
+// A column with no visible item is left out.
+const columns = f.columns
   .map((col) => ({
     title: col.title,
-    items: resolveNav(col.items).flatMap((i) => (i.children ? i.children.map((c) => ({ ...c, external: false })) : [{ label: i.label, href: i.href === '/#prova' ? ctaHref : i.href!, external: i.external }])),
+    items: resolveNav(col.items).flatMap((i) => (i.children ? i.children : [{ label: i.label, href: i.href! }])),
   }))
   .filter((c) => c.items.length);
-const legal = resolveNav(site.footer.legal);
-const isTodo = site.footer.companyDetails.startsWith('TODO');
+const legal = resolveNav(f.legal);
+// Shown only when the registered name, address and VAT number are all filled in.
+const c = f.company;
+const companyLine = c.name && c.address && c.vat ? `${c.name} · ${c.address} · ${f.vatLabel} ${c.vat}` : '';
 ---
-<footer class="border-t border-grey/60 bg-white">
-  <div class="container-x py-14 lg:py-20">
-    <div class="grid gap-10 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+<footer class="site-footer on-dark text-white">
+  <div class="container-x py-12 lg:py-14">
+    <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
       <div>
-        <Wordmark class="text-3xl text-blue" />
-        <p class="mt-3">{site.parentLine}</p>
-        <p class="mt-4"><a class="link" href={`mailto:${site.email}`}>{site.email}</a></p>
+        <a href="/" aria-label={site.labels.homeLink} class="inline-flex min-h-11 items-center text-white no-underline">
+          <Wordmark class="text-[2rem]" />
+        </a>
+        <p class="mt-1 text-base text-white/85">{site.descriptor}</p>
       </div>
+      <div>
+        <h2 class="text-base font-bold">{f.startTitle}</h2>
+        <div class="mt-3 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button href={ctaHref}>{site.ctaLabel}</Button>
+          <a class="inline-flex min-h-11 items-center text-white underline underline-offset-4 hover:decoration-2" href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-8 border-t border-white/20 pt-10 sm:grid-cols-2 md:grid-cols-3">
       {columns.map((col) => (
         <nav aria-label={col.title}>
           <h2 class="text-base font-bold">{col.title}</h2>
           <ul class="mt-3 space-y-1 text-base">
             {col.items.map((i) => (
-              <li><a href={i.href} class="inline-block py-1 no-underline hover:text-blue hover:underline" rel={i.external ? 'noopener' : undefined}>{i.label}</a></li>
+              <li><a href={i.href} class="inline-block py-1.5 leading-snug text-white/85 no-underline hover:text-white hover:underline">{i.label}</a></li>
             ))}
           </ul>
         </nav>
       ))}
     </div>
-    <div class="mt-12 flex flex-col gap-4 border-t border-grey/60 pt-6 text-sm lg:flex-row lg:items-center lg:justify-between">
-      <p>
+
+    <div class="mt-10 flex flex-col gap-4 border-t border-white/20 pt-6 text-sm md:flex-row md:items-center md:justify-between">
+      <p class="text-white/80">
         {site.footer.copyright}
-        <span aria-hidden="true"> · </span>
-        <span class:list={[isTodo && 'chip-tbc']} data-todo={isTodo ? 'company-details' : undefined}>{site.footer.companyDetails}</span>
+        {companyLine && <Fragment><span aria-hidden="true"> · </span>{companyLine}</Fragment>}
       </p>
-      {legal.length > 0 && (
-        <ul class="flex gap-6">
-          {legal.map((i) => <li><a href={i.href} class="inline-block py-1 no-underline hover:text-blue hover:underline">{i.label}</a></li>)}
-        </ul>
-      )}
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+        {legal.length > 0 && (
+          <ul class="flex gap-6">
+            {legal.map((i) => <li><a href={i.href} class="inline-flex min-h-11 items-center text-white/85 no-underline hover:text-white hover:underline">{i.label}</a></li>)}
+          </ul>
+        )}
+        <SocialLinks variant="icons" label={f.socialLabel} />
+      </div>
     </div>
   </div>
 </footer>

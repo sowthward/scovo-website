@@ -1,4 +1,4 @@
-// Cloudflare Pages Function for the trial request form: POST /api/prova
+// Cloudflare Pages Function for the demo request form: POST /api/prova (the address keeps its first name)
 //
 // It validates the fields, rejects the honeypot, and emails the request to FORM_DESTINATION
 // (info@loscovo.it on scovo-it, info@scovo.io on scovo-en).
@@ -56,7 +56,7 @@ export async function onRequestPost({ request, env }: Context): Promise<Response
       const ref = new URL(request.headers.get('referer') ?? '');
       if (ref.host === url.host) back = ref.pathname;
     } catch { /* no usable referer */ }
-    return new Response(null, { status: 303, headers: { Location: `${back}?sent=${ok ? 1 : 0}#prova`, 'Cache-Control': 'no-store' } });
+    return new Response(null, { status: 303, headers: { Location: `${back}?sent=${ok ? 1 : 0}#demo`, 'Cache-Control': 'no-store' } });
   };
 
   // Only accept posts from the site itself.

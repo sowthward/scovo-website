@@ -25,8 +25,8 @@ const page = {
       id: 'domande',
       q: 'How many questions do we ask, and when?',
       a: [
-        'We ask 12 questions. Each one is repeated three times on every engine.',
-        'That makes 144 answers read per measurement. The dates we collected them on are shown in the report.',
+        'Each question is repeated three times on every engine.',
+        'How many questions and how many measurements depends on the plan. The dates of each measurement are shown in the report.',
       ],
     },
     {
@@ -81,6 +81,8 @@ const page = {
       ['Source', 'The website or page the AI takes a piece of information from.'],
       ['Share of voice', 'The part of all citations that goes to you, out of every company named.'],
       ['Blind spot', 'A question the AI answers without ever naming you.'],
+      // Supplied wording (27 Nov). "GEO" appears only here and in the JSON-LD keywords, never as a headline or a button.
+      ['GEO (Generative Engine Optimization)', 'The work of getting named and cited by AI assistants. SCOVO measures where you start and tells you what to do.'],
     ],
   },
 } satisfies PageBase;

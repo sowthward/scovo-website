@@ -11,7 +11,7 @@
     "build:en": "SITE_LOCALE=en astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
     "check:live": "node scripts/check-live.mjs"
   },
   "dependencies": {

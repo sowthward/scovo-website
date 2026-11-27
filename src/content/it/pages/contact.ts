@@ -8,15 +8,14 @@ const page = {
   navLabel: 'Contatti',
   meta: {
     title: 'Contatti | SCOVO',
-    description: "Scrivi a info@loscovo.it, parla con la referente per l'Italia o richiedi la prova di 14 giorni.",
+    description: "Scrivi a info@loscovo.it, parla con la referente per l'Italia o richiedi una demo di SCOVO.",
   },
   h1: 'Contatti',
-  lead: 'Scrivici o richiedi la prova con il modulo qui sotto.',
+  lead: 'Scrivici o richiedi una demo con il modulo qui sotto.',
   emailTitle: 'Email',
   personTitle: "Referente per l'Italia",
-  linkedinTitle: 'LinkedIn',
-  linkedinLabel: 'SCOVO su LinkedIn',
-  formLink: 'Vai al modulo per la prova',
+  followTitle: 'Seguici',
+  formLink: 'Vai al modulo per la demo',
 } satisfies PageBase;
 
 export default page;

@@ -29,6 +29,9 @@
   --breakpoint-xl: 80rem;
 }
 
+/* Footer background. Switch to #000000 by changing this one value. */
+:root { --footer-bg: #3a3a3a; }
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -53,6 +56,7 @@
   h1, h2, h3, h4 { font-weight: 700; text-wrap: balance; }
   :focus-visible { outline: 3px solid var(--color-charcoal); outline-offset: 3px; border-radius: 2px; }
   .on-blue :focus-visible { outline-color: var(--color-white); }
+  .on-dark :focus-visible { outline-color: var(--color-white); }
   .on-blue .card :focus-visible { outline-color: var(--color-charcoal); }
   summary { cursor: pointer; list-style: none; }
   summary::-webkit-details-marker { display: none; }
@@ -96,4 +100,27 @@
   .field { width: 100%; min-height: 3rem; padding: 0.625rem 0.875rem; border: 1px solid color-mix(in srgb, var(--color-charcoal) 65%, white); border-radius: 0.5rem; background: var(--color-white); color: var(--color-charcoal); font: inherit; }
   .field:focus-visible { outline: 3px solid var(--color-blue); outline-offset: 1px; }
 
+}
+
+/* Footer reveal: <main> is a solid layer that scrolls up and uncovers the footer pinned behind it.
+   CSS only, no scroll listeners. Off on narrow or short windows, where the footer would not fit. */
+.site-footer { background: var(--footer-bg); }
+.site-main { background: var(--color-white); }
+@media (min-width: 48rem) and (min-height: 43.75rem) {
+  .site-footer { position: sticky; bottom: 0; z-index: 0; }
+  .site-main {
+    position: relative;
+    z-index: 1;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    box-shadow: 0 1.5rem 2.5rem -1.75rem rgb(0 0 0 / 0.5);
+  }
+  /* The last section gets the same corners. No overflow: hidden, which would break sticky positioning inside <main>. */
+  .site-main > :last-child { border-bottom-left-radius: 1.5rem; border-bottom-right-radius: 1.5rem; }
+  /* Keyboard: once focus is in the footer it returns to normal flow, so the focused link scrolls fully into view. */
+  .site-footer:focus-within { position: static; }
+}
+@media print {
+  .site-footer { position: static; }
+  .site-main { box-shadow: none; }
 }

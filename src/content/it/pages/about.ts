@@ -7,30 +7,26 @@ const page = {
   published: true,
   navLabel: 'Chi siamo',
   meta: {
-    title: 'Chi siamo: SCOVO, un prodotto ctrlpost',
-    description: "Chi c'è dietro SCOVO, il legame con ctrlpost e la referente per l'Italia.",
+    title: 'Chi siamo | SCOVO',
+    description: "Chi c'è dietro SCOVO, perché esiste e chi è la referente per l'Italia.",
   },
   h1: 'Chi siamo',
-  lead: 'SCOVO è un prodotto ctrlpost. Aiuta chi guida una piccola o media impresa a capire come la sua azienda compare nelle risposte delle AI.',
+  lead: 'SCOVO aiuta chi guida una piccola o media impresa a capire come la sua azienda compare nelle risposte delle AI.',
 
-  blocks: [
-    {
-      title: "Chi c'è dietro SCOVO?",
-      text: [
-        'SCOVO è sviluppato da ctrlpost.',
-        // TODO: one or two factual sentences about ctrlpost (who, where, since when). Not supplied yet.
-      ],
-      todo: 'TODO: breve descrizione di ctrlpost',
-      link: { label: 'ctrlpost.io', href: 'https://ctrlpost.io' },
-    },
-    {
-      title: 'Perché esiste SCOVO?',
-      text: [
-        "Chi cerca un fornitore oggi lo chiede a un'AI, come una volta lo chiedeva a un collega. È il Passaparola Digitale.",
-        "Chi guida un'azienda di solito non sa cosa risponde l'AI quando un cliente fa quella domanda. SCOVO lo misura e lo spiega in parole semplici.",
-      ],
-    },
-  ],
+  team: {
+    title: "Chi c'è dietro SCOVO?",
+    lead: "In Italia il tuo riferimento è Nicoletta.",
+    // Empty until supplied. While `name` is empty, only Nicoletta's card is shown.
+    founder: { name: '', role: '', text: '', photo: '' },
+  },
+
+  why: {
+    title: 'Perché esiste SCOVO?',
+    text: [
+      "Chi cerca un fornitore oggi lo chiede a un'AI, come una volta lo chiedeva a un collega. È il Passaparola Digitale.",
+      "Chi guida un'azienda di solito non sa cosa risponde l'AI quando un cliente fa quella domanda. SCOVO lo misura e lo spiega in parole semplici.",
+    ],
+  },
 
   principles: {
     title: 'Come lavoriamo?',
@@ -41,11 +37,6 @@ const page = {
       { icon: 'compare', title: 'Nessuna promessa di risultato', text: 'Misuriamo, ti diciamo cosa fare e ti mostriamo il prima e il dopo.' },
     ],
     link: 'Leggi come misuriamo',
-  },
-
-  contact: {
-    title: 'Con chi parli?',
-    lead: 'In Italia il tuo riferimento è Nicoletta.',
   },
 } satisfies PageBase;
 

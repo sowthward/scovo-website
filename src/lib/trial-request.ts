@@ -1,4 +1,4 @@
-// Validation and email text for the trial request form.
+// Validation and email text for the demo request form.
 // Pure functions with no Cloudflare or Astro imports, so they can be tested with plain Node
 // and reused when the form is replaced by the product's own sign-up flow.
 
@@ -73,7 +73,7 @@ export function buildEmail(data: TrialRequest, to: string, from: string, receive
     to,
     from,
     replyTo: data.email,
-    subject: `${it ? 'Richiesta di prova SCOVO' : 'SCOVO trial request'}: ${data.company}`,
+    subject: `${it ? 'Richiesta demo SCOVO' : 'SCOVO demo request'}: ${data.company}`,
     text:
       rows.map(([k, v]) => `${k}: ${v}`).join('\n') +
       `\n\n${it ? 'Privacy accettata' : 'Privacy notice accepted'}: ${it ? 'sì' : 'yes'}` +

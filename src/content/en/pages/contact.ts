@@ -8,15 +8,14 @@ const page = {
   navLabel: 'Contact',
   meta: {
     title: 'Contact | SCOVO',
-    description: 'Write to info@scovo.io or request the 14-day trial.',
+    description: 'Write to info@scovo.io or book a demo of SCOVO.',
   },
   h1: 'Contact',
-  lead: 'Write to us, or request the trial with the form below.',
+  lead: 'Write to us, or book a demo with the form below.',
   emailTitle: 'Email',
   personTitle: 'Italian account lead',
-  linkedinTitle: 'LinkedIn',
-  linkedinLabel: 'SCOVO on LinkedIn',
-  formLink: 'Go to the trial form',
+  followTitle: 'Follow us',
+  formLink: 'Go to the demo form',
 } satisfies PageBase;
 
 export default page;

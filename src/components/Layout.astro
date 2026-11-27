@@ -3,8 +3,8 @@ import '../styles/global.css';
 import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import TrialForm from './TrialForm.astro';
-import { site, locale, absolute, otherLocaleUrl, getPage } from '../lib/pages';
+import DemoForm from './DemoForm.astro';
+import { site, locale, absolute, otherLocaleUrl, getPage, socials } from '../lib/pages';
 import type { PageBase, PlansContent } from '../content/types';
 import { offers } from '../lib/plans';
 import { isPublished, href } from '../lib/pages';
@@ -14,7 +14,7 @@ const { page, form = true, jsonLd = [] } = Astro.props;
 const path = `/${page.slug}`;
 const canonical = absolute(path);
 const other = otherLocaleUrl(page.key);
-const ctaHref = form ? '#prova' : '/#prova';
+const ctaHref = form ? '#demo' : '/#demo';
 const isHome = page.key === 'home';
 
 // Offer data: only when the pricing page is published and every price is a confirmed number.
@@ -27,13 +27,25 @@ const org = {
   name: 'SCOVO',
   url: `${site.domain}/`,
   email: site.email,
-  sameAs: [site.linkedin],
-  parentOrganization: { '@type': 'Organization', name: 'ctrlpost', url: 'https://ctrlpost.io' },
+  sameAs: socials.map((s) => s.url),
 };
 const graph: object[] = [
   org,
   { '@type': 'WebSite', '@id': `${site.domain}/#site`, name: 'SCOVO', url: `${site.domain}/`, inLanguage: locale, publisher: { '@id': org['@id'] } },
-  { '@type': 'SoftwareApplication', name: 'SCOVO', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', description: site.description, url: `${site.domain}/`, publisher: { '@id': org['@id'] }, ...(offerList.length ? { offers: offerList } : {}) },
+  {
+    '@type': 'SoftwareApplication',
+    name: 'SCOVO',
+    applicationCategory: 'BusinessApplication',
+    applicationSubCategory: 'AI visibility tracking',
+    operatingSystem: 'Web',
+    // Starts with the descriptor.
+    description: `${site.descriptor}. ${site.description}`,
+    keywords: site.seo.keywords,
+    audience: { '@type': 'BusinessAudience', audienceType: site.seo.audienceType },
+    url: `${site.domain}/`,
+    publisher: { '@id': org['@id'] },
+    ...(offerList.length ? { offers: offerList } : {}),
+  },
   ...(!isHome && page.key !== '404'
     ? [{
         '@type': 'BreadcrumbList',
@@ -75,19 +87,19 @@ const graph: object[] = [
     <meta property="og:image" content={absolute('/og.png')} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={site.parentLine} />
+    <meta property="og:image:alt" content={site.name} />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />
   </head>
   <body>
     <a href="#contenuto" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-3">{site.labels.skip}</a>
     <Header pageKey={page.key} ctaHref={ctaHref} path={path} />
-    <main id="contenuto">
+    <main id="contenuto" class="site-main">
       {!page.published && page.key !== '404' && (
         <p class="bg-sand py-2 text-center text-sm" data-hidden-notice>{site.labels.hiddenNotice}</p>
       )}
       <slot />
-      {form && <TrialForm />}
+      {form && <DemoForm />}
     </main>
     <Footer ctaHref={ctaHref} />
   </body>

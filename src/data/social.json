@@ -1,0 +1,16 @@
+[
+  {
+    "id": "linkedin",
+    "name": "LinkedIn",
+    "icon": "linkedin",
+    "url": "https://www.linkedin.com/company/loscovo",
+    "label": { "it": "SCOVO su LinkedIn", "en": "SCOVO on LinkedIn" }
+  },
+  {
+    "id": "youtube",
+    "name": "YouTube",
+    "icon": "youtube",
+    "url": "https://www.youtube.com/@loScovo",
+    "label": { "it": "SCOVO su YouTube", "en": "SCOVO on YouTube" }
+  }
+]
