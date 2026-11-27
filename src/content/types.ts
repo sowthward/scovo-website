@@ -102,8 +102,19 @@ export interface SiteContent {
     /** Title of the last column, which holds the trial button and the email. */
     startTitle: string;
     legal: NavItem[];
-    /** The details line is shown only when all three are filled in. */
-    company: { name: string; address: string; vat: string };
+    /**
+     * Registered company. The location ("Milano, Italia") always shows.
+     * The full line (name, street, VAT number) shows only when `showStreet` is true and name and vat are filled in.
+     */
+    company: {
+      name: string;
+      vat: string;
+      address: { street: string; postcode: string; city: string; country: string };
+      /** City as shown to visitors ("Milano" / "Milan"). JSON-LD always uses `address.city`. */
+      cityLabel: string;
+      /** Set to true together with the VAT number (P.IVA). */
+      showStreet: boolean;
+    };
     vatLabel: string;
     copyright: string;
     /** Accessible name of the list of social links. */
@@ -160,6 +171,24 @@ export interface SampleContent {
   actions: { tag: ActionTag; text: string }[];
   rivals: string[];
   tags: Record<ActionTag, string>;
+  /** Score bands of the gauge, 0 to 100. */
+  bands: { label: string; from: number; to: number }[];
+  /** Share of voice donut. Values add up to 100. The first item is "you" and is highlighted. */
+  share: {
+    title: string;
+    centre: string;
+    caption: string;
+    items: { label: string; value: number; colour: 'orange' | 'blue' | 'purple' | 'green' | 'grey' }[];
+  };
+  /** Purchase funnel: one entry per stage. The four scores average to the sample score. */
+  funnel: {
+    name: string;
+    buyer: string;
+    prompts: string[];
+    score: number;
+    voice: number;
+    action: { tag: ActionTag; text: string };
+  }[];
   labels: {
     scoreName: string;
     outOf: string;
@@ -175,6 +204,17 @@ export interface SampleContent {
     score: string;
     rivals: string;
     notMeasured: string;
+    /** "Livello successivo" */
+    nextLevel: string;
+    /** Header of the band column in the hidden table */
+    band: string;
+    /** "Valore" */
+    value: string;
+    /** "Tu" / "Altri" in the stage donuts */
+    you: string;
+    others: string;
+    /** Short label under the stage score donut */
+    stageScore: string;
   };
 }
 
@@ -234,4 +274,37 @@ export interface PlansContent {
   includesTable: { title: string; lead: string; rows: PlanRow[] };
   /** The full comparison on the features page. */
   featureGroups: { title: string; description: string; rows: PlanRow[] }[];
+}
+
+/** One person in src/content/<locale>/team.ts. */
+export interface Person {
+  /** Also the JSON-LD @id fragment and the photo file name in public/team/. */
+  id: string;
+  name: string;
+  initials: string;
+  role: string;
+  email: string;
+  linkedin: string;
+  /** Path without extension: /team/<id>.webp and .jpg must both exist. Empty = initials. */
+  photo: string;
+  alt: string;
+}
+
+export interface TeamContent {
+  /** id of the founder, used for Organization.founder in JSON-LD. */
+  founder: string;
+  /** "SCOVO nasce a Milano…" */
+  line: string;
+  /** Accessible name of each LinkedIn link; {name} is replaced. */
+  linkedinLabel: string;
+  people: Person[];
+}
+
+export interface FaqItem { q: string; a: string }
+export interface FaqContent {
+  title: string;
+  /** Homepage FAQ. Also the FAQPage JSON-LD of the homepage. No trial here: see tests/no-trial.test.mjs. */
+  home: FaqItem[];
+  /** Questions that belong on the (hidden) pricing page only, such as the trial. */
+  pricing: FaqItem[];
 }

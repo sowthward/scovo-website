@@ -1,5 +1,6 @@
 import type { PageBase } from '../../types';
 import plans from '../plans';
+import faq from '../faq';
 
 // Hidden until every TBC in ../plans.ts and below is replaced. Then set published: true.
 const page = {
@@ -20,9 +21,8 @@ const page = {
   faq: {
     title: 'Common questions',
     items: [
-      // TODO: what happens after the trial has not been decided yet.
-      { q: 'What happens after the 14 days?', a: 'TBC' },
-      { q: 'Do I need a credit card?', a: 'No. The trial does not need a credit card.' },
+      // The trial question lives here only (27 Nov).
+      ...faq.pricing,
       { q: 'What is a measurement?', a: 'In one measurement we put 12 questions to 4 AI engines, three times each. We read 144 answers in all.' },
       { q: 'Which AI engines do you measure?', a: 'ChatGPT, Gemini, Perplexity and Claude. Microsoft Copilot is not measured yet.' },
     ],

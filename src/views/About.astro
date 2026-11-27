@@ -4,35 +4,21 @@ import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
 import Card from '../components/Card.astro';
 import Icon from '../components/Icon.astro';
-import ContactCard from '../components/ContactCard.astro';
+import PersonCard from '../components/PersonCard.astro';
 import SocialLinks from '../components/SocialLinks.astro';
-import { href, isPublished, site } from '../lib/pages';
+import { href, isPublished, site, team } from '../lib/pages';
 const { page } = Astro.props;
-const founder = page.team.founder;
 ---
 <Layout page={page}>
   <PageHero title={page.h1} lead={page.lead} crumb={page.navLabel} />
 
-  <Section title={page.team.title} lead={page.team.lead}>
-    <div class="grid max-w-4xl gap-6 md:grid-cols-2">
-      {/* The founder card appears only once a name is supplied in the content file. */}
-      {founder.name && (
-        <Card class="flex items-start gap-5">
-          {founder.photo
-            ? <img src={founder.photo} alt="" width="80" height="80" class="h-20 w-20 flex-none rounded-full object-cover" />
-            : <span class="circle !h-20 !w-20 text-3xl" aria-hidden="true">{founder.name.charAt(0)}</span>}
-          <p>
-            <strong class="h3 block">{founder.name}</strong>
-            {founder.role && <span class="block">{founder.role}</span>}
-            {founder.text && <span class="mt-2 block">{founder.text}</span>}
-          </p>
-        </Card>
-      )}
-      <div>
-        <ContactCard />
-        <SocialLinks class="mt-4" label={site.footer.socialLabel} />
-      </div>
+  <Section title={page.team.title}>
+    {/* The line in its own block, then the two people side by side (stacked on phones). */}
+    <p class="lead max-w-3xl">{team.line}</p>
+    <div class="mt-8 grid max-w-5xl gap-6 md:grid-cols-2">
+      {team.people.map((p) => <PersonCard person={p} />)}
     </div>
+    <SocialLinks class="mt-6" label={site.footer.socialLabel} />
   </Section>
 
   <Section bg="sand" title={page.why.title}>

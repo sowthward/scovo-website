@@ -8,17 +8,13 @@ const page = {
   navLabel: 'About',
   meta: {
     title: 'About | SCOVO',
-    description: 'Who is behind SCOVO, why it exists and who to talk to.',
+    description: 'Who is behind SCOVO: founder David Wadsworth and Nicoletta Fava, Account Manager, Italy. SCOVO is built in Milan.',
   },
   h1: 'About',
   lead: 'SCOVO helps the people who run small and medium-sized companies understand how their company appears in AI answers.',
 
-  team: {
-    title: 'Who is behind SCOVO?',
-    lead: 'Nicoletta is the account lead for Italy.',
-    // Empty until supplied. While `name` is empty, only Nicoletta's card is shown.
-    founder: { name: '', role: '', text: '', photo: '' },
-  },
+  // The line and the two people come from ../team.ts.
+  team: { title: 'Who is behind SCOVO?' },
 
   why: {
     title: 'Why does SCOVO exist?',

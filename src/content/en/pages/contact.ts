@@ -13,8 +13,9 @@ const page = {
   h1: 'Contact',
   lead: 'Write to us, or book a demo with the form below.',
   emailTitle: 'Email',
-  personTitle: 'Italian account lead',
   followTitle: 'Follow us',
+  whereTitle: 'Where we are',
+  teamTitle: 'Who you talk to',
   formLink: 'Go to the demo form',
 } satisfies PageBase;
 

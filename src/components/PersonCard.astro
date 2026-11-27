@@ -1,0 +1,24 @@
+---
+// One person: photo, name, role, email and LinkedIn. Used on Chi siamo and Contatti.
+import Card from './Card.astro';
+import Photo from './Photo.astro';
+import Icon from './Icon.astro';
+import { team } from '../lib/pages';
+import type { Person } from '../content/types';
+interface Props { person: Person; heading?: 'h3' | 'h2' }
+const { person, heading: H = 'h3' } = Astro.props;
+---
+<Card class="flex items-start gap-5">
+  <Photo person={person} size={96} />
+  <div class="min-w-0">
+    <H class="h3">{person.name}</H>
+    <p>{person.role}</p>
+    <ul class="mt-2 space-y-1">
+      <li><a class="link inline-flex min-h-11 items-center gap-2 break-all" href={`mailto:${person.email}`}><Icon name="mail" size={20} />{person.email}</a></li>
+      <li>
+        <a class="link inline-flex min-h-11 items-center gap-2" href={person.linkedin} target="_blank" rel="noopener"
+          aria-label={team.linkedinLabel.replace('{name}', person.name)}><Icon name="linkedin" size={20} />LinkedIn</a>
+      </li>
+    </ul>
+  </div>
+</Card>

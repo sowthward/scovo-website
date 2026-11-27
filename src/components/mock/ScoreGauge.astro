@@ -1,0 +1,54 @@
+---
+// Score gauge: a half circle from 0 to 100 in five bands. The band holding the score is Scientific Blue,
+// the others grey at 50%. Real numbers are in the HTML, and a visually hidden table repeats them for screen readers.
+// `dark` = charcoal version with white text, for use inside dark bands.
+import { sample } from '../../lib/pages';
+interface Props { dark?: boolean; size?: 'md' | 'sm' }
+const { dark = false, size = 'md' } = Astro.props;
+const { score, max, bands } = sample;
+const L = sample.labels;
+const cx = 110, cy = 108, r = 86, gap = 1.1;
+const pt = (v: number, rad = r) => {
+  const a = Math.PI - (v / 100) * Math.PI;
+  return [cx + rad * Math.cos(a), cy - rad * Math.sin(a)].map((n) => n.toFixed(2)).join(' ');
+};
+const arc = (from: number, to: number) => `M ${pt(from + gap)} A ${r} ${r} 0 0 1 ${pt(to - gap)}`;
+const active = bands.find((b) => score >= b.from && score <= b.to)!;
+const next = bands[bands.indexOf(active) + 1];
+const segs = bands.map((b, i) => ({ ...b, d: arc(b.from, i === bands.length - 1 ? 100 : b.to + 1) }));
+const needle = pt(score, r - 26);
+const width = size === 'sm' ? 'max-w-[11rem]' : 'max-w-[13.5rem]';
+---
+<div class:list={['mx-auto w-full text-center', width, dark && 'text-white']}>
+  <svg viewBox="0 0 220 118" class="w-full" aria-hidden="true">
+    {segs.map((s) => (
+      <path d={s.d} fill="none" stroke-width="18" stroke-linecap="butt"
+        stroke={s === segs[bands.indexOf(active)] ? 'var(--color-blue)' : 'var(--color-grey)'}
+        stroke-opacity={s === segs[bands.indexOf(active)] ? 1 : 0.5} />
+    ))}
+    <line x1={cx} y1={cy} x2={needle.split(' ')[0]} y2={needle.split(' ')[1]} stroke-width="3.5" stroke-linecap="round" stroke={dark ? 'var(--color-white)' : 'var(--color-charcoal)'} />
+    <circle cx={cx} cy={cy} r="6" fill={dark ? 'var(--color-white)' : 'var(--color-charcoal)'} />
+  </svg>
+  <p class="mt-1 leading-none" aria-hidden="true">
+    <span class:list={['text-[2.25rem] font-bold tabular-nums', dark ? 'text-white' : 'text-blue']}>{score}</span>
+    <span class="ml-1 text-[0.8125rem]">{L.outOf} {max}</span>
+  </p>
+  <p class="mt-2" aria-hidden="true">
+    <span class:list={['inline-flex items-center gap-2 rounded-full px-3 py-0.5 text-[0.9375rem] font-bold', dark ? 'bg-white text-charcoal' : 'bg-orange-tint']}>
+      <span class="h-2.5 w-2.5 rounded-full bg-orange"></span>{active.label}
+    </span>
+  </p>
+  {next && (
+    <p class:list={['mt-2 inline-block rounded-full border px-2.5 py-0.5 text-[0.8125rem]', dark ? 'border-white/60' : 'border-charcoal/40']} aria-hidden="true">
+      {L.nextLevel}: <strong class="whitespace-nowrap">{next.label} ({next.from})</strong>
+    </p>
+  )}
+  <table class="sr-only">
+    <caption>{L.scoreName}</caption>
+    <tbody>
+      <tr><th scope="row">{L.scoreName}</th><td>{score} {L.outOf} {max}</td></tr>
+      <tr><th scope="row">{L.band}</th><td>{active.label} ({active.from}–{active.to})</td></tr>
+      {next && <tr><th scope="row">{L.nextLevel}</th><td>{next.label} ({next.from})</td></tr>}
+    </tbody>
+  </table>
+</div>

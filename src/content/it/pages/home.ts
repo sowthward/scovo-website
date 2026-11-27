@@ -93,6 +93,34 @@ const page = {
     ],
   },
 
+  // "Quattro passi": dark band after "Come funziona". No projected score, percentage or before-and-after number here.
+  percorso: {
+    id: 'percorso',
+    title: "Quattro passi per farti raccomandare dall'AI",
+    progressLabel: 'Passi completati',
+    of: 'di',
+    steps: [
+      { title: 'Fatti leggere', text: "Permetti ai bot dell'AI di leggere il tuo sito.", tag: 'dev' },
+      { title: 'Fatti capire', text: 'Titoli, meta description e H1 che dicono cosa fai e per chi.', tag: 'dev' },
+      // The change prompt tags steps 3 and 4 "Può farlo ctrlpost": "Possiamo farlo noi" since 26 Nov.
+      { title: 'Fatti citare', text: 'Un articolo sui vantaggi dei tuoi prodotti, con la risposta in alto, e i post su LinkedIn.', tag: 'us' },
+      { title: 'Fatti scegliere', text: 'Blog e risorse che aiutano il cliente a scegliere: guide, confronti, casi reali.', tag: 'us' },
+    ],
+    note: "Ogni passo rende più probabile che l'AI ti nomini. Il Punteggio SCOVO misura quanto è cambiato davvero, misurazione dopo misurazione.",
+  },
+
+  // Purchase funnel, after "Cosa misura SCOVO e cosa ricevi?". The data is in sample.ts (funnel).
+  funnel: {
+    id: 'funnel',
+    title: 'Dove ti trovano, fase per fase',
+    intro: "Chi compra per un'azienda fa domande diverse in ogni fase. SCOVO misura ogni fase e ti dice cosa fare.",
+    promptsLabel: 'Domande di esempio',
+    actionLabel: 'Cosa fare',
+  },
+
+  // Slim strip before the FAQ. The line and the people come from team.ts.
+  teamStrip: { title: "Chi c'è dietro SCOVO?", link: 'Chi siamo' },
+
   // "Per chi è": replaces the earlier sector section. The anchor is used by the menu and the footer.
   whoFor: {
     id: 'per-chi-e',
@@ -165,6 +193,7 @@ const page = {
     'Il Punteggio SCOVO va da 0 a 100: Presenza 45, Posizione 20, Tono 15, Fonti 20.',
     "Ogni azione consigliata ha un'etichetta: Fallo tu, Passa al tuo web developer, Possiamo farlo noi. L'ultimo servizio arriverà più avanti e oggi non è in vendita.",
     'SCOVO è pensato per le piccole e medie imprese che vendono ad altre aziende.',
+    'SCOVO ha sede a Milano. Il fondatore è David Wadsworth; Nicoletta Fava è Account Manager per l\'Italia.',
   ],
 
   // Facts about the method, not about customers.

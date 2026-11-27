@@ -16,9 +16,12 @@ const columns = f.columns
   }))
   .filter((c) => c.items.length);
 const legal = resolveNav(f.legal);
-// Shown only when the registered name, address and VAT number are all filled in.
+// Location always shows. The registered line (name, street, VAT) only when showStreet is true and name and VAT are filled in.
 const c = f.company;
-const companyLine = c.name && c.address && c.vat ? `${c.name} · ${c.address} · ${f.vatLabel} ${c.vat}` : '';
+const location = `${c.cityLabel}, ${c.address.country}`;
+const companyLine = c.showStreet && c.name && c.vat
+  ? `${c.name} · ${c.address.street}, ${c.address.postcode} ${c.address.city} · ${f.vatLabel} ${c.vat}`
+  : '';
 ---
 <footer class="site-footer on-dark text-white">
   <div class="container-x py-12 lg:py-14">
@@ -54,6 +57,7 @@ const companyLine = c.name && c.address && c.vat ? `${c.name} · ${c.address} ·
     <div class="mt-10 flex flex-col gap-4 border-t border-white/20 pt-6 text-sm md:flex-row md:items-center md:justify-between">
       <p class="text-white/80">
         {site.footer.copyright}
+        <span aria-hidden="true"> · </span>{location}
         {companyLine && <Fragment><span aria-hidden="true"> · </span>{companyLine}</Fragment>}
       </p>
       <div class="flex flex-wrap items-center gap-x-6 gap-y-2">

@@ -58,7 +58,8 @@ All copy is in `src/content/<locale>/`. Components hold no text.
 - `site.ts`: menu, footer, form labels, shared labels.
 - `pages/<name>.ts`: one file per page.
 - `sample.ts`: the invented example company behind every product view. Do not change the figures.
-- `people.ts`: the contact card.
+- `team.ts`: the people on Chi siamo, Contatti and the homepage.
+- `faq.ts`: the homepage FAQ and the pricing FAQ.
 - `src/data/social.json`: LinkedIn and YouTube, shared by both sites. Add a channel there and draw its icon in `src/components/Icon.astro`.
 
 Change the text between the quotes, save, and the page reloads. Keep the Italian and English files in step: same keys, separate wording. No em dashes.
@@ -134,13 +135,12 @@ items: [
 
 With one or more items the line is replaced by quote cards on the homepage and the sector pages. Never add sample or placeholder quotes.
 
-## Add the founder
+## Team, address and FAQ
 
-In `src/content/<locale>/pages/about.ts`, fill in `team.founder` (name, role, text, photo). While `name` is empty, Chi siamo shows only Nicoletta's card.
-
-## Add the contact photo
-
-Put the photo in `public/` and write its path in `src/content/<locale>/people.ts`, for example `photo: '/nicoletta.jpg'`. Until then the card shows initials on a blue circle.
+- **Team:** `src/content/<locale>/team.ts`. Each person has a photo in `public/team/<id>.webp` and `public/team/<id>.jpg` (400 × 400). If either file is missing, the card shows initials. The same file feeds the `Person` items in the JSON-LD.
+- **Address:** `footer.company` in `site.ts`. "Milano, Italia" always shows. When the P.IVA is filed, fill `name` and `vat` and set `showStreet: true`: the footer then shows the full registered line and the JSON-LD adds the street and postcode.
+- **FAQ:** `src/content/<locale>/faq.ts`. `home` is the homepage accordion and its `FAQPage` JSON-LD; `pricing` is for the pricing page only (the trial question).
+- **Graphics data:** the gauge bands, the share-of-voice donut and the funnel stages are in `src/content/<locale>/sample.ts`. They are an invented example and always labelled so.
 
 ## Brand rules that the code enforces
 

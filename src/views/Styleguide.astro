@@ -7,6 +7,8 @@ import Icon from '../components/Icon.astro';
 import Val from '../components/Val.astro';
 import Wordmark from '../components/Wordmark.astro';
 import Testimonials from '../components/Testimonials.astro';
+import ScoreGauge from '../components/mock/ScoreGauge.astro';
+import ShareDonut from '../components/mock/ShareDonut.astro';
 const { page } = Astro.props;
 const colours = [
   ['Scientific Blue', '#0276B6', 'bg-blue'], ['Claude Orange', '#D97757', 'bg-orange'], ['Charcoal', '#3A3A3A', 'bg-charcoal'],
@@ -73,6 +75,14 @@ const icons = ['engines', 'question', 'tag', 'steps', 'people', 'link', 'post', 
     <ul class="grid grid-cols-4 gap-4 md:grid-cols-8">
       {icons.map((n) => <li class="card flex flex-col items-center gap-2 !p-4 text-blue"><Icon name={n} size={32} /><span class="small text-charcoal">{n}</span></li>)}
     </ul>
+  </Section>
+
+  <Section title="Graphics" lead="Score gauge (white and charcoal) and share-of-voice donut.">
+    <div class="grid gap-6 md:grid-cols-3">
+      <Card><ScoreGauge /></Card>
+      <div class="rounded-xl bg-charcoal p-6"><ScoreGauge dark /></div>
+      <Card><ShareDonut /></Card>
+    </div>
   </Section>
 
   <Testimonials />

@@ -8,13 +8,14 @@ const page = {
   navLabel: 'Contatti',
   meta: {
     title: 'Contatti | SCOVO',
-    description: "Scrivi a info@loscovo.it, parla con la referente per l'Italia o richiedi una demo di SCOVO.",
+    description: "Scrivi a info@loscovo.it, parla con il fondatore o con l'Account Manager per l'Italia, o richiedi una demo di SCOVO.",
   },
   h1: 'Contatti',
   lead: 'Scrivici o richiedi una demo con il modulo qui sotto.',
   emailTitle: 'Email',
-  personTitle: "Referente per l'Italia",
   followTitle: 'Seguici',
+  whereTitle: 'Dove siamo',
+  teamTitle: 'Con chi parli',
   formLink: 'Vai al modulo per la demo',
 } satisfies PageBase;
 

@@ -9,14 +9,25 @@ import MockSummary from '../components/mock/MockSummary.astro';
 import MockScore from '../components/mock/MockScore.astro';
 import MockActions from '../components/mock/MockActions.astro';
 import ActionTag from '../components/mock/ActionTag.astro';
-import { href, isPublished, sample, site } from '../lib/pages';
+import MiniDonut from '../components/mock/MiniDonut.astro';
+import Photo from '../components/Photo.astro';
+import { href, isPublished, sample, site, team, faq } from '../lib/pages';
 
 const { page } = Astro.props;
-const { hero, intro, product, actions, features, whoFor, compare, numbers } = page;
+const { hero, intro, product, actions, features, whoFor, compare, numbers, percorso, funnel, teamStrip } = page;
+// FAQPage JSON-LD, built from the same file as the visible questions.
+const faqLd = { '@type': 'FAQPage', mainEntity: faq.home.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+// Funnel shape: each stage's band narrows a little more. Insets in % of the band, at its two ends.
+const insets = [0, 9, 18, 27, 36];
+// Four steps: hovering or focusing a step fills the progress bar up to its mark. CSS only.
+const stepCss = percorso.steps.map((_: unknown, i: number) =>
+  Array.from({ length: i + 1 }, (_, j) => `#percorso:has([data-step="${i + 1}"]:is(:hover,:focus-visible)) [data-seg="${j + 1}"]`).join(',') + '{background:var(--color-orange)}' +
+  `#percorso:has([data-step="${i + 1}"]:is(:hover,:focus-visible)) [data-mark="${i + 1}"]{color:var(--color-white);font-weight:700}`
+).join('');
 const linkTo = (to: { page?: string; anchor?: string }) => (to.page ? (isPublished(to.page) ? href(to.page) : undefined) : to.anchor);
 const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.text;
 ---
-<Layout page={page}>
+<Layout page={page} jsonLd={[faqLd]}>
   {/* 2. Hero */}
   <section class="on-blue bg-blue text-white">
     <div class="container-x grid items-center gap-10 py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-24">
@@ -79,6 +90,38 @@ const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.t
     <p class="small mt-4">{sample.disclaimer}</p>
   </Section>
 
+  {/* 5b. Four steps to being recommended: charcoal band. No projected score, percentage or before-and-after number. */}
+  <section id={percorso.id} class="section-y on-dark bg-charcoal text-white" aria-labelledby="percorso-title">
+    <div class="container-x">
+      <h2 id="percorso-title" class="h2 max-w-3xl text-white">{percorso.title}</h2>
+      <div class="mt-10 grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-16">
+        <ol class="space-y-3">
+          {percorso.steps.map((s: any, i: number) => (
+            <li data-step={i + 1} tabindex="0" class="flex gap-4 rounded-xl border border-white/15 p-4 outline-offset-2 transition-colors hover:border-white/60 focus-visible:border-white/60">
+              <span class="circle !h-11 !w-11 flex-none" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h3 class="text-[1.1875rem] font-bold leading-snug">{s.title}</h3>
+                <p class="mt-1 text-white/85">{s.text}</p>
+                <p class="mt-2"><ActionTag tag={s.tag} /></p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <figure class="self-center">
+          <figcaption class="mb-4 font-bold">{percorso.progressLabel}</figcaption>
+          <div class="flex gap-1.5" aria-hidden="true">
+            {percorso.steps.map((_: unknown, i: number) => <span data-seg={i + 1} class="h-4 flex-1 rounded-full bg-white/25 transition-colors"></span>)}
+          </div>
+          <ol class="mt-3 grid grid-cols-4 gap-1.5 text-center text-sm text-white/85">
+            {percorso.steps.map((_: unknown, i: number) => <li data-mark={i + 1}>{i + 1} {percorso.of} {percorso.steps.length}</li>)}
+          </ol>
+        </figure>
+      </div>
+      <p class="mt-10 max-w-3xl text-white/85">{percorso.note}</p>
+    </div>
+  </section>
+  <style set:html={stepCss}></style>
+
   {/* 6. Tabbed feature grids. Both panels are in the HTML; the script only turns them into tabs. */}
   <Section bg="sand" title={features.title} lead={features.lead}>
     <div data-tabs>
@@ -104,6 +147,33 @@ const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.t
       ))}
     </div>
     {isPublished('features') && <p class="mt-8"><a class="link-strong inline-flex items-center gap-1.5 py-1 text-[1.1875rem] font-bold text-blue underline" href={href('features')}>{features.featuresLink}<Icon name="arrow" size={18} /></a></p>}
+  </Section>
+
+  {/* 6b. Purchase funnel: four stages in a narrowing funnel. A real list; every donut has a text alternative. */}
+  <Section id={funnel.id} title={funnel.title} lead={funnel.intro}>
+    <ol class="grid gap-6 lg:grid-cols-4 lg:gap-0">
+      {sample.funnel.map((s, i) => (
+        <li class="flex flex-col" style={`--fa:${insets[i]}%;--fb:${insets[i + 1]}%`}>
+          <div class="funnel-band bg-blue text-white"><h3 class="text-[1.1875rem] font-bold">{s.name}</h3></div>
+          <div class="card mt-3 flex flex-1 flex-col !p-5 lg:mx-1.5">
+            <p class="font-bold leading-snug">{s.buyer}</p>
+            <p class="mt-4 text-[0.8125rem] font-bold">{funnel.promptsLabel}</p>
+            <ul class="mt-1.5 space-y-1.5 text-[0.9375rem] leading-snug">
+              {s.prompts.map((q) => <li>{site.labels.quotes[0]}{q}{site.labels.quotes[1]}</li>)}
+            </ul>
+            <div class="mt-5 flex justify-center gap-6">
+              <MiniDonut kind="score" value={s.score} stage={s.name} />
+              <MiniDonut kind="voice" value={s.voice} stage={s.name} />
+            </div>
+            <div class="mt-5 rounded-lg bg-sand p-3.5 lg:mt-auto">
+              <p class="flex flex-wrap items-center gap-2 text-[0.8125rem] font-bold">{funnel.actionLabel} <ActionTag tag={s.action.tag} /></p>
+              <p class="mt-1.5 text-[0.9375rem] leading-snug">{s.action.text}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <p class="small mt-4">{sample.disclaimer}</p>
   </Section>
 
   {/* 7. Per chi è: who SCOVO is for, then the sector cards. A card links to its sector page only when that page is published. */}
@@ -177,6 +247,40 @@ const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.t
 
   {/* 10. Testimonials: built, switched off while the list is empty. 11. Logo strip: left out. */}
   <Testimonials />
+
+  {/* 11b. Team strip, before the FAQ. */}
+  <section class="border-t border-grey/50 bg-white py-12 lg:py-14" aria-labelledby="team-strip-title">
+    <div class="container-x grid items-center gap-8 lg:grid-cols-[1.2fr_1fr_auto]">
+      <div>
+        <h2 id="team-strip-title" class="h3 text-blue">{teamStrip.title}</h2>
+        <p class="mt-2">{team.line}</p>
+      </div>
+      <ul class="flex flex-wrap gap-x-8 gap-y-4">
+        {team.people.map((p) => (
+          <li class="flex items-center gap-3">
+            <Photo person={p} size={56} />
+            <p class="leading-snug"><strong class="block">{p.name}</strong><span class="text-base">{p.role}</span></p>
+          </li>
+        ))}
+      </ul>
+      {isPublished('about') && <p><a class="link inline-flex items-center gap-1.5 py-1 font-bold" href={href('about')}>{teamStrip.link}<Icon name="arrow" size={18} /></a></p>}
+    </div>
+  </section>
+
+  {/* 11c. FAQ: questions from src/content/<locale>/faq.ts, with FAQPage JSON-LD from the same file. */}
+  <Section id="faq" bg="sand" title={faq.title}>
+    <div class="max-w-3xl border-t border-grey/60">
+      {faq.home.map((f) => (
+        <details class="group border-b border-grey/60">
+          <summary class="flex min-h-14 items-center justify-between gap-4 py-4">
+            <h3 class="text-[1.1875rem] font-bold leading-snug">{f.q}</h3>
+            <Icon name="chevron" size={22} class="flex-none text-blue transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="pb-5">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </Section>
 </Layout>
 
 <script>

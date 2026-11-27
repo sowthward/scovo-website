@@ -8,17 +8,13 @@ const page = {
   navLabel: 'Chi siamo',
   meta: {
     title: 'Chi siamo | SCOVO',
-    description: "Chi c'è dietro SCOVO, perché esiste e chi è la referente per l'Italia.",
+    description: "Chi c'è dietro SCOVO: il fondatore David Wadsworth e Nicoletta Fava, Account Manager per l'Italia. SCOVO nasce a Milano.",
   },
   h1: 'Chi siamo',
   lead: 'SCOVO aiuta chi guida una piccola o media impresa a capire come la sua azienda compare nelle risposte delle AI.',
 
-  team: {
-    title: "Chi c'è dietro SCOVO?",
-    lead: "In Italia il tuo riferimento è Nicoletta.",
-    // Empty until supplied. While `name` is empty, only Nicoletta's card is shown.
-    founder: { name: '', role: '', text: '', photo: '' },
-  },
+  // The line and the two people come from ../team.ts.
+  team: { title: "Chi c'è dietro SCOVO?" },
 
   why: {
     title: 'Perché esiste SCOVO?',
