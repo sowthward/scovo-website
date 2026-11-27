@@ -80,9 +80,12 @@ import type { SampleContent } from '../content/types';
 const sampleModules = import.meta.glob<{ default: SampleContent }>('../content/*/sample.ts', { eager: true });
 export const sample: SampleContent = sampleModules[`../content/${locale}/sample.ts`]?.default as SampleContent;
 
-// The Italian contact card (shared by both locales, with a locale-specific role).
-const peopleModules = import.meta.glob<{ default: { name: string; initials: string; role: string; email: string; photo: string } }>('../content/*/people.ts', { eager: true });
-export const person = peopleModules[`../content/${locale}/people.ts`]?.default;
+// Team and FAQ (one file each per locale).
+import type { TeamContent, FaqContent } from '../content/types';
+const teamModules = import.meta.glob<{ default: TeamContent }>('../content/*/team.ts', { eager: true });
+const faqModules = import.meta.glob<{ default: FaqContent }>('../content/*/faq.ts', { eager: true });
+export const team: TeamContent = teamModules[`../content/${locale}/team.ts`]!.default;
+export const faq: FaqContent = faqModules[`../content/${locale}/faq.ts`]!.default;
 
 // Social channels: one file for both sites (src/data/social.json). Add a channel there, not in components.
 import socialData from '../data/social.json';

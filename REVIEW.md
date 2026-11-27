@@ -385,3 +385,38 @@ Strings supplied in the change prompt are not listed: the descriptor, "Richiedi 
 ### `src/lib/trial-request.ts` (the email sent to info@loscovo.it)
 
 - [ ] Richiesta demo SCOVO: <azienda> (subject; the supplied subject plus the company name)
+
+## Added 27 Nov 2026 (b): team, address, graphics, FAQ
+
+Strings supplied in the change prompt are not listed: the team line, names and roles, the alt texts, "Profilo LinkedIn di [nome]", the band names (Assente, Debole, In gara, Forte, Consigliata), "Livello successivo", "Quota di voce", "la tua quota", the donut caption, the funnel heading, intro and example prompts, the four steps and the line under them, "Passi completati", and the eight FAQ questions and answers.
+
+### `src/content/it/sample.ts` (funnel and graphics)
+
+- [ ] Il cliente sta scoprendo chi fa cosa.
+- [ ] Il cliente sta preparando una lista di fornitori.
+- [ ] Il cliente sta confrontando i fornitori.
+- [ ] Il cliente sta scegliendo e verificando.
+- [ ] Tu (Officina Esempio) / Altri (donut legend)
+- [ ] Punteggio (label under each stage score donut)
+- [ ] Fascia / Valore (headers of the hidden tables, read by screen readers)
+
+### `src/content/it/pages/home.ts`
+
+- [ ] Domande di esempio (label above the prompts in each funnel stage)
+- [ ] Cosa fare (label of the action in each funnel stage)
+- [ ] di (as in "1 di 4" under "Passi completati")
+- [ ] Chi c'è dietro SCOVO? (title of the homepage team strip)
+- [ ] SCOVO ha sede a Milano. Il fondatore è David Wadsworth; Nicoletta Fava è Account Manager per l'Italia. (`llms.txt`)
+
+### `src/content/it/pages/contact.ts` and `about.ts`
+
+- [ ] Con chi parli (heading over the two person cards on Contatti)
+- [ ] Dove siamo (card with "Milano, Italia")
+- [ ] Scrivi a info@loscovo.it, parla con il fondatore o con l'Account Manager per l'Italia, o richiedi una demo di SCOVO. (meta description)
+- [ ] Chi c'è dietro SCOVO: il fondatore David Wadsworth e Nicoletta Fava, Account Manager per l'Italia. SCOVO nasce a Milano. (meta description)
+
+### Wording to confirm
+
+- [ ] The FAQ uses "visibilità nell'AI" while the descriptor says "visibilità sull'AI". Pick one.
+- [ ] "Il cliente sta …" turns the prompt's short notes ("scoprendo chi fa cosa") into full sentences.
+

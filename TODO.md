@@ -9,7 +9,7 @@ Every placeholder and TBC still open. Nothing here has been invented: where a fa
 | # | Item | Where | What the site shows now |
 |---|---|---|---|
 | 1 | **Legal text for Privacy and Cookie.** The privacy page must name Cloudflare (hosting) and the email sending service as processors. **The production build fails until this is done** | `src/content/<locale>/pages/privacy.ts`, `cookie.ts` | Headings with visible "TODO" boxes |
-| 2 | **Registered name, address and P.IVA** (open item 7) | `footer.company` in `src/content/<locale>/site.ts` (all three fields), and the "Titolare del trattamento" section of the privacy page | The footer line is left out until all three are filled in |
+| 2 | **Registered name and P.IVA** (open item 7). The registered address (Viale San Michele del Carso 11, 20144 Milano) is stored. When the P.IVA is filed: fill `name` and `vat`, then set `showStreet: true` | `footer.company` in `src/content/<locale>/site.ts`, and the "Titolare del trattamento" section of the privacy page | "Milano, Italia" in the footer and on Contatti. The full line (name, street, P.IVA) and the JSON-LD street and postcode appear only after the switch |
 | 3 | **Email sending service for the form** (open item 9). Proposed: Resend. Not confirmed | `functions/api/prova.ts`, `DEPLOY.md` section 2 | Until a key is set, sending the form shows the error message with the contact email |
 | 4 | **English Pages project** (`scovo-en`, `SITE_LOCALE=en`). Only `scovo-it` reports builds to GitHub so far | Cloudflare dashboard, `DEPLOY.md` section 1 | English previews are not built |
 | 5 | **AI crawler check on the live domains** | `DEPLOY.md` section 4, `npm run check:live` | Cannot run until the first production deploy |
@@ -23,8 +23,8 @@ Every placeholder and TBC still open. Nothing here has been invented: where a fa
 | 8 | Method line on the trust page: wording to be confirmed (open item 6) | `blocks` entry `fonti-dati` in `pages/measure.ts`, marked `todo: true` | The suggested wording, live |
 | 9 | One-line descriptions of the four score parts (Presenza, Posizione, Tono, Fonti) | `pages/measure.ts`, `score.rows` | My wording, to check against the report format |
 | 10 | Glossary definitions (the seven terms were supplied, the definitions were not) | `pages/measure.ts`, `glossary.items` | My wording |
-| 11 | **Founder** on Chi siamo: name, role, one or two sentences, photo | `team.founder` in `pages/about.ts` | Left out while `name` is empty. Only Nicoletta's card is shown |
-| 12 | Nicoletta's surname and photo (open item 8) | `src/content/<locale>/people.ts` | First name, initial "N" on a blue circle |
+| 11 | Team: done 27 Nov. David Wadsworth (founder) and Nicoletta Fava (Account Manager per l'Italia), with photos in `public/team/`. If a photo file is ever missing, the card shows initials | `src/content/<locale>/team.ts` | Both people on Chi siamo, Contatti and the homepage strip |
+| 12 | Team photos: 400 × 400, WebP and JPG, cropped to a circle by CSS. Replace the files in `public/team/` to update them | `public/team/` | Photos supplied 27 Nov |
 | 13 | Options in "Come ci hai conosciuto?" | `form.fields.sourceOptions` in `site.ts` | Six options I chose |
 | 14 | Which section the menu items "Cosa fa" and "Come funziona" point to | `src/views/Home.astro` (`#cosa-fa`, `#come-funziona`) | "Cosa fa" goes to the two product cards, "Come funziona" to the three kinds of action |
 | 15 | Favicon: the letter S from the wordmark, blue, no box. The guidelines say there is no icon mark, so this needs brand sign-off | `public/favicon.png`, `public/apple-touch-icon.png` | Letter S |
@@ -37,14 +37,14 @@ Both are built, hidden, and cannot be published while a TBC remains (the build f
 
 | # | Item | Where |
 |---|---|---|
-| 18 | Plans: three paid plans, sold in three stages (27 Nov). Names and monthly prices, annual billing or not (open item 1). Draft names: Basic, Professional, Agency | `plans` in `src/content/<locale>/plans.ts` |
+| 18 | Plans: three paid plans, sold in three stages. Names from the FAQ of 27 Nov: Starter, Professional, Enterprise (renamed from the draft Basic, Professional, Agency). Monthly prices, annual billing or not (open item 1) | `plans` in `src/content/<locale>/plans.ts` |
 | 19 | For each paid plan: who it is for, button label, list of what is included | same |
 | 20 | "Cosa include ogni piano": every cell except "Motori AI" (4 in every plan) (open item 2) | `includesTable.rows` |
 | 21 | Features table: every cell except the engine rows (ChatGPT, Gemini, Perplexity, Claude ticked; Copilot "non ancora misurato" in all three plans) | `featureGroups` |
-| 21a | **Which plan the trial activates** | `trialOffer.plan` in `plans.ts` |
+| 21a | Which plan the trial activates: **Starter**, from the pricing FAQ of 27 Nov. Confirm | `trialOffer.plan` in `plans.ts` |
 | 21b | One line under "Prezzi" on the pricing page | `lead` in `pages/pricing.ts` |
 | 22 | Feature rows: the draft list from the build prompt (open item 3) | `featureGroups` |
-| 23 | FAQ answer to "Cosa succede dopo i 14 giorni?" | `faq.items` in `pages/pricing.ts` |
+| 23 | Pricing FAQ: the trial question (supplied wording, 27 Nov) replaces the two trial questions; "Cos'è una misurazione?" and "Quali motori AI misurate?" stay | `faq.pricing` in `faq.ts`, `faq.items` in `pages/pricing.ts` |
 | 24 | One-line group descriptions on the features page | `featureGroups[].description`, my wording |
 | 25 | Whether the two pages go live at launch (open item 4) | `published` in `pages/pricing.ts` and `pages/features.ts` |
 
@@ -73,6 +73,24 @@ Both are built, hidden, and cannot be published while a TBC remains (the build f
 - **Call to action:** "Richiedi una demo" / "Book a demo", in `ctaLabel`.
 - **Conflict with 26 Nov, resolved by leaving ctrlpost out.** The 27 Nov prompt asks for "Un prodotto ctrlpost" in the footer, the homepage meta description and `llms.txt`, and for "Può farlo ctrlpost" in the number band. ctrlpost was removed from the site on 26 Nov and the build fails on it, so the descriptor sits under the wordmark in the footer, the other two texts end without the ctrlpost sentence, and the number band says "Possiamo farlo noi". If ctrlpost should come back, the build check in `integrations/dist-checks.mjs` has to go first.
 - **Email subject:** "Richiesta demo SCOVO: <azienda>" ("SCOVO demo request: <company>"). The company name is kept after the supplied subject so requests can be told apart in the inbox.
+
+## Decisions of 27 Nov 2026 (b): team, address, graphics, FAQ
+
+- **Team:** `src/content/<locale>/team.ts`. Shown on Chi siamo, Contatti and the homepage strip; `Person` items and `Organization.founder` in the JSON-LD.
+- **Address:** "Milano, Italia" shows now. Street and postcode wait for `showStreet` (see item 2).
+- **Graphics:** score gauge and share-of-voice donut in every score product view; purchase funnel (`#funnel`); four steps on a charcoal band (`#percorso`) with "Passi completati" and no projected score or percentage (checked by `tests/team-graphics-faq.test.mjs`). All data is the invented example.
+- **FAQ:** `src/content/<locale>/faq.ts`, 8 questions on the homepage with `FAQPage` JSON-LD; the trial question on the hidden pricing page only.
+- **English stage names:** Awareness, Consideration, Evaluation, Decision.
+- **ctrlpost, again.** The prompt asks to keep a ctrlpost paragraph on Chi siamo (there is none since 26 Nov) and tags two actions "Può farlo ctrlpost". Both use "Possiamo farlo noi" instead.
+- **Plan names follow the FAQ:** the FAQ names Starter, Professional and Enterprise, so the draft plans were renamed to match.
+
+### Open items from this prompt
+
+| # | Item | Assumed |
+|---|---|---|
+| 36 | Scan frequency per plan | The FAQ says "depends on the plan"; numbers come with pricing |
+| 37 | Custom model selection on Enterprise | Left out of the FAQ until decided |
+| 38 | Five languages on Professional and Enterprise (FAQ answer 4) | Stated as supplied. It must hold at launch, because it is on a published page |
 
 ## Switched off until there is real content
 

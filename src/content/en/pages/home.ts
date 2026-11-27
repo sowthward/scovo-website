@@ -74,7 +74,7 @@ const page = {
           { icon: 'engines', title: '4 AI engines', text: 'ChatGPT, Gemini, Perplexity and Claude.' },
           { icon: 'question', title: "Your customers' questions", text: 'The questions a buyer would put to an AI to find a supplier like you.' },
           { icon: 'tag', title: 'Your keywords', text: 'The terms you want to be found for. Each has its own score.' },
-          { icon: 'steps', title: '4 buying stages', text: 'Discovery, Consideration, Evaluation and Decision.' },
+          { icon: 'steps', title: '4 buying stages', text: 'Awareness, Consideration, Evaluation and Decision.' },
           { icon: 'people', title: 'Who is named instead of you', text: 'The names the AI gives when it does not give yours.' },
           { icon: 'link', title: 'Where the AI gets its information', text: 'The websites, directories and pages the AI cites as sources.' },
           { icon: 'post', title: 'How much LinkedIn counts', text: 'Who gets cited from LinkedIn and what is worth writing.' },
@@ -93,6 +93,33 @@ const page = {
       },
     ],
   },
+
+  // "Four steps": dark band after "How it works". No projected score, percentage or before-and-after number here.
+  percorso: {
+    id: 'percorso',
+    title: 'Four steps to being recommended by AI',
+    progressLabel: 'Steps completed',
+    of: 'of',
+    steps: [
+      { title: 'Get read', text: 'Let AI bots read your website.', tag: 'dev' },
+      { title: 'Get understood', text: 'Titles, meta descriptions and H1s that say what you do and for whom.', tag: 'dev' },
+      { title: 'Get cited', text: 'An article on the benefits of your products, with the answer at the top, and posts on LinkedIn.', tag: 'us' },
+      { title: 'Get chosen', text: 'Blog posts and resources that help the buyer choose: guides, comparisons, real cases.', tag: 'us' },
+    ],
+    note: 'Each step makes it more likely that AI names you. The SCOVO score measures how much has really changed, one measurement after another.',
+  },
+
+  // Purchase funnel, after "What does SCOVO measure". The data is in sample.ts (funnel).
+  funnel: {
+    id: 'funnel',
+    title: 'Where buyers find you, stage by stage',
+    intro: 'A B2B buyer asks different questions at each stage. SCOVO measures each stage and tells you what to do.',
+    promptsLabel: 'Example questions',
+    actionLabel: 'What to do',
+  },
+
+  // Slim strip before the FAQ. The line and the people come from team.ts.
+  teamStrip: { title: 'Who is behind SCOVO?', link: 'About' },
 
   // "Who it's for": replaces the earlier sector section. The anchor is used by the menu and the footer.
   whoFor: {
@@ -166,6 +193,7 @@ const page = {
     'The SCOVO score runs from 0 to 100: Presence 45, Position 20, Tone 15, Sources 20.',
     'Every recommended action carries a label: Do it yourself, Pass to your web developer, We can do it for you. The last service comes later and is not on sale yet.',
     'SCOVO is built for small and medium-sized companies that sell to other companies.',
+    'SCOVO is based in Milan, Italy. The founder is David Wadsworth; Nicoletta Fava is Account Manager, Italy.',
   ],
 
   // Facts about the method, not about customers.
@@ -174,7 +202,7 @@ const page = {
     // Numbers that hold for every plan.
     items: [
       { value: 4, label: 'AI engines', text: 'ChatGPT, Gemini, Perplexity and Claude.' },
-      { value: 4, label: 'buying stages', text: 'Discovery, Consideration, Evaluation and Decision.' },
+      { value: 4, label: 'buying stages', text: 'Awareness, Consideration, Evaluation and Decision.' },
       { value: 3, label: 'repeats per question', text: 'Each question is put to every engine three times.' },
       { value: 3, label: 'kinds of action', text: 'Do it yourself, Pass to your web developer, We can do it for you.' },
     ],

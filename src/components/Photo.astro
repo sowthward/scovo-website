@@ -1,0 +1,21 @@
+---
+// A team photo: WebP first, JPG fallback, cropped to a circle. Falls back to initials on a blue circle
+// when either file is missing from public/team/ (listed in TODO.md).
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import type { Person } from '../content/types';
+interface Props { person: Person; size: 56 | 96; class?: string }
+const { person, size, class: cls = '' } = Astro.props;
+const has = (ext: string) => !!person.photo && existsSync(join(process.cwd(), 'public', `${person.photo}.${ext}`));
+const ok = has('webp') && has('jpg');
+const box = size === 96 ? 'h-24 w-24' : 'h-14 w-14';
+---
+{ok ? (
+  <picture class:list={['block flex-none', cls]}>
+    <source srcset={`${person.photo}.webp`} type="image/webp" />
+    <img src={`${person.photo}.jpg`} alt={person.alt} width={size} height={size} loading="lazy" decoding="async"
+      class:list={['rounded-full object-cover', box]} />
+  </picture>
+) : (
+  <span class:list={['circle flex-none', box, size === 96 ? 'text-2xl' : 'text-base', cls]} role="img" aria-label={person.alt} data-todo="photo">{person.initials}</span>
+)}

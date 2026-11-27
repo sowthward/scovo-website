@@ -1,15 +1,21 @@
 ---
-// The Summary page of the dashboard: score, three numbers, first action.
+// The Summary page of the dashboard: score gauge and share-of-voice donut side by side, two numbers, first action.
 import Frame from './Frame.astro';
-import ScoreRing from './ScoreRing.astro';
+import ScoreGauge from './ScoreGauge.astro';
+import ShareDonut from './ShareDonut.astro';
 import ActionTag from './ActionTag.astro';
 import { sample } from '../../lib/pages';
 const first = sample.actions[0];
+// Share of voice is in the donut, so it is not repeated in the numbers row.
+const numbers = sample.numbers.filter((n) => !n.value.endsWith('%') || n.label !== sample.share.title);
 ---
 <Frame title={sample.labels.summary}>
-  <ScoreRing />
-  <dl class="mt-5 grid gap-3 border-t border-grey/50 pt-4 sm:grid-cols-[auto_1fr_auto]">
-    {sample.numbers.map((n) => (
+  <div class="grid items-center gap-5 sm:grid-cols-2">
+    <ScoreGauge size="sm" />
+    <ShareDonut caption={false} />
+  </div>
+  <dl class="mt-4 grid gap-3 border-t border-grey/50 pt-4 sm:grid-cols-[auto_1fr]">
+    {numbers.map((n) => (
       <div>
         <dt class="text-[0.8125rem]">{n.label}</dt>
         <dd class="text-[0.9375rem] font-bold leading-snug">{n.value}</dd>

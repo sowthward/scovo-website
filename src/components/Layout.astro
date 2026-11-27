@@ -4,7 +4,7 @@ import interUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.w
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import DemoForm from './DemoForm.astro';
-import { site, locale, absolute, otherLocaleUrl, getPage, socials } from '../lib/pages';
+import { site, locale, absolute, otherLocaleUrl, getPage, socials, team } from '../lib/pages';
 import type { PageBase, PlansContent } from '../content/types';
 import { offers } from '../lib/plans';
 import { isPublished, href } from '../lib/pages';
@@ -21,6 +21,8 @@ const isHome = page.key === 'home';
 const pricingPlans = (getPage('pricing') as { plans?: PlansContent } | undefined)?.plans;
 const offerList = pricingPlans && isPublished('pricing') ? offers(pricingPlans, absolute(href('pricing'))) : [];
 
+const company = site.footer.company;
+const showStreet = company.showStreet && !!company.name && !!company.vat;
 const org = {
   '@type': 'Organization',
   '@id': `${site.domain}/#org`,
@@ -28,9 +30,28 @@ const org = {
   url: `${site.domain}/`,
   email: site.email,
   sameAs: socials.map((s) => s.url),
+  founder: { '@id': `${site.domain}/#${team.founder}` },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: company.address.city,
+    addressCountry: 'IT',
+    // Street and postcode only once the registered address is in force (with the VAT number).
+    ...(showStreet ? { streetAddress: company.address.street, postalCode: company.address.postcode } : {}),
+  },
 };
+const people = team.people.map((p) => ({
+  '@type': 'Person',
+  '@id': `${site.domain}/#${p.id}`,
+  name: p.name,
+  jobTitle: p.role,
+  email: p.email,
+  ...(p.photo ? { image: `${site.domain}${p.photo}.jpg` } : {}),
+  sameAs: [p.linkedin],
+  worksFor: { '@id': org['@id'] },
+}));
 const graph: object[] = [
   org,
+  ...people,
   { '@type': 'WebSite', '@id': `${site.domain}/#site`, name: 'SCOVO', url: `${site.domain}/`, inLanguage: locale, publisher: { '@id': org['@id'] } },
   {
     '@type': 'SoftwareApplication',

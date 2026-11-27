@@ -66,8 +66,15 @@ const site: SiteContent = {
       { label: 'Privacy', page: 'privacy' },
       { label: 'Cookie', page: 'cookie' },
     ],
-    // TODO (open item 7): fill in all three. The line stays hidden until then.
-    company: { name: '', address: '', vat: '' },
+    // TODO (open item 7): registered name and VAT number. The full line stays hidden until then.
+    company: {
+      name: '',
+      vat: '',
+      // Registered address once the P.IVA is filed. Shown only when showStreet is true.
+      address: { street: 'Viale San Michele del Carso 11', postcode: '20144', city: 'Milano', country: 'Italia' },
+      cityLabel: 'Milano',
+      showStreet: false, // set to true together with the P.IVA
+    },
     vatLabel: 'P.IVA',
     copyright: '© 2026 SCOVO',
     socialLabel: 'Seguici',

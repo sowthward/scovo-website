@@ -1,0 +1,48 @@
+---
+// Share-of-voice donut with a legend. "You" is Claude Orange; competitors follow the chart order blue, purple, green;
+// "others" are grey. Values are text in the legend, so colour is never the only signal.
+import { sample } from '../../lib/pages';
+interface Props { caption?: boolean }
+const { caption = true } = Astro.props;
+const { share } = sample;
+const r = 46, C = 2 * Math.PI * r, gap = 0.9;
+let acc = 0;
+const slices = share.items.map((it) => {
+  const len = (it.value / 100) * C;
+  const s = { ...it, dash: `${Math.max(len - gap, 0.5).toFixed(2)} ${(C - Math.max(len - gap, 0.5)).toFixed(2)}`, offset: (-acc).toFixed(2) };
+  acc += len;
+  return s;
+});
+const colour = (c: string) => `var(--color-${c})`;
+const you = share.items[0];
+---
+<div>
+  <p class="mb-2 text-[0.8125rem] font-bold" aria-hidden="true">{share.title}</p>
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
+    <div class="relative h-[6.5rem] w-[6.5rem] flex-none" aria-hidden="true">
+      <svg viewBox="0 0 120 120" class="h-full w-full -rotate-90">
+        {slices.map((s) => (
+          <circle cx="60" cy="60" r={r} fill="none" stroke={colour(s.colour)} stroke-width="18" stroke-dasharray={s.dash} stroke-dashoffset={s.offset} />
+        ))}
+      </svg>
+      <p class="absolute inset-0 flex flex-col items-center justify-center leading-none">
+        <span class="text-[1.5rem] font-bold tabular-nums">{you.value}%</span>
+        <span class="mt-0.5 max-w-[3.6rem] text-[0.625rem] leading-tight">{share.centre}</span>
+      </p>
+    </div>
+    <ul class="min-w-[10.5rem] flex-1 space-y-1 text-[0.8125rem] leading-snug" aria-hidden="true">
+      {share.items.map((it, i) => (
+        <li class="flex items-baseline gap-2">
+          <span class="inline-block h-2.5 w-2.5 flex-none translate-y-px rounded-sm" style={`background:${colour(it.colour)}`}></span>
+          <span class:list={['min-w-0', i === 0 && 'font-bold']}>{it.label}</span>
+          <span class="ml-auto pl-2 font-bold tabular-nums">{it.value}%</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+  {caption && <p class="mt-2 text-[0.8125rem] leading-snug">{share.caption}</p>}
+  <table class="sr-only">
+    <caption>{share.title}</caption>
+    <tbody>{share.items.map((it) => <tr><th scope="row">{it.label}</th><td>{it.value}%</td></tr>)}</tbody>
+  </table>
+</div>

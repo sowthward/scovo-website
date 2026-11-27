@@ -1,0 +1,25 @@
+---
+// Small donut for one funnel stage. kind="score": blue arc of value/100. kind="voice": orange slice for you, grey for the rest.
+// The number is text in the centre, and a visually hidden sentence gives the full value.
+import { sample } from '../../lib/pages';
+interface Props { kind: 'score' | 'voice'; value: number; stage: string }
+const { kind, value, stage } = Astro.props;
+const L = sample.labels;
+const r = 44, C = 2 * Math.PI * r;
+const len = (value / 100) * C;
+const label = kind === 'score' ? L.stageScore : sample.share.title;
+const text = kind === 'score' ? `${value}` : `${value}%`;
+const sr = kind === 'score' ? `${label}, ${stage}: ${value} ${L.outOf} 100` : `${label}, ${stage}: ${L.you} ${value}%, ${L.others} ${100 - value}%`;
+---
+<figure class="flex flex-col items-center text-center">
+  <div class="relative h-[4.5rem] w-[4.5rem]" aria-hidden="true">
+    <svg viewBox="0 0 120 120" class="h-full w-full -rotate-90">
+      <circle cx="60" cy="60" r={r} fill="none" stroke-width="16"
+        stroke={kind === 'score' ? 'var(--color-grey)' : 'var(--color-grey)'} stroke-opacity={kind === 'score' ? 0.35 : 1} />
+      <circle cx="60" cy="60" r={r} fill="none" stroke-width="16" stroke-linecap={kind === 'score' ? 'round' : 'butt'}
+        stroke={kind === 'score' ? 'var(--color-blue)' : 'var(--color-orange)'} stroke-dasharray={`${len.toFixed(2)} ${C.toFixed(2)}`} />
+    </svg>
+    <span class="absolute inset-0 flex items-center justify-center text-base font-bold tabular-nums">{text}</span>
+  </div>
+  <figcaption class="mt-1 text-[0.75rem] leading-tight"><span aria-hidden="true">{label}</span><span class="sr-only">{sr}</span></figcaption>
+</figure>

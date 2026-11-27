@@ -50,6 +50,77 @@ const sample: SampleContent = {
   ],
   rivals: ['Concorrente A', 'Concorrente B', 'Concorrente C'],
   tags: { diy: 'Fallo tu', dev: 'Passa al tuo web developer', us: 'Possiamo farlo noi' },
+  bands: [
+    { label: 'Assente', from: 0, to: 19 },
+    { label: 'Debole', from: 20, to: 39 },
+    { label: 'In gara', from: 40, to: 59 },
+    { label: 'Forte', from: 60, to: 79 },
+    { label: 'Consigliata', from: 80, to: 100 },
+  ],
+  share: {
+    title: 'Quota di voce',
+    centre: 'la tua quota',
+    caption: "Su tutte le aziende nominate dall'AI nelle risposte, quante volte nomina te.",
+    items: [
+      { label: 'Tu (Officina Esempio)', value: 4, colour: 'orange' },
+      { label: 'Concorrente A', value: 18, colour: 'blue' },
+      { label: 'Concorrente B', value: 12, colour: 'purple' },
+      { label: 'Concorrente C', value: 9, colour: 'green' },
+      { label: 'Altri', value: 57, colour: 'grey' },
+    ],
+  },
+  // The four stage scores average to 23, the sample score.
+  funnel: [
+    {
+      name: 'Scoperta',
+      buyer: 'Il cliente sta scoprendo chi fa cosa.',
+      prompts: [
+        "Chi lavora l'acciaio inox per conto terzi in provincia di Brescia?",
+        'Aziende di prototipazione meccanica in Lombardia',
+        'Officine con lavorazioni a 5 assi vicino a Brescia',
+      ],
+      score: 8,
+      voice: 1,
+      action: { tag: 'dev', text: 'Una pagina dedicata a "lavorazione acciaio inox", con la risposta in alto.' },
+    },
+    {
+      name: 'Considerazione',
+      buyer: 'Il cliente sta preparando una lista di fornitori.',
+      prompts: [
+        "Come scegliere un'officina per prototipi meccanici?",
+        'Fornitori di lavorazioni CNC conto terzi a Brescia',
+        'Tornitura di precisione per piccole serie: a chi rivolgersi?',
+      ],
+      score: 14,
+      voice: 3,
+      action: { tag: 'diy', text: "Chiedi di essere inserito nell'elenco fornitori citato in 14 risposte su 36." },
+    },
+    {
+      name: 'Valutazione',
+      buyer: 'Il cliente sta confrontando i fornitori.',
+      prompts: [
+        'Officine meccaniche certificate ISO 9001 a Brescia',
+        'Fresatura piccole serie: confronto tra fornitori in Lombardia',
+        'Quali officine di Brescia lavorano bene le piccole serie?',
+      ],
+      score: 22,
+      voice: 4,
+      // The change prompt tags this "Può farlo ctrlpost": "Possiamo farlo noi" since 26 Nov.
+      action: { tag: 'us', text: 'Un post LinkedIn che risponde a «Quali officine di Brescia lavorano bene le piccole serie?».' },
+    },
+    {
+      name: 'Decisione',
+      buyer: 'Il cliente sta scegliendo e verificando.',
+      prompts: [
+        'Officina Esempio Brescia: opinioni',
+        'Officina Esempio o Concorrente A per lavorazioni CNC?',
+        'Miglior officina per lavorazioni conto terzi a Brescia',
+      ],
+      score: 48,
+      voice: 9,
+      action: { tag: 'diy', text: "Chiedi recensioni o una scheda di confronto sui siti che l'AI cita." },
+    },
+  ],
   labels: {
     scoreName: 'Punteggio SCOVO',
     outOf: 'su',
@@ -65,6 +136,12 @@ const sample: SampleContent = {
     score: 'Punteggio',
     rivals: 'Nominati al posto tuo',
     notMeasured: 'non ancora misurato',
+    nextLevel: 'Livello successivo',
+    band: 'Fascia',
+    value: 'Valore',
+    you: 'Tu',
+    others: 'Altri',
+    stageScore: 'Punteggio',
   },
 };
 
