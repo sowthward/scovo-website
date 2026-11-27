@@ -1,4 +1,5 @@
 import type { PageBase } from '../../types';
+import site from '../site';
 
 const page = {
   key: 'home',
@@ -7,15 +8,15 @@ const page = {
   published: true,
   navLabel: 'Home',
   meta: {
-    title: 'SCOVO: la tua azienda compare nelle risposte di ChatGPT?',
-    description:
-      'Scopri se ChatGPT, Gemini, Perplexity e Claude consigliano la tua azienda, e cosa fare se non lo fanno. Prova di 14 giorni, nessuna carta di credito.',
+    title: `SCOVO · ${site.descriptor}`,
+    // Starts with the descriptor. Under 160 characters (checked by tests/no-trial.test.mjs).
+    // The change prompt ends it with "Un prodotto ctrlpost.": left out, ctrlpost was removed from the site on 26 Nov 2026.
+    description: `${site.descriptor}: scopri se ChatGPT e le altre AI consigliano la tua azienda e cosa fare se non lo fanno.`,
   },
 
   hero: {
     h1: 'Quando un cliente chiede a ChatGPT un fornitore, esce il tuo nome?',
     sub: 'Scopri se ChatGPT e le altre AI consigliano la tua azienda, e cosa fare se non lo fanno.',
-    cta: 'Richiedi la prova di 14 giorni',
     exampleLink: 'Guarda un esempio',
   },
 
@@ -70,8 +71,8 @@ const page = {
         label: 'Cosa misuriamo',
         items: [
           { icon: 'engines', title: '4 motori AI', text: 'ChatGPT, Gemini, Perplexity e Claude.' },
-          { icon: 'question', title: '12 domande dei tuoi clienti', text: "Le domande che un cliente farebbe a un'AI per trovare un fornitore come te." },
-          { icon: 'tag', title: '8 parole chiave', text: 'I termini per cui vuoi essere trovato. Ognuno ha il suo punteggio.' },
+          { icon: 'question', title: 'Le domande dei tuoi clienti', text: "Le domande che un cliente farebbe a un'AI per trovare un fornitore come te." },
+          { icon: 'tag', title: 'Le tue parole chiave', text: 'I termini per cui vuoi essere trovato. Ognuno ha il suo punteggio.' },
           { icon: 'steps', title: '4 fasi di acquisto', text: 'Scoperta, Considerazione, Valutazione e Decisione.' },
           { icon: 'people', title: 'Chi viene nominato al posto tuo', text: "I nomi che l'AI fa quando non fa il tuo." },
           { icon: 'link', title: "Da dove l'AI prende le informazioni", text: "I siti, gli elenchi e le pagine che l'AI cita come fonte." },
@@ -85,7 +86,7 @@ const page = {
           { icon: 'mail', title: "L'email con il verdetto", text: 'Il risultato in poche righe e la prima azione da fare.' },
           { icon: 'file', title: 'Il PDF di una pagina', text: 'Da stampare o da girare a chi lavora con te.' },
           { icon: 'dashboard', title: 'La dashboard con le prove', text: 'Dietro ogni numero trovi le risposte lette.' },
-          { icon: 'compare', title: 'Il prima e dopo con la seconda misurazione', text: 'Vedi cosa è cambiato tra le due misurazioni.' },
+          { icon: 'compare', title: "Il prima e il dopo tra una misurazione e l'altra", text: "Vedi cosa è cambiato da una misurazione all'altra." },
           { icon: 'hash', title: 'I tuoi hashtag pronti da usare', text: 'Un hashtag per ogni parola chiave, da usare nei tuoi post.' },
         ],
       },
@@ -127,8 +128,8 @@ const page = {
     ],
     other: {
       title: "Il tuo settore non c'è?",
-      text: 'Le domande della prova vengono create a partire dal tuo sito. Partiamo da questi tre settori per avere esempi più precisi.',
-      link: 'Richiedi la prova',
+      // The 26 Nov prompt said "Le domande della prova". "della prova" removed on 27 Nov: no trial on general pages.
+      text: 'Le domande vengono create a partire dal tuo sito. Partiamo da questi tre settori per avere esempi più precisi.',
     },
   },
 
@@ -152,7 +153,7 @@ const page = {
         'Vedi i nomi che fa al posto del tuo.',
         'Sai cosa pubblicare, in ordine di priorità.',
         'Sai su quali pagine del sito e su quali post LinkedIn lavorare.',
-        'Con la seconda misurazione vedi il prima e il dopo.',
+        'Misurazione dopo misurazione, vedi cosa è cambiato.',
       ],
     },
   },
@@ -160,21 +161,21 @@ const page = {
   // Key facts for /llms.txt, in plain sentences.
   llms: [
     'SCOVO misura quattro motori AI: ChatGPT, Gemini, Perplexity e Claude. Microsoft Copilot non è ancora misurato.',
-    'Ogni misurazione fa 12 domande, ognuna ripetuta tre volte su ogni motore: 144 risposte lette.',
+    'Ogni domanda viene posta tre volte a ogni motore. Quante domande e quante misurazioni dipende dal piano.',
     'Il Punteggio SCOVO va da 0 a 100: Presenza 45, Posizione 20, Tono 15, Fonti 20.',
     "Ogni azione consigliata ha un'etichetta: Fallo tu, Passa al tuo web developer, Possiamo farlo noi. L'ultimo servizio arriverà più avanti e oggi non è in vendita.",
-    'La prova dura 14 giorni, comprende 2 misurazioni ed è gratuita. Non serve la carta di credito.',
     'SCOVO è pensato per le piccole e medie imprese che vendono ad altre aziende.',
   ],
 
   // Facts about the method, not about customers.
   numbers: {
     title: 'Il metodo in quattro numeri',
+    // Numbers that hold for every plan. The 27 Nov prompt's fourth caption says "Può farlo ctrlpost": "Possiamo farlo noi" since 26 Nov.
     items: [
       { value: 4, label: 'motori AI', text: 'ChatGPT, Gemini, Perplexity e Claude.' },
-      { value: 12, label: 'domande', text: 'Quelle che farebbero i tuoi clienti.' },
-      { value: 144, label: 'risposte lette per misurazione', text: '12 domande, 4 motori, 3 ripetizioni.' },
-      { value: 14, label: 'giorni, 2 misurazioni', text: 'La durata della prova.' },
+      { value: 4, label: 'fasi di acquisto', text: 'Scoperta, Considerazione, Valutazione e Decisione.' },
+      { value: 3, label: 'ripetizioni per domanda', text: 'Ogni domanda viene posta tre volte a ogni motore.' },
+      { value: 3, label: 'tipi di azione', text: 'Fallo tu, Passa al tuo web developer, Possiamo farlo noi.' },
     ],
   },
 } satisfies PageBase;

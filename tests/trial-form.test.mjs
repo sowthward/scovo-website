@@ -1,4 +1,4 @@
-// Tests for the form function at /api/prova: validation, honeypot, email content and responses.
+// Tests for the demo request form function at /api/prova: validation, honeypot, email content and responses.
 import { test, mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { parseTrialRequest, buildEmail } from '../src/lib/trial-request.ts';
@@ -39,7 +39,7 @@ test('a valid post sends one email to FORM_DESTINATION with reply-to set to the 
   const sent = JSON.parse(fetchMock.mock.calls[0].arguments[1].body);
   assert.deepEqual(sent.to, ['info@loscovo.it']);
   assert.equal(sent.reply_to, 'mario@officinaesempio.it');
-  assert.match(sent.subject, /Richiesta di prova SCOVO: Officina Esempio/);
+  assert.match(sent.subject, /^Richiesta demo SCOVO: Officina Esempio/);
   fetchMock.mock.restore();
 });
 
@@ -71,7 +71,7 @@ test('without JavaScript the function redirects back to the form', async () => {
   const fetchMock = mock.method(globalThis, 'fetch', async () => new Response('{}', { status: 200 }));
   const res = await onRequestPost({ request: post(valid, { Accept: 'text/html', Referer: 'https://loscovo.it/contatti' }), env });
   assert.equal(res.status, 303);
-  assert.equal(res.headers.get('location'), '/contatti?sent=1#prova');
+  assert.equal(res.headers.get('location'), '/contatti?sent=1#demo');
   fetchMock.mock.restore();
 });
 

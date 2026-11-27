@@ -5,10 +5,13 @@ import Val from '../components/Val.astro';
 import PlanPrice from '../components/PlanPrice.astro';
 import PlanButton from '../components/PlanButton.astro';
 import type { PlansContent } from '../content/types';
+import { href, isPublished } from '../lib/pages';
 
 const { page } = Astro.props;
 const plans: PlansContent = page.plans;
-const list = [...plans.plans].sort((a, b) => Number(!!b.trial) - Number(!!a.trial));
+const list = plans.plans;
+// Link to the trial block on the pricing page. Hidden pages may link to each other; a published page only to a published one.
+const showTrialLine = isPublished('pricing') || !page.published;
 // On phones one plan is shown at a time. Pure CSS: the checked radio decides which column is visible.
 const mobileCss = list
   .map((p) => `[data-features]:has(#plan-${p.key}:checked) [data-col]:not([data-col="${p.key}"]){display:none}`)
@@ -19,6 +22,9 @@ const mobileCss = list
 
   <section class="bg-white py-10 lg:py-16" data-features>
     <div class="container-x">
+      {showTrialLine && (
+        <p class="mb-8">{page.trialLine.before}<a class="link font-bold" href={`${href('pricing')}#${plans.trialOffer.id}`}>{page.trialLine.link}</a>{page.trialLine.after}</p>
+      )}
       <fieldset class="mb-6 lg:hidden">
         <legend class="mb-2 font-bold">{page.choosePlan}</legend>
         <div class="flex flex-wrap gap-2">

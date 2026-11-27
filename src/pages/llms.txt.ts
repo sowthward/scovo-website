@@ -10,6 +10,8 @@ export const GET: APIRoute = () => {
   const lines = [
     `# ${site.name}`,
     '',
+    site.seo.llmsIntro,
+    '',
     `> ${site.description}`,
     '',
     ...(home?.llms ?? []),

@@ -42,7 +42,7 @@ Set these in each project under **Settings**, **Variables and Secrets**, for bot
 | `SITE_LOCALE` | Text | `it` | `en` | The build |
 | `NODE_VERSION` | Text | `22` | `22` | The build |
 | `FORM_DESTINATION` | Text | `info@loscovo.it` | `info@scovo.io` | The form function |
-| `FORM_FROM` | Text | `SCOVO <prova@loscovo.it>` | `SCOVO <trial@scovo.io>` | The form function |
+| `FORM_FROM` | Text | `SCOVO <demo@loscovo.it>` | `SCOVO <demo@scovo.io>` | The form function |
 | `RESEND_API_KEY` | **Secret** | key for loscovo.it | key for scovo.io | The form function |
 
 Nothing secret is stored in the repository. `.env.example` lists the variables.

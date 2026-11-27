@@ -6,10 +6,17 @@ const site: SiteContent = {
   otherDomain: 'https://loscovo.it',
   otherLocale: 'it',
   name: 'SCOVO',
+  descriptor: 'AI Visibility for B2B SME Leaders',
   description:
     'SCOVO measures how your company appears in answers from ChatGPT, Gemini, Perplexity and Claude, and tells you what to do about it.',
   email: 'info@scovo.io',
-  cta: 'Request the trial',
+  ctaLabel: 'Book a demo',
+  seo: {
+    keywords: 'AI visibility, GEO, Generative Engine Optimization, AI search, ChatGPT, B2B SME',
+    audienceType: 'B2B SME leaders',
+    // The build prompt adds "A ctrlpost product." here. Left out: ctrlpost was removed from the site on 26 Nov 2026.
+    llmsIntro: 'SCOVO: AI visibility for B2B SME leaders. Monitoring of visibility in AI answers (GEO).',
+  },
 
   // A menu item whose page is hidden is not shown.
   nav: [
@@ -93,8 +100,7 @@ const site: SiteContent = {
   },
 
   form: {
-    title: 'Request the trial',
-    lead: 'The trial is free. Paid plans will open later.',
+    intro: "We'll show you how SCOVO works and how AI talks about companies like yours.",
     fields: {
       name: 'Name',
       company: 'Company',
@@ -109,10 +115,9 @@ const site: SiteContent = {
     },
     privacyBefore: 'I have read the ',
     privacyLink: 'privacy notice',
-    privacyAfter: ' and agree to be contacted about the trial.',
-    submit: 'Request the trial',
+    privacyAfter: ' and agree to be contacted about my request.',
     sending: 'Sending',
-    reassurance: '14 days, 2 measurements, no credit card.',
+    note: 'No commitment.',
     success: 'Request received. We will write to the address you gave.',
     error: 'We could not send your request. Please try again, or write to info@scovo.io.',
     invalid: 'Please check the highlighted fields.',

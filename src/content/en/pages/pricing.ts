@@ -8,9 +8,10 @@ const page = {
   view: 'Pricing',
   published: false,
   navLabel: 'Pricing',
-  meta: { title: 'Pricing | SCOVO', description: 'SCOVO plans. Every plan starts with the 14-day trial, with no credit card.' },
+  meta: { title: 'Pricing | SCOVO', description: 'SCOVO plans and the 14-day trial.' },
   h1: 'Pricing',
-  lead: 'Every plan starts with the 14-day trial.',
+  // TODO: one line for the pricing page, once the three stages and their names are decided.
+  lead: 'TBC',
   cardsTitle: 'Plans',
   includesLabel: 'Includes',
   featuresLink: 'Compare all features',

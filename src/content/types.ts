@@ -51,8 +51,8 @@ export interface FooterColumn {
 }
 
 export interface FormContent {
-  title: string;
-  lead: string;
+  /** One line next to the form heading. The heading and the button use `ctaLabel`. */
+  intro: string;
   fields: {
     name: string;
     company: string;
@@ -68,9 +68,9 @@ export interface FormContent {
   privacyBefore: string;
   privacyLink: string;
   privacyAfter: string;
-  submit: string;
   sending: string;
-  reassurance: string;
+  /** Short line under the button. */
+  note: string;
   success: string;
   error: string;
   invalid: string;
@@ -82,9 +82,20 @@ export interface SiteContent {
   otherDomain: string;
   otherLocale: Locale;
   name: string;
+  /** What SCOVO is, in one line. Used in the hero label, the footer, the homepage title, JSON-LD and llms.txt. */
+  descriptor: string;
   description: string;
   email: string;
-  cta: string;
+  /** Label of every call to action (header, hero, footer, form). Change it here only. */
+  ctaLabel: string;
+  /** Data for search engines and AI readers. */
+  seo: {
+    /** Comma-separated keywords for the SoftwareApplication JSON-LD. "GEO" appears only here and in the glossary. */
+    keywords: string;
+    audienceType: string;
+    /** First line of llms.txt after the title. */
+    llmsIntro: string;
+  };
   nav: NavItem[];
   footer: {
     columns: FooterColumn[];
@@ -206,6 +217,19 @@ export interface PlansContent {
   planLabel: string;
   featureLabel: string;
   plans: Plan[];
+  /**
+   * The 14-day trial: an entry offer, not a plan. Shown as one block under the plan cards on the pricing page only.
+   * General pages do not mention it (tests/no-trial.test.mjs).
+   */
+  trialOffer: {
+    /** Anchor of the block, linked from the features page. */
+    id: string;
+    title: string;
+    items: string[];
+    planLabel: string;
+    /** Which plan the trial activates. 'TBC' until decided. */
+    plan: Tbc<string>;
+  };
   /** "Cosa include ogni piano", under the cards on the pricing page. */
   includesTable: { title: string; lead: string; rows: PlanRow[] };
   /** The full comparison on the features page. */

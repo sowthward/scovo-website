@@ -8,9 +8,10 @@ const page = {
   view: 'Pricing',
   published: false,
   navLabel: 'Prezzi',
-  meta: { title: 'Prezzi | SCOVO', description: 'I piani SCOVO. Ogni piano parte dalla prova di 14 giorni, senza carta di credito.' },
+  meta: { title: 'Prezzi | SCOVO', description: 'I piani SCOVO e la prova di 14 giorni.' },
   h1: 'Prezzi',
-  lead: 'Ogni piano parte dalla prova di 14 giorni.',
+  // TODO: one line for the pricing page, once the three stages and their names are decided.
+  lead: 'TBC',
   cardsTitle: 'I piani',
   includesLabel: 'Cosa include',
   featuresLink: 'Confronta tutte le funzionalità',

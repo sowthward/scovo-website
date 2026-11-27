@@ -9,4 +9,4 @@ const { plan, class: cls = '' } = Astro.props;
 ---
 {isTbc(plan.button)
   ? <p class:list={['flex min-h-12 items-center', cls]}><Val v={plan.button} /></p>
-  : <Button href="#prova" variant={plan.trial ? 'primary' : 'secondary'} class={cls}>{plan.button}<span class="sr-only">: {plan.name}</span></Button>}
+  : <Button href="#demo" variant={plan.trial ? 'primary' : 'secondary'} class={cls}>{plan.button}<span class="sr-only">: {plan.name}</span></Button>}

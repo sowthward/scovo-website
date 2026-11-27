@@ -36,7 +36,7 @@ Other commands:
 | `npm run check` | Type check |
 | `npm run check:live -- https://loscovo.it dist` | After a deploy, checks the live `robots.txt` and AI crawler access |
 
-The form posts to `/api/prova`, a Cloudflare Pages Function. `npm run dev` does not run it. To try the form locally:
+The demo request form posts to `/api/prova`, a Cloudflare Pages Function (the address kept its first name; visitors never see it). `npm run dev` does not run it. To try the form locally:
 
 ```bash
 npm run build && npx wrangler pages dev dist
@@ -63,6 +63,13 @@ All copy is in `src/content/<locale>/`. Components hold no text.
 
 Change the text between the quotes, save, and the page reloads. Keep the Italian and English files in step: same keys, separate wording. No em dashes.
 
+## Descriptor, call to action and the trial
+
+- **Descriptor**: `descriptor` in `src/content/<locale>/site.ts` ("Visibilità sull'AI per imprenditori di PMI B2B" / "AI Visibility for B2B SME Leaders"). It feeds the label above the homepage headline, the footer, the homepage title and description, the JSON-LD and `llms.txt`. Change it there only.
+- **Call to action**: `ctaLabel` in `site.ts` ("Richiedi una demo" / "Book a demo"). Every orange button and the form heading read it. The form is at `#demo`; an empty `#prova` target just before it keeps older links working.
+- **SEO data**: `seo` in `site.ts` holds the JSON-LD keywords and audience, and the first line of `llms.txt`. "GEO" appears only there and in the glossary on Come misuriamo, never as a headline or a button.
+- **The 14-day trial** is an entry offer, not what SCOVO is. It appears only in the trial block of the pricing page (`trialOffer` in `plans.ts`). `tests/no-trial.test.mjs` fails if any published page or `llms.txt` mentions it ("prova", "trial", "14 giorni", "carta di credito" and their English forms).
+
 ## Edit plans and feature rows
 
 Plans, prices, limits and feature rows are in **one** file per locale: `src/content/<locale>/plans.ts`. The pricing page and the features page both read it.
@@ -72,6 +79,7 @@ Plans, prices, limits and feature rows are in **one** file per locale: `src/cont
 - **Add, remove or rename a plan:** edit the `plans` list. Give a new plan a `key`. Cells you have not filled in show as "da confermare".
 - **Fill in a cell:** in `includesTable.rows` or `featureGroups`, add the plan's key to `cells`. Use `true` for a tick, `false` for a dash (not included), or a short text.
 - **Mark the most chosen plan:** `popular: true`.
+- **The trial block:** `trialOffer` in `plans.ts`. Set `plan` to the name of the plan the trial activates.
 
 Make the same change in both `it/plans.ts` and `en/plans.ts`.
 

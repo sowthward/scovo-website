@@ -6,10 +6,17 @@ const site: SiteContent = {
   otherDomain: 'https://scovo.io',
   otherLocale: 'en',
   name: 'SCOVO',
+  descriptor: "Visibilità sull'AI per imprenditori di PMI B2B",
   description:
     'SCOVO misura come la tua azienda compare nelle risposte di ChatGPT, Gemini, Perplexity e Claude, e ti dice cosa fare.',
   email: 'info@loscovo.it',
-  cta: 'Richiedi la prova',
+  ctaLabel: 'Richiedi una demo',
+  seo: {
+    keywords: 'visibilità AI, AI visibility, GEO, Generative Engine Optimization, AI search, ChatGPT, PMI B2B',
+    audienceType: 'Imprenditori di PMI B2B',
+    // The build prompt adds "Un prodotto ctrlpost." here. Left out: ctrlpost was removed from the site on 26 Nov 2026.
+    llmsIntro: "SCOVO: visibilità sull'AI per imprenditori di PMI B2B. Monitoraggio della visibilità nelle risposte delle AI (GEO).",
+  },
 
   // A menu item whose page is hidden is not shown.
   nav: [
@@ -93,8 +100,7 @@ const site: SiteContent = {
   },
 
   form: {
-    title: 'Richiedi la prova',
-    lead: 'La prova è gratuita. I piani a pagamento apriranno più avanti.',
+    intro: "Ti mostriamo come funziona SCOVO e come l'AI parla delle aziende come la tua.",
     fields: {
       name: 'Nome',
       company: 'Azienda',
@@ -109,12 +115,11 @@ const site: SiteContent = {
     },
     privacyBefore: "Ho letto l'",
     privacyLink: 'informativa sulla privacy',
-    privacyAfter: ' e accetto di essere contattato per la prova.',
-    submit: 'Richiedi la prova',
+    privacyAfter: ' e accetto di essere ricontattato.',
     sending: 'Invio in corso',
-    reassurance: '14 giorni, 2 misurazioni, nessuna carta di credito.',
+    note: 'Nessun impegno.',
     success: "Richiesta ricevuta. Ti scriviamo all'indirizzo che hai indicato.",
-    error: 'Non siamo riusciti a inviare la richiesta. Riprova, oppure scrivi a info@loscovo.it.',
+    error: 'Non siamo riusciti a inviare la richiesta. Invia di nuovo il modulo, oppure scrivi a info@loscovo.it.',
     invalid: 'Controlla i campi evidenziati.',
   },
 

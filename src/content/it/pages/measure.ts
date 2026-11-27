@@ -26,8 +26,8 @@ const page = {
       id: 'domande',
       q: 'Quante domande facciamo, e quando?',
       a: [
-        'Facciamo 12 domande. Ogni domanda viene ripetuta tre volte su ogni motore.',
-        'In tutto sono 144 risposte lette per ogni misurazione. Le date in cui le abbiamo raccolte sono scritte nel report.',
+        'Ogni domanda viene ripetuta tre volte su ogni motore.',
+        'Quante domande e quante misurazioni dipende dal piano. Le date di ogni misurazione sono scritte nel report.',
       ],
     },
     {
@@ -85,6 +85,8 @@ const page = {
       ['Fonte', "Il sito o la pagina da cui l'AI prende un'informazione."],
       ['Quota di voce', 'La parte delle citazioni che va a te, sul totale delle aziende nominate.'],
       ['Punto cieco', "Una domanda a cui l'AI risponde senza mai fare il tuo nome."],
+      // Supplied wording (27 Nov). "GEO" appears only here and in the JSON-LD keywords, never as a headline or a button.
+      ['GEO (Generative Engine Optimization)', "Il lavoro per farsi nominare e citare dalle AI che rispondono alle domande. SCOVO misura da dove parti e ti dice cosa fare."],
     ],
   },
 } satisfies PageBase;

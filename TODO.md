@@ -28,7 +28,7 @@ Every placeholder and TBC still open. Nothing here has been invented: where a fa
 | 13 | Options in "Come ci hai conosciuto?" | `form.fields.sourceOptions` in `site.ts` | Six options I chose |
 | 14 | Which section the menu items "Cosa fa" and "Come funziona" point to | `src/views/Home.astro` (`#cosa-fa`, `#come-funziona`) | "Cosa fa" goes to the two product cards, "Come funziona" to the three kinds of action |
 | 15 | Favicon: the letter S from the wordmark, blue, no box. The guidelines say there is no icon mark, so this needs brand sign-off | `public/favicon.png`, `public/apple-touch-icon.png` | Letter S |
-| 16 | "Possiamo farlo noi" / "We can do it for you": with ctrlpost removed, "we" is SCOVO. Confirm this is who will offer the service | `sample.ts`, `plans.ts`, `pages/home.ts` | The new label, with the line saying the service comes later and is not on sale |
+| 16 | "Possiamo farlo noi" / "We can do it for you": with ctrlpost removed, "we" is SCOVO. Confirm this is who will offer the service. The 27 Nov prompt still says "Può farlo ctrlpost" in the number band; the site uses "Possiamo farlo noi" there too | `sample.ts`, `plans.ts`, `pages/home.ts` | The new label, with the line saying the service comes later and is not on sale |
 | 17 | Footer colour: charcoal #3A3A3A. To switch to black, change `--footer-bg` | `src/styles/global.css` | Charcoal |
 
 ## Hidden pages: Prezzi and Funzionalità
@@ -37,10 +37,12 @@ Both are built, hidden, and cannot be published while a TBC remains (the build f
 
 | # | Item | Where |
 |---|---|---|
-| 18 | Plans: how many, their names, monthly prices, annual billing or not (open item 1). Draft names: Prova, Basic, Professional, Agency | `plans` in `src/content/<locale>/plans.ts` |
+| 18 | Plans: three paid plans, sold in three stages (27 Nov). Names and monthly prices, annual billing or not (open item 1). Draft names: Basic, Professional, Agency | `plans` in `src/content/<locale>/plans.ts` |
 | 19 | For each paid plan: who it is for, button label, list of what is included | same |
-| 20 | "Cosa include ogni piano": every cell for the paid plans (open item 2) | `includesTable.rows` |
-| 21 | Features table: every cell for the paid plans, and three cells in the Prova column (Possiamo farlo noi, Referente italiano, Email) | `featureGroups` |
+| 20 | "Cosa include ogni piano": every cell except "Motori AI" (4 in every plan) (open item 2) | `includesTable.rows` |
+| 21 | Features table: every cell except the engine rows (ChatGPT, Gemini, Perplexity, Claude ticked; Copilot "non ancora misurato" in all three plans) | `featureGroups` |
+| 21a | **Which plan the trial activates** | `trialOffer.plan` in `plans.ts` |
+| 21b | One line under "Prezzi" on the pricing page | `lead` in `pages/pricing.ts` |
 | 22 | Feature rows: the draft list from the build prompt (open item 3) | `featureGroups` |
 | 23 | FAQ answer to "Cosa succede dopo i 14 giorni?" | `faq.items` in `pages/pricing.ts` |
 | 24 | One-line group descriptions on the features page | `featureGroups[].description`, my wording |
@@ -63,6 +65,14 @@ Both are built, hidden, and cannot be published while a TBC remains (the build f
 | 31 | English example buyer questions on the "Who it's for" cards and sector pages are my wording, with no place names | `pages/home.ts` (`whoFor.cards`), `pages/sector-*.ts` |
 | 32 | "Passaparola Digitale" is rendered as "Digital word of mouth" | `pages/home.ts`, `pages/about.ts` |
 | 33 | Section anchors `#cosa-fa`, `#come-funziona`, `#prova` and the form address `/api/prova` keep Italian names on the English site. "Who it's for" has its own English anchor, `#who-its-for` | `src/views/`, `functions/api/prova.ts` |
+
+## Decisions of 27 Nov 2026
+
+- **Descriptor:** "Visibilità sull'AI per imprenditori di PMI B2B" / "AI Visibility for B2B SME Leaders", in `site.ts`.
+- **The trial is off the general pages.** It lives only in the trial block on the hidden pricing page. `tests/no-trial.test.mjs` keeps it that way.
+- **Call to action:** "Richiedi una demo" / "Book a demo", in `ctaLabel`.
+- **Conflict with 26 Nov, resolved by leaving ctrlpost out.** The 27 Nov prompt asks for "Un prodotto ctrlpost" in the footer, the homepage meta description and `llms.txt`, and for "Può farlo ctrlpost" in the number band. ctrlpost was removed from the site on 26 Nov and the build fails on it, so the descriptor sits under the wordmark in the footer, the other two texts end without the ctrlpost sentence, and the number band says "Possiamo farlo noi". If ctrlpost should come back, the build check in `integrations/dist-checks.mjs` has to go first.
+- **Email subject:** "Richiesta demo SCOVO: <azienda>" ("SCOVO demo request: <company>"). The company name is kept after the supplied subject so requests can be told apart in the inbox.
 
 ## Switched off until there is real content
 

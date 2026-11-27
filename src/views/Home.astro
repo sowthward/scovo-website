@@ -21,10 +21,12 @@ const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.t
   <section class="on-blue bg-blue text-white">
     <div class="container-x grid items-center gap-10 py-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:py-24">
       <div>
+        {/* The descriptor: what SCOVO is, in one line. Capitals come from CSS; the text stays in sentence case for readers and AI. */}
+        <p class="mb-4 text-sm font-bold uppercase tracking-[0.12em] text-white">{site.descriptor}</p>
         <h1 class="h1">{hero.h1}</h1>
         <p class="lead mt-6 max-w-xl">{hero.sub}</p>
         <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <Button href="#prova">{hero.cta}</Button>
+          <Button href="#demo">{site.ctaLabel}</Button>
           <a href="#esempio" class="link inline-flex min-h-12 items-center gap-2 font-bold">{hero.exampleLink}<Icon name="arrow" size={20} class="rotate-90" /></a>
         </div>
       </div>
@@ -130,11 +132,11 @@ const exampleFor = (tag: string) => sample.actions.find((a) => a.tag === tag)?.t
           {isPublished(c.page) && <p class="mt-auto pt-5"><a class="link inline-flex items-center gap-1.5 py-1 font-bold" href={href(c.page)}>{whoFor.link}<span class="sr-only">: {c.title}</span><Icon name="arrow" size={18} /></a></p>}
         </Card>
       ))}
-      <Card as="li" class="flex flex-col !border-dashed !border-charcoal/50 !bg-sand">
-        <span class="circle !bg-white !text-blue ring-1 ring-blue"><Icon name="question" /></span>
+      <Card as="li" class="flex flex-col !border-dashed !border-charcoal/50">
+        <span class="circle !bg-sand !text-blue ring-1 ring-blue"><Icon name="question" /></span>
         <h4 class="h3 mt-4">{whoFor.other.title}</h4>
         <p class="mt-2 text-base leading-snug">{whoFor.other.text}</p>
-        <p class="mt-auto pt-5"><a class="inline-flex items-center gap-1.5 py-1 font-bold text-blue underline underline-offset-[0.2em]" href="#prova">{whoFor.other.link}<Icon name="arrow" size={18} class="rotate-90" /></a></p>
+        <p class="mt-auto pt-5"><a class="inline-flex items-center gap-1.5 py-1 font-bold text-blue underline underline-offset-[0.2em]" href="#demo">{site.ctaLabel}<Icon name="arrow" size={18} class="rotate-90" /></a></p>
       </Card>
     </ul>
   </Section>

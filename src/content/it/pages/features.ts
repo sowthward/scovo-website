@@ -13,6 +13,7 @@ const page = {
   lead: 'Cosa include ogni piano, voce per voce.',
   tableCaption: 'Confronto delle funzionalità per piano',
   choosePlan: 'Scegli il piano da vedere',
+  trialLine: { before: 'La prova di 14 giorni è descritta nella pagina ', link: 'Prezzi', after: '.' },
   // Plan names, prices and limits: one shared file.
   plans,
 } satisfies PageBase;

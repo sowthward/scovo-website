@@ -13,6 +13,7 @@ const page = {
   lead: 'What each plan includes, line by line.',
   tableCaption: 'Feature comparison by plan',
   choosePlan: 'Choose the plan to view',
+  trialLine: { before: 'The 14-day trial is described on the ', link: 'Pricing', after: ' page.' },
   // Plan names, prices and limits: one shared file.
   plans,
 } satisfies PageBase;

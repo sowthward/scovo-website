@@ -13,7 +13,8 @@ import type { PlansContent } from '../content/types';
 
 const { page } = Astro.props;
 const plans: PlansContent = page.plans;
-const list = [...plans.plans].sort((a, b) => Number(!!b.trial) - Number(!!a.trial)); // trial card first
+const list = plans.plans;
+const trial = plans.trialOffer;
 const annual = hasAnnual(plans);
 const answered = page.faq.items.filter((f: any) => !isTbc(f.a));
 const faq = { '@type': 'FAQPage', mainEntity: answered.map((f: any) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
@@ -55,6 +56,15 @@ const cols = { 1: 'lg:grid-cols-1', 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3', 4:
           </li>
         ))}
       </ul>
+
+      {/* The 14-day trial: an entry offer shown on this page only, not a plan. */}
+      <div id={trial.id} class="card on-blue mt-8 !border-blue !bg-blue text-white">
+        <h3 class="h3">{trial.title}</h3>
+        <ul class="mt-3 flex flex-wrap gap-x-2 gap-y-1">
+          {trial.items.map((item, i) => <li>{i > 0 && <span aria-hidden="true">· </span>}{item}</li>)}
+        </ul>
+        <p class="mt-3">{trial.planLabel} <Val v={trial.plan} /></p>
+      </div>
     </div>
   </section>
 

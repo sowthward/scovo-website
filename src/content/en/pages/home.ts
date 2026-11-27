@@ -1,4 +1,5 @@
 import type { PageBase } from '../../types';
+import site from '../site';
 
 // English copy is written from the outcome, not translated word for word.
 const page = {
@@ -8,15 +9,15 @@ const page = {
   published: true,
   navLabel: 'Home',
   meta: {
-    title: 'SCOVO: does your company come up in ChatGPT answers?',
-    description:
-      'Find out whether ChatGPT, Gemini, Perplexity and Claude recommend your company, and what to do if they do not. 14-day trial, no credit card.',
+    title: `SCOVO · ${site.descriptor}`,
+    // Starts with the descriptor (sentence case, as in the change prompt). Under 160 characters.
+    // The change prompt ends it with "A ctrlpost product.": left out, ctrlpost was removed from the site on 26 Nov 2026.
+    description: "AI visibility for B2B SME leaders: find out whether ChatGPT and other AI assistants recommend your company, and what to do if they don't.",
   },
 
   hero: {
     h1: 'When a buyer asks ChatGPT for a supplier, does your name come up?',
     sub: 'Find out whether ChatGPT and other AI assistants recommend your company, and what to do if they do not.',
-    cta: 'Request the 14-day trial',
     exampleLink: 'See an example',
   },
 
@@ -71,8 +72,8 @@ const page = {
         label: 'What we measure',
         items: [
           { icon: 'engines', title: '4 AI engines', text: 'ChatGPT, Gemini, Perplexity and Claude.' },
-          { icon: 'question', title: "12 of your customers' questions", text: 'The questions a buyer would put to an AI to find a supplier like you.' },
-          { icon: 'tag', title: '8 keywords', text: 'The terms you want to be found for. Each has its own score.' },
+          { icon: 'question', title: "Your customers' questions", text: 'The questions a buyer would put to an AI to find a supplier like you.' },
+          { icon: 'tag', title: 'Your keywords', text: 'The terms you want to be found for. Each has its own score.' },
           { icon: 'steps', title: '4 buying stages', text: 'Discovery, Consideration, Evaluation and Decision.' },
           { icon: 'people', title: 'Who is named instead of you', text: 'The names the AI gives when it does not give yours.' },
           { icon: 'link', title: 'Where the AI gets its information', text: 'The websites, directories and pages the AI cites as sources.' },
@@ -86,7 +87,7 @@ const page = {
           { icon: 'mail', title: 'The email with the verdict', text: 'The result in a few lines and the first action to take.' },
           { icon: 'file', title: 'The one-page PDF', text: 'To print, or to pass to the people you work with.' },
           { icon: 'dashboard', title: 'The dashboard with the evidence', text: 'Behind every number you find the answers we read.' },
-          { icon: 'compare', title: 'Before and after, with the second measurement', text: 'See what changed between the two measurements.' },
+          { icon: 'compare', title: 'Before and after, from one measurement to the next', text: 'See what changed from one measurement to the next.' },
           { icon: 'hash', title: 'Your hashtags, ready to use', text: 'One hashtag per keyword, for your posts.' },
         ],
       },
@@ -129,8 +130,7 @@ const page = {
     ],
     other: {
       title: "Your sector isn't here?",
-      text: 'The trial questions are created from your own website. We start with these three sectors so the examples can be more precise.',
-      link: 'Request the trial',
+      text: 'The questions are created from your own website. We start with these three sectors so the examples can be more precise.',
     },
   },
 
@@ -154,7 +154,7 @@ const page = {
         'You see the names it gives instead of yours.',
         'You know what to publish, in order of priority.',
         'You know which website pages and LinkedIn posts to work on.',
-        'With the second measurement you see the before and the after.',
+        'Measurement after measurement, you see what changed.',
       ],
     },
   },
@@ -162,21 +162,21 @@ const page = {
   // Key facts for /llms.txt, in plain sentences.
   llms: [
     'SCOVO measures four AI engines: ChatGPT, Gemini, Perplexity and Claude. Microsoft Copilot is not measured yet.',
-    'Each measurement asks 12 questions, each repeated three times on every engine: 144 answers read.',
+    'Each question is put to every engine three times. How many questions and how many measurements depends on the plan.',
     'The SCOVO score runs from 0 to 100: Presence 45, Position 20, Tone 15, Sources 20.',
     'Every recommended action carries a label: Do it yourself, Pass to your web developer, We can do it for you. The last service comes later and is not on sale yet.',
-    'The trial lasts 14 days, includes 2 measurements and is free. No credit card is needed.',
     'SCOVO is built for small and medium-sized companies that sell to other companies.',
   ],
 
   // Facts about the method, not about customers.
   numbers: {
     title: 'The method in four numbers',
+    // Numbers that hold for every plan.
     items: [
       { value: 4, label: 'AI engines', text: 'ChatGPT, Gemini, Perplexity and Claude.' },
-      { value: 12, label: 'questions', text: 'The ones your customers would ask.' },
-      { value: 144, label: 'answers read per measurement', text: '12 questions, 4 engines, 3 repeats.' },
-      { value: 14, label: 'days, 2 measurements', text: 'The length of the trial.' },
+      { value: 4, label: 'buying stages', text: 'Discovery, Consideration, Evaluation and Decision.' },
+      { value: 3, label: 'repeats per question', text: 'Each question is put to every engine three times.' },
+      { value: 3, label: 'kinds of action', text: 'Do it yourself, Pass to your web developer, We can do it for you.' },
     ],
   },
 } satisfies PageBase;

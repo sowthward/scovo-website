@@ -39,7 +39,6 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] Percorso
 - [ ] Pagina non pubblicata. Visibile solo a chi ha il link.
 - [ ] Cosa dicono i clienti
-- [ ] La prova è gratuita. I piani a pagamento apriranno più avanti.
 - [ ] Per esempio: tuaazienda.it
 - [ ] Scegli
 - [ ] Ricerca online
@@ -47,10 +46,10 @@ How to use this list: read each string in context on the preview link, tick it o
 - [ ] Me l'ha suggerito un'AI
 - [ ] Evento o fiera
 - [ ] Altro
-- [ ] Ho letto l'informativa sulla privacy e accetto di essere contattato per la prova. (built from three parts in `site.ts`)
+- [ ] Ho letto l'informativa sulla privacy e accetto di essere ricontattato. (built from three parts in `site.ts`)
 - [ ] Invio in corso
 - [ ] Richiesta ricevuta. Ti scriviamo all'indirizzo che hai indicato.
-- [ ] Non siamo riusciti a inviare la richiesta. Riprova, oppure scrivi a info@loscovo.it.
+- [ ] Non siamo riusciti a inviare la richiesta. Invia di nuovo il modulo, oppure scrivi a info@loscovo.it.
 - [ ] Controlla i campi evidenziati.
 - [ ] Pagina non trovata
 - [ ] L'indirizzo che hai aperto non esiste o è stato spostato.
@@ -311,7 +310,6 @@ How to use this list: read each string in context on the preview link, tick it o
 
 ## `src/lib/trial-request.ts` (the email sent to info@loscovo.it)
 
-- [ ] Richiesta di prova SCOVO
 - [ ] Come ci ha conosciuto
 - [ ] (nessuno)
 - [ ] Privacy accettata
@@ -341,7 +339,6 @@ Strings supplied in the change prompt are not listed: "Per chi è", "Per chi è 
 - [ ] Settori (hidden heading over the sector cards, read by screen readers)
 - [ ] Un cliente chiede:
 - [ ] Vai al settore
-- [ ] Richiedi la prova (link text in the "Il tuo settore non c'è?" card)
 
 ### `src/content/it/pages/about.ts`
 
@@ -352,3 +349,39 @@ Strings supplied in the change prompt are not listed: "Per chi è", "Per chi è 
 ### Wording to confirm
 
 - [ ] "Possiamo farlo noi": the change prompt removes ctrlpost, so "noi" is SCOVO. Check that "Azioni che potremo fare noi al posto tuo." and "se possiamo occuparcene noi" read naturally next to it.
+
+## Added 27 Nov 2026 (descriptor, trial out of the general pages)
+
+Strings supplied in the change prompt are not listed: the descriptor, "Richiedi una demo", the form intro, "Nessun impegno.", the number band, "Le domande dei tuoi clienti", "Le tue parole chiave", "Il prima e il dopo tra una misurazione e l'altra", "Misurazione dopo misurazione, vedi cosa è cambiato.", the Come misuriamo answer, the GEO glossary entry, the `llms.txt` intro line, "Prova SCOVO per 14 giorni" and its block.
+
+### `src/content/it/site.ts`
+
+- [ ] e accetto di essere ricontattato. (end of the privacy sentence under the form; it used to say "per la prova")
+- [ ] Non siamo riusciti a inviare la richiesta. Invia di nuovo il modulo, oppure scrivi a info@loscovo.it. (replaces "Riprova")
+- [ ] Imprenditori di PMI B2B (JSON-LD audience, supplied; listed because it is read by search engines)
+
+### `src/content/it/pages/home.ts`
+
+- [ ] Ogni domanda viene posta tre volte a ogni motore. Quante domande e quante misurazioni dipende dal piano. (`llms.txt`)
+- [ ] Vedi cosa è cambiato da una misurazione all'altra. (description under "Il prima e il dopo tra una misurazione e l'altra")
+- [ ] Le domande vengono create a partire dal tuo sito. Partiamo da questi tre settori per avere esempi più precisi. ("della prova" removed from the supplied sentence)
+
+### `src/content/it/pages/contact.ts`
+
+- [ ] Scrivi a info@loscovo.it, parla con la referente per l'Italia o richiedi una demo di SCOVO. (meta description)
+- [ ] Scrivici o richiedi una demo con il modulo qui sotto.
+- [ ] Vai al modulo per la demo
+
+### `src/content/it/pages/privacy.ts`
+
+- [ ] Come SCOVO tratta i dati personali di chi visita il sito e richiede una demo. (meta description)
+
+### Hidden pages (`plans.ts`, `pricing.ts`, `features.ts`)
+
+- [ ] I piani SCOVO e la prova di 14 giorni. (meta description of Prezzi)
+- [ ] Su quale piano si attiva la prova: (supplied; check it reads well before a plan name)
+- [ ] La prova di 14 giorni è descritta nella pagina Prezzi. (line above the features table)
+
+### `src/lib/trial-request.ts` (the email sent to info@loscovo.it)
+
+- [ ] Richiesta demo SCOVO: <azienda> (subject; the supplied subject plus the company name)

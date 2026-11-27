@@ -1,15 +1,18 @@
 ---
-// "Richiedi la prova": blue band, form on a white card. Posts to the Pages Function at /api/prova.
+// "Richiedi una demo": blue band, form on a white card. Posts to the Pages Function at /api/prova
+// (the address keeps its old name; it is never shown). The heading and the button read `ctaLabel`.
 import Button from './Button.astro';
 import { site, href, isPublished, locale } from '../lib/pages';
 const f = site.form;
 const privacyHref = isPublished('privacy') ? href('privacy') : undefined;
 ---
-<section id="prova" class="section-y on-blue bg-blue text-white">
+{/* Older links to #prova still land here. */}
+<span id="prova" aria-hidden="true"></span>
+<section id="demo" class="section-y on-blue bg-blue text-white">
   <div class="container-x grid gap-10 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
     <div>
-      <h2 class="h2 text-white">{f.title}</h2>
-      <p class="lead mt-4">{f.lead}</p>
+      <h2 class="h2 text-white">{site.ctaLabel}</h2>
+      <p class="lead mt-4">{f.intro}</p>
     </div>
 
     <div class="card text-charcoal" style="--tw-outline-color: var(--color-blue)">
@@ -60,8 +63,8 @@ const privacyHref = isPublished('privacy') ? href('privacy') : undefined;
         </div>
 
         <div class="mt-6">
-          <Button type="submit" data-submit data-label={f.submit} data-sending={f.sending}>{f.submit}</Button>
-          <p class="small mt-3">{f.reassurance}</p>
+          <Button type="submit" data-submit data-label={site.ctaLabel} data-sending={f.sending}>{site.ctaLabel}</Button>
+          <p class="small mt-3">{f.note}</p>
         </div>
 
         <p class="mt-4 hidden rounded-lg border-2 border-charcoal p-4 font-bold" role="alert" data-form-error data-msg-error={f.error} data-msg-invalid={f.invalid}></p>
